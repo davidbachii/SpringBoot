@@ -2,51 +2,52 @@ package com.example.cursospringboot.entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "Usuario")
 public class User implements Serializable{
 
-    private static final long serialVersionUID = -9069060843698080433L;
+
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(length = 30)
-    private String name;
-    @Column(length = 50)
-    private String apellido;
-    @Column(length = 50, name = "mail", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, length = 50)
     private String email;
-    @Column(length = 50)
-    private String password;
-    private Boolean enabled; // Para saber si el usuario está activo o no
+
+    @Column(name = "nombre", length = 50, nullable = false)
+    private String nombre;
+
+    @Column(name = "apellidos", length = 50, nullable = false)
+    private String apellidos;
+
+    @Column(name = "contrasenha", length = 50, nullable = false)
+    private String contrasenha;
+
+    @Column(name = "fechaNacimiento", length = 12, nullable = false)
+    private String fechaNacimiento;
+
+    //Set de comentarios que ha hecho el usuario en la aplicacion
+    @OneToMany(mappedBy = "usuario")
+    private Set<Comentario> comentarios;
 
 
-    public Long getId() {
-        return id;
+   //Constructor
+   public User() {
+   }
+
+    //Constructor con parametros
+    public User(String email, String nombre, String apellidos, String contrasenha, String fechaNacimiento) {
+        this.email = email;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.contrasenha = contrasenha;
+        this.fechaNacimiento = fechaNacimiento;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    //Getters y Setters
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
 
     public String getEmail() {
         return email;
@@ -56,19 +57,45 @@ public class User implements Serializable{
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public Boolean getEnabled() {
-        return enabled;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
+
+    public String getContrasenha() {
+        return contrasenha;
+    }
+
+    public void setContrasenha(String contrasenha) {
+        this.contrasenha = contrasenha;
+    }
+
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Set<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(Set<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
+
+
 }

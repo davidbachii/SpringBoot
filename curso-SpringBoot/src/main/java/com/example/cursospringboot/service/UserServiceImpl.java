@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,40 +24,45 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    @Transactional(readOnly = true) //Para que sea solo de lectura, es un metodo de spring no de jakarta
-    public Iterable<User> findAll() {
 
-        //Retornamos todos los usuarios que se encuentran en la base de datos
+    //Metodo para obtener todos los usuarios
+    @Override
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    //Metodo para obtener un usuario por su email
     @Override
-    @Transactional(readOnly = true)
-    public Page<User> findAll(Pageable pageable) {
-        //Retornamos todos los usuarios que se encuentran en la base de datos paginados
-        return userRepository.findAll(pageable);
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findById(email);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<User> findById(Long id) {
-        //Retornamos el usuario que se encuentre en la base de datos por su id
-        return userRepository.findById(id);
-    }
 
+    //Metodo para guardar un usuario
     @Override
-    @Transactional //No es necesario aqui declarar que es solo de lectura o escritura ,puede ser ambas
-    public User save(User user) {
-        //Guardamos el usuario en la base de datos
+    public User createUser(User user) {
         return userRepository.save(user);
     }
 
-    @Override
-    @Transactional
-    public void deleteById(Long id) {
-        //Eliminamos el usuario de la base de datos por su id
-         userRepository.deleteById(id);
 
+    //Metodo para actualizar un usuario
+    @Override
+    public User updateUser(String email, User userDetails) {
+        User user = userRepository.findById(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setNombre(userDetails.getNombre());
+        user.setApellidos(userDetails.getApellidos());
+        user.setContrasenha(userDetails.getContrasenha());
+        user.setFechaNacimiento(userDetails.getFechaNacimiento());
+        // Actualizar otros campos según sea necesario
+
+        return userRepository.save(user);
+    }
+    //Metodo para eliminar un usuario
+    @Override
+    public void deleteUser(String email) {
+        userRepository.deleteById(email);
     }
 }
+

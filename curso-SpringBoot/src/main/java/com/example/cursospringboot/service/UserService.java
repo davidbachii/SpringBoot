@@ -4,24 +4,26 @@ import com.example.cursospringboot.entity.User;
 import org.springframework.data.domain.Page;
 
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
 
     //Declaramos los metodos que vamos a usar en el servicio
 
-    //Iterable es una interfaz que nos permite recorrer una lista de elementos de cualquier tipo
-    public Iterable<User> findAll();
+    //Metodo para obtener todos los usuarios
+    List<User> getAllUsers();
 
-    //Page es una interfaz que nos permite paginar los resultados de una consulta a la base de datos
-    public Page<User> findAll(Pageable pageable);
+    //Metodo para obtener un usuario por su email
+    Optional<User> getUserByEmail(String email);
+    //Metodo para guardar un usuario
+    User createUser(User user);
 
-    //Optional es una interfaz que nos permite trabajar con objetos que pueden ser nulos o no
-    public Optional<User> findById(Long id);
+    //Metodo para actualizar un usuario
+    User updateUser(String email, User userDetails);
 
-    //Save nos permite guardar un usuario en la base de datos y nos devuelve el usuario guardado
-    public User save(User user);
+    //Metodo para eliminar un usuario
+    void deleteUser(String email);
 
-    //Delete nos permite eliminar un usuario de la base de datos por su id
-    public void deleteById(Long id);
 }

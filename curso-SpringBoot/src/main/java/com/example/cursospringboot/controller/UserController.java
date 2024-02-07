@@ -24,60 +24,50 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //Create a new user
-    //Para guardar un usuario en la base de datos usamos el metodo post de http que nos permite enviar datos al servidor
-    @PostMapping
-    public ResponseEntity<?> create(@RequestBody User user) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
-    }
-
-    //Read an user
-    //Para obtener todos los usuarios de la base de datos usamos el metodo get de http que nos permite obtener datos del servidor
-    @GetMapping("/{id}")
-    public ResponseEntity<?> read(@PathVariable(value = "id") Long id) {
-        Optional<User> oUser = userService.findById(id);
-        if (!oUser.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(oUser);
-
-
-    }
-
-    //Update an user
-    //Para actualizar un usuario de la base de datos usamos el metodo put de http que nos permite enviar datos al servidor
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody User userDetails, @PathVariable(value = "id") Long id) {
-        Optional<User> user = userService.findById(id);
-        if (!user.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        user.get().setName(userDetails.getName());
-        user.get().setApellido(userDetails.getApellido());
-        user.get().setEmail(userDetails.getEmail());
-        user.get().setPassword(userDetails.getPassword());
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user.get()));
-    }
-
-    //Delete an user
-    //Para eliminar un usuario de la base de datos usamos el metodo delete de http que nos permite enviar datos al servidor
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
-        if (!userService.findById(id).isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        userService.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
-
-    //Read all users
-    //Para obtener todos los usuarios de la base de datos usamos el metodo get de http que nos permite obtener datos del servidor
     @GetMapping
-    public List<User> readAll() {
-        List<User> users = StreamSupport
-                .stream(userService.findAll().spliterator(), false)
-                .toList();
-        return users;
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        try {
+            Optional<User> user = userService.getUserByEmail(email);
+            if (user.isPresent()) {
+                return new ResponseEntity<>(user.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User createdUser = userService.createUser(user);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{email}")
+    public ResponseEntity<User> updateUser(@PathVariable String email, @RequestBody User userDetails) {
+        try {
+            User updatedUser = userService.updateUser(email, userDetails);
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{email}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String email) {
+        try {
+            userService.deleteUser(email);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 
