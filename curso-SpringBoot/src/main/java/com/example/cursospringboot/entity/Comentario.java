@@ -1,5 +1,6 @@
 package com.example.cursospringboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
@@ -22,10 +23,12 @@ public class Comentario{
 
     @ManyToOne
     @JoinColumn(name = "email_Usuario", referencedColumnName = "email", nullable = false)
+    @JsonManagedReference // Esta anotación indica que este lado de la relación es el "lado manejado"
     private User usuario;
 
     @ManyToOne
     @JoinColumn(name = "nombrePelicula_Pelicula", referencedColumnName = "nombrePelicula",nullable = false)
+    @JsonManagedReference // Esta anotación indica que este lado de la relación es el "lado manejado"
     private Pelicula pelicula;
 
 

@@ -19,81 +19,49 @@ import java.util.stream.StreamSupport;
 public class PeliculaController {
 
     //Aqui iran los metodos que se van a usar en el controlador
-    //Por ejemplo, para obtener todos los usuarios, obtener un usuario por su id, guardar un usuario, eliminar un usuario, etc.
-
     //Aqui se va a inyectar el servicio que se va a usar en el controlador
 
     @Autowired
     private PeliculaService peliculaService;
 
-    //Create a new film
-    //Para guardar una pelicula en la base de datos usamos el metodo post de http que nos permite enviar datos al servidor
-    @PostMapping
-    public ResponseEntity<?> create(@RequestBody Pelicula pelicula) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(peliculaService.save(pelicula));
-    }
-
-    //Read a film
-    //Para obtener peliculas de la base de datos usamos el metodo get de http que nos permite obtener datos del servidor
-    @GetMapping("/{nombrePelicula}")
-    public ResponseEntity<?> read(@PathVariable(value = "nombrePelicula") String nombrePelicula) {
-        Pelicula pelicula = peliculaService.findBynombrePelicula(nombrePelicula);
-        if (pelicula == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(pelicula);
-    }
-
-    //Update a film
-    //Para actualizar una pelicula de la base de datos usamos el metodo put de http que nos permite enviar datos al servidor
-    @PutMapping("/{nombrePelicula}")
-    public ResponseEntity<?> update(@RequestBody Pelicula peliculaDetails, @PathVariable(value = "nombrePelicula") String nombrePelicula) {
-        Pelicula pelicula = peliculaService.findBynombrePelicula(nombrePelicula);
-        if (pelicula == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        pelicula.setNombrePelicula(peliculaDetails.getNombrePelicula());
-        pelicula.setSinopsis(peliculaDetails.getSinopsis());
-        pelicula.setPaginaOficial(peliculaDetails.getPaginaOficial());
-        pelicula.setTituloOriginal(peliculaDetails.getTituloOriginal());
-        pelicula.setGenero(peliculaDetails.getGenero());
-        pelicula.setNacionalidad(peliculaDetails.getNacionalidad());
-        pelicula.setDuracion(peliculaDetails.getDuracion());
-        pelicula.setAnho(peliculaDetails.getAnho());
-        pelicula.setDistribuidora(peliculaDetails.getDistribuidora());
-        pelicula.setDirector(peliculaDetails.getDirector());
-        pelicula.setClasificacionEdad(peliculaDetails.getClasificacionEdad());
-        pelicula.setOtrosDatos(peliculaDetails.getOtrosDatos());
-        pelicula.setActores(peliculaDetails.getActores());
-        pelicula.setUrl_image(peliculaDetails.getUrl_image());
-        pelicula.setUrl_video(peliculaDetails.getUrl_video());
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(peliculaService.save(pelicula));
-    }
-
-    //Delete a film
-    //Para eliminar una pelicula de la base de datos usamos el metodo delete de http que nos permite enviar datos al servidor
-    @DeleteMapping("/{nombrePelicula}")
-    public ResponseEntity<?> delete(@PathVariable(value = "nombrePelicula") String nombrePelicula) {
-        if (peliculaService.findBynombrePelicula(nombrePelicula) == null) {
-            return ResponseEntity.notFound().build();
-        }
-        peliculaService.deleteBynombrePelicula(nombrePelicula);
-        return ResponseEntity.ok().build();
-    }
-
-
-    //Read all films
-    //Para obtener todas los peliculas de la base de datos usamos el metodo get de http que nos permite obtener datos del servidor
     @GetMapping
-    public List<Pelicula> readAll() {
-        List<Pelicula> pelicula = StreamSupport
-                .stream(peliculaService.findAll().spliterator(), false)
-                .toList();
-        return pelicula;
+    public ResponseEntity<List<Pelicula>> getAllPeliculas() {
+        List<Pelicula> peliculas = peliculaService.getAllPeliculas();
+        return new ResponseEntity<>(peliculas, HttpStatus.OK);
     }
 
+    @GetMapping("/{nombrePelicula}")
+    public ResponseEntity<Pelicula> getPeliculaByNombre(@PathVariable String nombrePelicula) {
+        Optional<Pelicula> pelicula = peliculaService.getPeliculaByNombre(nombrePelicula);
+        return pelicula.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PostMapping
+    public ResponseEntity<Pelicula> createPelicula(@RequestBody Pelicula pelicula) {
+        Pelicula createdPelicula = peliculaService.createPelicula(pelicula);
+        return new ResponseEntity<>(createdPelicula, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{nombrePelicula}")
+    public ResponseEntity<Pelicula> updatePelicula(@PathVariable String nombrePelicula, @RequestBody Pelicula detallesPelicula) {
+        try {
+            Pelicula updatedPelicula = peliculaService.updatePelicula(nombrePelicula, detallesPelicula);
+            return new ResponseEntity<>(updatedPelicula, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{nombrePelicula}")
+    public ResponseEntity<Void> deletePelicula(@PathVariable String nombrePelicula) {
+        try {
+            peliculaService.deletePelicula(nombrePelicula);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     //Estos metodos se van a comunicar con el servicio que se encargara de hacer las operaciones en la base de datos
     //Y el servicio se va a comunicar con el repositorio que se encargara de hacer las consultas a la base de datos

@@ -90,8 +90,6 @@ VALUES ('One Piece', 'Monkey D. Luffy y su valiente tripulación emprenden un vi
 INSERT INTO Pelicula (nombre_pelicula, sinopsis, pagina_oficial, titulo_original, genero, nacionalidad, duracion, anho, distribuidora, director, clasificacion_edad, otros_datos, actores, url_image, url_video)
 VALUES ('Rocky', 'Rocky Balboa, un boxeador de Filadelfia con pocas oportunidades, recibe la oportunidad de enfrentarse al campeón de peso pesado Apollo Creed. Aunque inicialmente es considerado como un oponente fácil, Rocky se prepara para la pelea de su vida, demostrando coraje y determinación.', 'https://www.paginaoficial.com/rocky', 'Rocky', 'Drama', 'Estadounidense', 120, 1976, 'United Artists', 'John G. Avildsen', 12, 'Datos adicionales sobre la película Rocky.', 'Sylvester Stallone, Talia Shire, Burgess Meredith', 'images/Rocky.png', 'https://www.youtube.com/embed/Vb-Bx2YkIPA?si=UZigoaMfxKRR6Hy8');
 
-
-
 INSERT INTO Pelicula (nombre_pelicula, sinopsis, pagina_oficial, titulo_original, genero, nacionalidad, duracion, anho, distribuidora, director, clasificacion_edad, otros_datos, actores, url_image, url_video)
 VALUES ('Harry Potter y la Piedra Filosofal', 'Harry Potter, un niño huérfano, descubre que es un mago y comienza su educación en la escuela de magia de Hogwarts. Junto a sus amigos, enfrenta misterios y descubre la verdad sobre su pasado.', 'https://example.com/harrypotter1', 'Harry Potter and the Philosophers Stone', 'Aventura, Familia, Fantasia', 'Reino Unido', 152, 2001, 'Warner Bros.', 'Chris Columbus', 7, 'Basada en la novela de J.K. Rowling.', 'Daniel Radcliffe, Emma Watson, Rupert Grint', 'images/potter.png', 'https://www.youtube.com/embed/VyHV0BRtdxo?si=3DCTwOj-S_GY1s_X');
 

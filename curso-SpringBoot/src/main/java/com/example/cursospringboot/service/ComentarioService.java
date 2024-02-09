@@ -4,24 +4,25 @@ import com.example.cursospringboot.entity.Comentario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ComentarioService {
 
     //Declaramos los metodos que vamos a usar en el servicio
 
-    //Iterable es una interfaz que nos permite recorrer una lista de elementos de cualquier tipo
-    public Iterable<Comentario> findAll();
+    //Metodo para obtener todos los comentarios
+    List<Comentario> getAllComentarios();
 
-    //Page es una interfaz que nos permite paginar los resultados de una consulta a la base de datos
-    public Page<Comentario> findAll(Pageable pageable);
+    //Metodo para obtener un comentario por su id
+    Optional<Comentario> getComentarioById(Long id);
 
-    //Optional es una interfaz que nos permite trabajar con objetos que pueden ser nulos o no
-    public Optional<Comentario> findById(Long id);
+    //Metodo para guardar un comentario
+    Comentario createComentario(Comentario comentario);
 
-    //Save nos permite guardar un comentario en la base de datos y nos devuelve el comentario guardado
-    public Comentario save(Comentario comentario);
+    //Metodo para actualizar un comentario
+    Comentario updateComentario(Long id, Comentario detallesComentario);
 
-    //Delete nos permite eliminar un comentario de la base de datos por su id
-    public void deleteById(Long id);
+    //Metodo para eliminar un comentario
+    void deleteComentario(Long id);
 }

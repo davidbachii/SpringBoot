@@ -1,5 +1,6 @@
 package com.example.cursospringboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -29,8 +30,13 @@ public class User implements Serializable{
     private String fechaNacimiento;
 
     //Set de comentarios que ha hecho el usuario en la aplicacion
+
+    /*
     @OneToMany(mappedBy = "usuario")
+    @JsonBackReference // Esta anotación indica que este lado de la relación no debe ser serializado
     private Set<Comentario> comentarios;
+
+     */
 
 
    //Constructor
@@ -89,13 +95,7 @@ public class User implements Serializable{
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Set<Comentario> getComentarios() {
-        return comentarios;
-    }
 
-    public void setComentarios(Set<Comentario> comentarios) {
-        this.comentarios = comentarios;
-    }
 
 
 }

@@ -29,78 +29,44 @@ public class ComentarioController {
     @Autowired
     private ComentarioService comentarioService;
 
-    @Autowired
-    private PeliculaService peliculaService;
-
-    @Autowired
-    private UserService userService;
-
-
-    //Create a new comment
-    //Para guardar un comentario en la base de datos usamos el metodo post de http que nos permite enviar datos al servidor
-    @PostMapping
-    public ResponseEntity<?> create(@RequestBody Comentario comentario) {
-        Optional<User> user = userService.getUserByEmail(comentario.getUsuario().getEmail());
-        Pelicula pelicula = peliculaService.findBynombrePelicula(comentario.getPelicula().getNombrePelicula());
-
-        if (user == null || pelicula == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        comentario.setUsuario(user.get());
-        comentario.setPelicula(pelicula);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(comentarioService.save(comentario));
-    }
-
-    //Read a comment
-    //Para obtener todos los comentario de la base de datos usamos el metodo get de http que nos permite obtener datos del servidor
-    @GetMapping("/{id}")
-    public ResponseEntity<?> read(@PathVariable(value = "id") Long id) {
-        Optional<Comentario> oComentario = comentarioService.findById(id);
-        if (!oComentario.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(oComentario);
-
-
-    }
-
-    //Update a comment
-    //Para actualizar un comentario de la base de datos usamos el metodo put de http que nos permite enviar datos al servidor
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Comentario comentarioDetails, @PathVariable(value = "id") Long id) {
-        Optional<Comentario> comentario = comentarioService.findById(id);
-        if (!comentario.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        comentario.get().setTexto(comentarioDetails.getTexto());
-        comentario.get().setValoracion(comentarioDetails.getValoracion());
-        comentario.get().setFechaComentario(comentarioDetails.getFechaComentario());
-        comentario.get().setUsuario(comentarioDetails.getUsuario());
-        comentario.get().setPelicula(comentarioDetails.getPelicula());
-        return ResponseEntity.status(HttpStatus.CREATED).body(comentarioService.save(comentario.get()));
-    }
-
-    //Delete a comment
-    //Para eliminar un comentario de la base de datos usamos el metodo delete de http que nos permite enviar datos al servidor
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
-        if (!comentarioService.findById(id).isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        comentarioService.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
-
-    //Read all comments
-    //Para obtener todos los comentario de la base de datos usamos el metodo get de http que nos permite obtener datos del servidor
     @GetMapping
-    public List<Comentario> readAll() {
-        List<Comentario> comentarios = (List<Comentario>) comentarioService.findAll();
-        return comentarios;
+    public ResponseEntity<List<Comentario>> getAllComentarios() {
+        List<Comentario> comentarios = comentarioService.getAllComentarios();
+        return new ResponseEntity<>(comentarios, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Comentario> getComentarioById(@PathVariable Long id) {
+        Optional<Comentario> comentario = comentarioService.getComentarioById(id);
+        return comentario.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PostMapping
+    public ResponseEntity<Comentario> createComentario(@RequestBody Comentario comentario) {
+        Comentario createdComentario = comentarioService.createComentario(comentario);
+        return new ResponseEntity<>(createdComentario, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Comentario> updateComentario(@PathVariable Long id, @RequestBody Comentario detallesComentario) {
+        try {
+            Comentario updatedComentario = comentarioService.updateComentario(id, detallesComentario);
+            return new ResponseEntity<>(updatedComentario, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteComentario(@PathVariable Long id) {
+        try {
+            comentarioService.deleteComentario(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     //Estos metodos se van a comunicar con el servicio que se encargara de hacer las operaciones en la base de datos
     //Y el servicio se va a comunicar con el repositorio que se encargara de hacer las consultas a la base de datos

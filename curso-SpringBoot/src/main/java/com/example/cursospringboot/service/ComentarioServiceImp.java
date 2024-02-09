@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,39 +19,40 @@ public class ComentarioServiceImp implements ComentarioService {
 
 
     @Override
-    @Transactional(readOnly = true) //Para que sea solo de lectura, es un metodo de spring no de jakarta
-    public Iterable<Comentario> findAll() {
-
-        //Retornamos todos los comentarios que se encuentran en la base de datos
+    public List<Comentario> getAllComentarios() {
         return comentarioRepository.findAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Page<Comentario> findAll(Pageable pageable) {
-        //Retornamos todos los comentarios que se encuentran en la base de datos paginados
-        return comentarioRepository.findAll(pageable);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<Comentario> findById(Long id) {
-        //Retornamos el comentario que se encuentre en la base de datos por su id
+    public Optional<Comentario> getComentarioById(Long id) {
         return comentarioRepository.findById(id);
     }
 
     @Override
-    @Transactional //No es necesario aqui declarar que es solo de lectura o escritura ,puede ser ambas
-    public Comentario save(Comentario comentario) {
-        //Guardamos el comentario en la base de datos
+    public Comentario createComentario(Comentario comentario) {
         return comentarioRepository.save(comentario);
     }
 
     @Override
-    @Transactional
-    public void deleteById(Long id) {
-        //Eliminamos el comentario de la base de datos por su id
-        comentarioRepository.deleteById(id);
+    public Comentario updateComentario(Long id, Comentario detallesComentario) {
+        Comentario comentario = comentarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Comentario not found"));
 
+        comentario.setTexto(detallesComentario.getTexto());
+        comentario.setValoracion(detallesComentario.getValoracion());
+        comentario.setFechaComentario(detallesComentario.getFechaComentario());
+        comentario.setUsuario(detallesComentario.getUsuario());
+        comentario.setPelicula(detallesComentario.getPelicula());
+        // Actualiza otros campos según sea necesario
+
+        return comentarioRepository.save(comentario);
+    }
+
+    @Override
+    public void deleteComentario(Long id) {
+        Comentario comentario = comentarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Comentario not found"));
+
+        comentarioRepository.delete(comentario);
     }
 }

@@ -1,4 +1,5 @@
 package com.example.cursospringboot.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -47,17 +48,22 @@ public class Pelicula{
         @Column(name = "otrosDatos", length = 150, nullable = false)
         private String otrosDatos;
 
-        @Column(name = "actores", length = 100, nullable = false)
+        @Column(name = "actores", length = 200, nullable = false)
         private String actores;
 
-        @Column(name = "url_image", length = 50, nullable = false)
+        @Column(name = "url_image", length = 100, nullable = false)
         private String url_image;
 
-        @Column(name = "url_video", length = 50, nullable = false)
+        @Column(name = "url_video", length = 100, nullable = false)
         private String url_video;
 
+
+        /*
         @OneToMany(mappedBy = "pelicula")
+        @JsonBackReference // Esta anotación indica que este lado de la relación no debe ser serializado
         private Set<Comentario> comentarios;
+        */
+
 
         //Constructor
         public Pelicula() {
@@ -211,12 +217,6 @@ public class Pelicula{
             this.url_video = url_video;
         }
 
-        public Set<Comentario> getComentarios() {
-            return comentarios;
-        }
 
-        public void setComentarios(Set<Comentario> comentarios) {
-            this.comentarios = comentarios;
-        }
 
 }

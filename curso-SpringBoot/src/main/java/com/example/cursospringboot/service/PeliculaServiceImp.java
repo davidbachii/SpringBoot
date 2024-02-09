@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,40 +19,48 @@ public class PeliculaServiceImp implements PeliculaService{
     private PeliculaRepository peliculaRepository;
 
     @Override
-    @Transactional(readOnly = true) //Para que sea solo de lectura, es un metodo de spring no de jakarta
-    public Iterable<Pelicula> findAll() {
-
-        //Retornamos todas las peliculas que se encuentran en la base de datos
+    public List<Pelicula> getAllPeliculas() {
         return peliculaRepository.findAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Page<Pelicula> findAll(Pageable pageable) {
-        //Retornamos todas las pelicula que se encuentran en la base de datos paginados
-        return peliculaRepository.findAll(pageable);
+    public Optional<Pelicula> getPeliculaByNombre(String nombrePelicula) {
+        return peliculaRepository.findById(nombrePelicula);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Pelicula findBynombrePelicula(String nombre) {
-        //Retornamos la pelicula que se encuentre en la base de datos por su id
-        return peliculaRepository.findBynombrePelicula(nombre);
-    }
-
-    @Override
-    @Transactional //No es necesario aqui declarar que es solo de lectura o escritura ,puede ser ambas
-    public Pelicula save(Pelicula pelicula) {
-        //Guardamos la pelicula en la base de datos
+    public Pelicula createPelicula(Pelicula pelicula) {
         return peliculaRepository.save(pelicula);
     }
 
     @Override
-    @Transactional
-    public void deleteBynombrePelicula(String nombre) {
-        //Eliminamos la pelicula de la base de datos por su id
-        peliculaRepository.deleteBynombrePelicula(nombre);
+    public Pelicula updatePelicula(String nombrePelicula, Pelicula detallesPelicula) {
+        Pelicula pelicula = peliculaRepository.findById(nombrePelicula)
+                .orElseThrow(() -> new RuntimeException("Pelicula not found"));
 
+        pelicula.setNombrePelicula(detallesPelicula.getNombrePelicula());
+        pelicula.setSinopsis(detallesPelicula.getSinopsis());
+        pelicula.setPaginaOficial(detallesPelicula.getPaginaOficial());
+        pelicula.setTituloOriginal(detallesPelicula.getTituloOriginal());
+        pelicula.setGenero(detallesPelicula.getGenero());
+        pelicula.setNacionalidad(detallesPelicula.getNacionalidad());
+        pelicula.setDuracion(detallesPelicula.getDuracion());
+        pelicula.setAnho(detallesPelicula.getAnho());
+        pelicula.setDistribuidora(detallesPelicula.getDistribuidora());
+        pelicula.setDirector(detallesPelicula.getDirector());
+        pelicula.setClasificacionEdad(detallesPelicula.getClasificacionEdad());
+        pelicula.setOtrosDatos(detallesPelicula.getOtrosDatos());
+        pelicula.setActores(detallesPelicula.getActores());
+        pelicula.setUrl_image(detallesPelicula.getUrl_image());
+        pelicula.setUrl_video(detallesPelicula.getUrl_video());
+        // Actualiza otros campos según sea necesario
+
+        return peliculaRepository.save(pelicula);
+    }
+
+    @Override
+    public void deletePelicula(String nombrePelicula) {
+        peliculaRepository.deleteById(nombrePelicula);
     }
 
 
