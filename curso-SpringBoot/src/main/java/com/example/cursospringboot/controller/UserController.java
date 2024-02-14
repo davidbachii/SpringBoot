@@ -7,13 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-@RestController //Para que sea un controlador rest de spring boot y no un controlador comun
+@Controller // Esto es para que sea un controlador de spring boot
 @RequestMapping("/api/users") //Para que todas las rutas de este controlador empiecen con /api/users
 public class UserController {
 
@@ -25,6 +27,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+
+    /*
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
@@ -45,11 +50,41 @@ public class UserController {
         }
     }
 
+
+
+
+
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User createdUser = userService.createUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
+    */
+
+    @PostMapping("/CrearUsuario")
+    public ResponseEntity<User> createUser(@RequestParam String Name, @RequestParam String Apellidos, @RequestParam String pswd, @RequestParam String mail, @RequestParam LocalDate FechaNacimiento) {
+        User user = new User();
+        user.setEmail(mail);
+        user.setNombre(Name);
+        user.setApellidos(Apellidos);
+        user.setContrasenha(pswd);
+        user.setFechaNacimiento(FechaNacimiento);
+        // Aquí puedes establecer el plan de suscripción por defecto para el nuevo usuario
+        user.setPlanSuscripcion("Sin Plan");
+        User createdUser = userService.createUser(user);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/AccederUsuario")
+    public ResponseEntity<User> loginUser(@RequestParam String mail, @RequestParam String pswd) {
+        Optional<User> user = userService.getUserByEmail(mail);
+        if (user.isPresent() && user.get().getContrasenha().equals(pswd)) {
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
 
     @PutMapping("/{email}")
     public ResponseEntity<User> updateUser(@PathVariable String email, @RequestBody User userDetails) {
@@ -59,6 +94,12 @@ public class UserController {
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+
+    @GetMapping("/")
+    public String root() {
+        return "login";
     }
 
     @DeleteMapping("/{email}")

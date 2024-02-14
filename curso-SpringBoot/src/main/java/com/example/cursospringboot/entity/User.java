@@ -3,6 +3,8 @@ package com.example.cursospringboot.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -27,7 +29,11 @@ public class User implements Serializable{
     private String contrasenha;
 
     @Column(name = "fechaNacimiento", length = 12, nullable = false)
-    private String fechaNacimiento;
+    private LocalDate fechaNacimiento;
+
+    @Column(name = "planSuscripcion", length = 20, nullable = false)
+    private String planSuscripcion;
+
 
     //Set de comentarios que ha hecho el usuario en la aplicacion
 
@@ -44,12 +50,13 @@ public class User implements Serializable{
    }
 
     //Constructor con parametros
-    public User(String email, String nombre, String apellidos, String contrasenha, String fechaNacimiento) {
+    public User(String email, String nombre, String apellidos, String contrasenha, LocalDate fechaNacimiento, String planSuscripcion) {
         this.email = email;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.contrasenha = contrasenha;
         this.fechaNacimiento = fechaNacimiento;
+        this.planSuscripcion = planSuscripcion;
     }
 
     //Getters y Setters
@@ -87,15 +94,24 @@ public class User implements Serializable{
         this.contrasenha = contrasenha;
     }
 
-    public String getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
 
+
+
+    public String getPlanSuscripcion() {
+        return planSuscripcion;
+    }
+
+    public void setPlanSuscripcion(String planSuscripcion) {
+        this.planSuscripcion = planSuscripcion;
+    }
 
 
 }
