@@ -123,6 +123,11 @@ ul {
   font-weight: 600;
 }
 
+.cta a {
+  color: #fff;
+  text-decoration: none;
+}
+
 .overlay {
   position: absolute;
   inset: 0;

@@ -1,0 +1,63 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Glow Card Hover Effect Using html css and javascript</title>
+  <link rel="stylesheet" th:href="@{/css/planSuscripcion.css}"  href="../static/css/planSuscripcion.css">
+</head>
+<body>
+	<main class="main flow">
+    <h1 class="main__heading">Precios</h1>
+    <div class="main__cards cards">
+      <div class="cards__inner">
+        <div class="cards__card card">
+          <h2 class="card__heading">Gratis</h2>
+          <p class="card__price">€0.00€</p>
+          <ul role="list" class="card__bullets flow">
+            <li>Accesso al plan de peliculas basicas</li>
+            <li>Un unico dispositivo</li>
+          </ul>
+          <form action="/api/users/updatePlan" method="post" class="card__cta cta">
+            <input type="hidden" name="plan" value="Gratis">
+            <a href="#basic" onclick="event.preventDefault(); this.parentNode.submit();">Get Started</a>
+          </form>
+        </div>
+
+        <div class="cards__card card">
+          <h2 class="card__heading">Basico</h2>
+          <p class="card__price">1.99€</p>
+          <ul role="list" class="card__bullets flow">
+            <li>Acesso a todas las peliculas, menos las recien salidas</li>
+            <li>Tres dispoitivos</li>
+            <li>Exclusive access to live Q&A sessions</li>
+          </ul>
+          <form action="/api/users/updatePlan" method="post" class="card__cta cta">
+            <input type="hidden" name="plan" value="Basico">
+            <a href="#pro" onclick="event.preventDefault(); this.parentNode.submit();">Upgrade to Basic</a>
+          </form>
+        </div>
+
+        <div class="cards__card card">
+          <h2 class="card__heading">Pro</h2>
+          <p class="card__price">2.99€</p>
+          <ul role="list" class="card__bullets flow">
+            <li>Acesso a todo el contenido incluidas las peliculas recien salidas</li>
+            <li>24/7 Priority Email support</li>
+            <li>1-on-1 virtual coaching session every month</li>
+            <li>Exclusive content and early access to new features</li>
+          </ul>
+          <form action="/api/users/updatePlan" method="post" class="card__cta cta">
+            <input type="hidden" name="plan" value="Pro">
+            <a href="#ultimate" onclick="event.preventDefault(); this.parentNode.submit();">Go Pro</a>
+          </form>
+        </div>
+      </div>
+      <div class="overlay cards__inner"></div>
+    </div>
+  </main>
+    <script th:src="@{/js/planSuscripcion.js}"  src="../static/js/planSuscripcion.js"></script>
+</body>
+</html>
+

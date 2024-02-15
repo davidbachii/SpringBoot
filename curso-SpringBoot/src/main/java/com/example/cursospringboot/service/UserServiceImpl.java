@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService{
         user.setApellidos(userDetails.getApellidos());
         user.setContrasenha(userDetails.getContrasenha());
         user.setFechaNacimiento(userDetails.getFechaNacimiento());
-        // Actualizar otros campos según sea necesario
+        user.setPlanSuscripcion(userDetails.getPlanSuscripcion());
 
         return userRepository.save(user);
     }

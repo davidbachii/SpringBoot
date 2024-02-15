@@ -3,12 +3,14 @@ package com.example.cursospringboot.controller;
 
 import com.example.cursospringboot.entity.User;
 import com.example.cursospringboot.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -62,17 +64,17 @@ public class UserController {
     */
 
     @PostMapping("/CrearUsuario")
-    public ResponseEntity<User> createUser(@RequestParam String Name, @RequestParam String Apellidos, @RequestParam String pswd, @RequestParam String mail, @RequestParam LocalDate FechaNacimiento) {
+    public RedirectView createUser(@RequestParam String Name, @RequestParam String Apellidos, @RequestParam String pswd, @RequestParam String mail, @RequestParam LocalDate FechaNacimiento, HttpSession session) {
         User user = new User();
         user.setEmail(mail);
         user.setNombre(Name);
         user.setApellidos(Apellidos);
         user.setContrasenha(pswd);
         user.setFechaNacimiento(FechaNacimiento);
-        // Aquí puedes establecer el plan de suscripción por defecto para el nuevo usuario
         user.setPlanSuscripcion("Sin Plan");
         User createdUser = userService.createUser(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+        session.setAttribute("user", createdUser);
+        return new RedirectView("/api/users/planSuscripcion");
     }
 
     @PostMapping("/AccederUsuario")
@@ -83,6 +85,15 @@ public class UserController {
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
+    }
+
+
+    @PostMapping("/updatePlan")
+    public RedirectView updatePlan(@RequestParam String plan, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        user.setPlanSuscripcion(plan);
+        userService.updateUser(user.getEmail(), user);
+        return new RedirectView("/api/users/");
     }
 
 
@@ -100,6 +111,11 @@ public class UserController {
     @GetMapping("/")
     public String root() {
         return "login";
+    }
+
+    @GetMapping("/planSuscripcion")
+    public String root2() {
+        return "planSuscripcion";
     }
 
     @DeleteMapping("/{email}")
