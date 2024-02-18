@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var apellido = document.getElementById('Apellidos').value;
         var emailRegistro = document.getElementById('mail').value;
         var contrasena = document.getElementById('pswd').value;
-        var fechaNacimiento = document.getElementById('Fecha-nacimiento').value;
+        var fechaNacimiento = document.getElementById('FechaNacimiento').value;
         var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         var fechaPattern = /^\d{4}-\d{2}-\d{2}$/; // Define un patrón de fecha (AAAA-MM-DD)
 

@@ -114,7 +114,13 @@ public class UserController {
     }
 
     @GetMapping("/planSuscripcion")
-    public String root2() {
+    public String root2(HttpSession session) {
+        // Comprobar si el usuario está registrado
+        if (session.getAttribute("user") == null) {
+            // Redirigir al usuario a la página de inicio de sesión si no está registrado
+            return "login";
+        }
+        // Si el usuario está registrado, continuar como antes
         return "planSuscripcion";
     }
 
