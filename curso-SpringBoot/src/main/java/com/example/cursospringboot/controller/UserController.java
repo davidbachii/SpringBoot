@@ -74,6 +74,10 @@ public class UserController {
         user.setPlanSuscripcion("Sin Plan");
         User createdUser = userService.createUser(user);
         session.setAttribute("user", createdUser);
+
+
+
+
         return new RedirectView("/api/users/planSuscripcion");
     }
 
@@ -93,7 +97,14 @@ public class UserController {
         User user = (User) session.getAttribute("user");
         user.setPlanSuscripcion(plan);
         userService.updateUser(user.getEmail(), user);
-        return new RedirectView("/api/users/");
+
+        if (plan.equals("Gratis")) {
+            return new RedirectView("/api/users/");
+        } else {
+
+            return new RedirectView("/api/pago/");
+        }
+
     }
 
 
