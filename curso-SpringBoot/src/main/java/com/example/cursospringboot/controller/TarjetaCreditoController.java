@@ -2,6 +2,7 @@ package com.example.cursospringboot.controller;
 
 
 import com.example.cursospringboot.entity.TarjetaCredito;
+import com.example.cursospringboot.entity.User;
 import com.example.cursospringboot.service.TarjetaService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,9 @@ public class TarjetaCreditoController {
                                      @RequestParam("fechaCaducidad") String fechaCaducidad,
                                      @RequestParam("codigoSeguridad") String codigoSeguridad,  HttpSession session) {
 
-        if (session.getAttribute("user") == null) {
+
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
             return new RedirectView("/api/users/");
         }
 
@@ -37,6 +40,7 @@ public class TarjetaCreditoController {
         tj.setNumeroT(numeroTarjeta);
         tj.setFechaCaducidad(fechaCaducidad);
         tj.setCodigoSeguridad(codigoSeguridad);
+        tj.setUser(user);
 
         tarjetaCreditoService.createTarjeta(tj);
 

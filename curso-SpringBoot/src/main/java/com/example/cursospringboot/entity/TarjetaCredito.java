@@ -27,6 +27,11 @@ public class TarjetaCredito {
     private String codigoSeguridad;
 
 
+    @ManyToOne
+    @JoinColumn(name = "user_email", referencedColumnName = "email")
+    private User user;
+
+
 
     //Constructor
     public TarjetaCredito() {
@@ -81,4 +86,14 @@ public class TarjetaCredito {
     public void setCodigoSeguridad(String codigoSeguridad) {
         this.codigoSeguridad = codigoSeguridad;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
 }
