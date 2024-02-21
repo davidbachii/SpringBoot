@@ -21,14 +21,14 @@ public class Comentario{
     @Column(name = "fechaComentario", length = 12, nullable = false)
     private String fechaComentario;
 
+
+
     @ManyToOne
-    @JoinColumn(name = "email_Usuario", referencedColumnName = "email", nullable = false)
-    @JsonManagedReference // Esta anotación indica que este lado de la relación es el "lado manejado"
+    @JoinColumn(name = "user_email", referencedColumnName = "email",  nullable = false)
     private User usuario;
 
     @ManyToOne
     @JoinColumn(name = "nombrePelicula_Pelicula", referencedColumnName = "nombrePelicula",nullable = false)
-    @JsonManagedReference // Esta anotación indica que este lado de la relación es el "lado manejado"
     private Pelicula pelicula;
 
 
@@ -95,4 +95,7 @@ public class Comentario{
     public void setPelicula(Pelicula pelicula) {
         this.pelicula = pelicula;
     }
+
+
+
 }

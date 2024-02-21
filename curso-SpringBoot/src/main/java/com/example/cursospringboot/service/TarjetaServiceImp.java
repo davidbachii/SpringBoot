@@ -52,5 +52,11 @@ public class TarjetaServiceImp  implements TarjetaService{
     }
 
 
+    @Override
+    public List<TarjetaCredito> getTarjetasByUserEmail(String email) {
+        return tarjetaRepository.findByUser_Email(email);
+    }
+
+
 
 }

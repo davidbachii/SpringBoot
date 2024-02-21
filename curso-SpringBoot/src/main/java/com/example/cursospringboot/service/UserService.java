@@ -26,4 +26,7 @@ public interface UserService {
     //Metodo para eliminar un usuario
     void deleteUser(String email);
 
+    // Metodo para la autenticacion de un usuario
+    User authenticateUser(String email, String password);
+
 }

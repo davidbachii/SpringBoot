@@ -37,6 +37,9 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TarjetaCredito> tarjetas;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comentario> comentarios;
+
 
     //Set de comentarios que ha hecho el usuario en la aplicacion
 
@@ -124,5 +127,15 @@ public class User implements Serializable{
     public void setTarjetas(List<TarjetaCredito> tarjetas) {
         this.tarjetas = tarjetas;
     }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
+
+
 
 }

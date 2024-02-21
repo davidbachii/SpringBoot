@@ -81,13 +81,14 @@ public class UserController {
         return new RedirectView("/api/users/planSuscripcion");
     }
 
+
     @PostMapping("/AccederUsuario")
-    public ResponseEntity<User> loginUser(@RequestParam String mail, @RequestParam String pswd) {
-        Optional<User> user = userService.getUserByEmail(mail);
-        if (user.isPresent() && user.get().getContrasenha().equals(pswd)) {
-            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+    public ResponseEntity<?> loginUser(@RequestParam("mail-2") String email, @RequestParam("pswd-2") String password) {
+        User user = userService.authenticateUser(email, password);
+        if (user != null) {
+            return ResponseEntity.ok("Redirect to /api/peliculas");
         } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.status(401).body("Invalid email or password");
         }
     }
 

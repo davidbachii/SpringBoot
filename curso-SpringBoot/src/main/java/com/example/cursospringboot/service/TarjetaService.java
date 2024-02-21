@@ -23,4 +23,8 @@ public interface TarjetaService {
 
     //Metodo para eliminar una tarjeta
     void deleteTarjeta(Long id);
+
+
+    //Metodo para obtener todas las tarjetas de un usuario
+    List<TarjetaCredito> getTarjetasByUserEmail(String email);
 }
