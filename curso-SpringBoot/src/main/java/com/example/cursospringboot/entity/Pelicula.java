@@ -57,7 +57,7 @@ public class Pelicula{
         @Column(name = "url_video", length = 100, nullable = false)
         private String url_video;
 
-        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+        @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, orphanRemoval = true)
         private List<Comentario> comentarios;
 
 

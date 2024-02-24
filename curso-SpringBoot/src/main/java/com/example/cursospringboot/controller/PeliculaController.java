@@ -8,13 +8,15 @@ import com.example.cursospringboot.service.PeliculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-@RestController //Para que sea un controlador rest de spring boot y no un controlador comun
+@Controller //Para que sea un controlador rest de spring boot y no un controlador comun
 @RequestMapping("/api/peliculas") //Para que todas las rutas de este controlador empiecen con /api/peliculas
 public class PeliculaController {
 
@@ -24,6 +26,58 @@ public class PeliculaController {
     @Autowired
     private PeliculaService peliculaService;
 
+
+
+
+    @GetMapping("/")
+    public String getAllPeliculas(Model model) {
+        List<Pelicula> listaPeliculas = peliculaService.getAllPeliculas();
+        model.addAttribute("listaPeliculas", listaPeliculas);
+        return "pagPrincipal";  // nombre de tu archivo Thymeleaf sin la extensión .html
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
     @GetMapping
     public ResponseEntity<List<Pelicula>> getAllPeliculas() {
         List<Pelicula> peliculas = peliculaService.getAllPeliculas();
@@ -70,4 +124,7 @@ public class PeliculaController {
     //Controlador -> Servicio -> Repositorio -> Base de datos
     //Y viceversa
     //Base de datos -> Repositorio -> Servicio -> Controlador
+
+    */
+
 }

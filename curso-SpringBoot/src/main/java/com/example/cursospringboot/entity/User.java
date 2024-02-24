@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Usuario")
-public class User implements Serializable{
+public class User {
 
 
 
@@ -37,7 +37,7 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TarjetaCredito> tarjetas;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comentario> comentarios;
 
 

@@ -49,6 +49,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('Acceder').addEventListener('click', function(e) {
+        e.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
         var emailAcceso = document.getElementById('mail-2').value;
         var contrasena = document.getElementById('pswd-2').value;
         var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -56,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Verificar si el correo electrónico de acceso es válido
         if (!emailAcceso.match(emailPattern)) {
             document.getElementById('error-email-acceso').textContent = 'Por favor, ingresa un correo electrónico válido';
-            e.preventDefault();
+            return; // Detener la ejecución si el correo electrónico no es válido
         } else {
             document.getElementById('error-email-acceso').textContent = '';
         }
@@ -64,10 +66,30 @@ document.addEventListener('DOMContentLoaded', function() {
         // Verificar si la contraseña está lleno
         if (contrasena.trim() === '') {
             document.getElementById('error-contrasena-acceso').textContent = 'Por favor, ingresa una contraseña';
-            e.preventDefault();
+            return; // Detener la ejecución si la contraseña está vacía
         } else {
             document.getElementById('error-contrasena-acceso').textContent = '';
         }
+
+
+        // Realizar la solicitud AJAX al controlador de autenticación
+        $.ajax({
+            url: '/api/users/AccederUsuario',
+            type: 'POST',
+            data: { 'mail-2': emailAcceso, 'pswd-2': contrasena },
+            success: function(response) {
+                // Si la autenticación es exitosa, redirige al usuario a la API de películas
+                window.location.href = '/api/peliculas/';
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Si la autenticación falla, muestra el mensaje de error al usuario
+                if(jqXHR.status == 401) { // 401 es el código de estado para no autorizado
+                    document.getElementById('error-contrasena-acceso').textContent = 'Usuario o contraseña incorrectos';
+                } else {
+                    document.getElementById('error-contrasena-acceso').textContent = 'Error desconocido. Por favor, inténtelo de nuevo más tarde.';
+                }
+            }
+        });
     });
 
     document.getElementById('signIn').addEventListener('click', function() {
@@ -77,6 +99,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('signUp').addEventListener('click', function() {
         document.getElementById('container').classList.add('right-panel-active');
     });
+
+
+
+
+
+
 });
 
 

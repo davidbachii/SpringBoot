@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -83,14 +84,17 @@ public class UserController {
 
 
     @PostMapping("/AccederUsuario")
-    public ResponseEntity<?> loginUser(@RequestParam("mail-2") String email, @RequestParam("pswd-2") String password) {
-        User user = userService.authenticateUser(email, password);
-        if (user != null) {
-            return ResponseEntity.ok("Redirect to /api/peliculas");
+    public ResponseEntity<String> authenticateUser(@RequestParam("mail-2") String email, @RequestParam("pswd-2") String password) {
+        boolean authenticated = userService.authenticateUser(email, password);
+        if (authenticated) {
+            // Autenticación exitosa, devuelve un mensaje de éxito
+            return ResponseEntity.status(HttpStatus.OK).body("Autenticación exitosa");
         } else {
-            return ResponseEntity.status(401).body("Invalid email or password");
+            // Autenticación fallida, devuelve un mensaje de error
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario o contraseña incorrectos");
         }
     }
+
 
 
     @PostMapping("/updatePlan")
