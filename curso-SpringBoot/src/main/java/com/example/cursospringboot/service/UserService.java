@@ -29,4 +29,7 @@ public interface UserService {
     // Metodo para la autenticacion de un usuario
     boolean authenticateUser(String email, String password);
 
+    // Metodo para saber si el usuario esta ya registrado
+    public boolean estaRegistrado(String email);
+
 }

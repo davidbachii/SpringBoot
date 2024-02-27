@@ -73,5 +73,10 @@ public class UserServiceImpl implements UserService{
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return user.getContrasenha().equals(password);
     }
+
+    @Override
+    public boolean estaRegistrado(String email) {
+        return userRepository.existsById(email);
+    }
 }
 

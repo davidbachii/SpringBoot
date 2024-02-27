@@ -65,21 +65,27 @@ public class UserController {
     */
 
     @PostMapping("/CrearUsuario")
-    public RedirectView createUser(@RequestParam String Name, @RequestParam String Apellidos, @RequestParam String pswd, @RequestParam String mail, @RequestParam LocalDate FechaNacimiento, HttpSession session) {
-        User user = new User();
-        user.setEmail(mail);
-        user.setNombre(Name);
-        user.setApellidos(Apellidos);
-        user.setContrasenha(pswd);
-        user.setFechaNacimiento(FechaNacimiento);
-        user.setPlanSuscripcion("Sin Plan");
-        User createdUser = userService.createUser(user);
-        session.setAttribute("user", createdUser);
+    public ResponseEntity<String> createUser(@RequestParam String Name, @RequestParam String Apellidos, @RequestParam String pswd, @RequestParam String mail, @RequestParam LocalDate FechaNacimiento, HttpSession session) {
+
+        boolean registrado = userService.estaRegistrado(mail);
+        if(registrado){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("El usuario ya esta registrado");
+        } else {
+
+            User user = new User();
+            user.setEmail(mail);
+            user.setNombre(Name);
+            user.setApellidos(Apellidos);
+            user.setContrasenha(pswd);
+            user.setFechaNacimiento(FechaNacimiento);
+            user.setPlanSuscripcion("Sin Plan");
+            User createdUser = userService.createUser(user);
+            session.setAttribute("user", createdUser);
+
+            return ResponseEntity.status(HttpStatus.OK).body("Usuario creado");
+        }
 
 
-
-
-        return new RedirectView("/api/users/planSuscripcion");
     }
 
 
@@ -97,9 +103,13 @@ public class UserController {
 
 
 
+
+
     @PostMapping("/updatePlan")
     public RedirectView updatePlan(@RequestParam String plan, HttpSession session) {
         User user = (User) session.getAttribute("user");
+
+
         user.setPlanSuscripcion(plan);
         userService.updateUser(user.getEmail(), user);
 

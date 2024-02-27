@@ -1,52 +1,90 @@
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('Registrar').addEventListener('click', function(e) {
-        var nombre = document.getElementById('Name').value;
-        var apellido = document.getElementById('Apellidos').value;
-        var emailRegistro = document.getElementById('mail').value;
-        var contrasena = document.getElementById('pswd').value;
-        var fechaNacimiento = document.getElementById('FechaNacimiento').value;
-        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        var fechaPattern = /^\d{4}-\d{2}-\d{2}$/; // Define un patrón de fecha (AAAA-MM-DD)
 
-        // Verificar si el nombre está lleno
-        if (nombre.trim() === '') {
-            document.getElementById('error-nombre').textContent = 'Por favor, ingresa tu nombre';
-            e.preventDefault();
-        } else {
-            document.getElementById('error-nombre').textContent = '';
-        }
-        // Verificar si el apellido está lleno
-        if (apellido.trim() === '') {
-            document.getElementById('error-apellido').textContent = 'Por favor, ingresa tu apellido';
-            e.preventDefault();
-        } else {
-            document.getElementById('error-apellido').textContent = '';
-        }
+        document.getElementById('Registrar').addEventListener('click', function(e) {
+            var nombre = document.getElementById('Name').value;
+            var apellido = document.getElementById('Apellidos').value;
+            var emailRegistro = document.getElementById('mail').value;
+            var contrasena = document.getElementById('pswd').value;
+            var fechaNacimiento = document.getElementById('FechaNacimiento').value;
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var fechaPattern = /^\d{4}-\d{2}-\d{2}$/; // Define un patrón de fecha (AAAA-MM-DD)
 
-        // Verificar si el correo electrónico de registro es válido
-        if (!emailRegistro.match(emailPattern)) {
-            document.getElementById('error-email').textContent = 'Por favor, ingresa un correo electrónico válido';
-            e.preventDefault();
-        } else {
-            document.getElementById('error-email').textContent = '';
-        }
+            var isValid = true; // Variable para verificar si todos los campos son válidos
 
-        // Verificar si la contraseña está lleno
-        if (contrasena.trim() === '') {
-            document.getElementById('error-contrasena').textContent = 'Por favor, ingresa una contraseña';
-            e.preventDefault();
-        } else {
-            document.getElementById('error-contrasena').textContent = '';
-        }
+            // Verificar si el nombre está lleno
+            if (nombre.trim() === '') {
+                document.getElementById('error-nombre').textContent = 'Por favor, ingresa tu nombre';
+                isValid = false;
+            } else {
+                document.getElementById('error-nombre').textContent = '';
+            }
+            // Verificar si el apellido está lleno
+            if (apellido.trim() === '') {
+                document.getElementById('error-apellido').textContent = 'Por favor, ingresa tu apellido';
+                isValid = false;
+            } else {
+                document.getElementById('error-apellido').textContent = '';
+            }
 
-        // Verificar si la fecha cumple con el formato esperado
-        if (!fechaNacimiento.match(fechaPattern)) {
-            document.getElementById('error-fecha').textContent = 'Por favor, ingresa una fecha válida en el formato DD-MM-AAAA';
-            e.preventDefault();
-        } else {
-            document.getElementById('error-fecha').textContent = '';
-        }
-    });
+            // Verificar si el correo electrónico de registro es válido
+            if (!emailRegistro.match(emailPattern)) {
+                document.getElementById('error-email').textContent = 'Por favor, ingresa un correo electrónico válido';
+                isValid = false;
+            } else {
+                document.getElementById('error-email').textContent = '';
+            }
+
+            // Verificar si la contraseña está lleno
+            if (contrasena.trim() === '') {
+                document.getElementById('error-contrasena').textContent = 'Por favor, ingresa una contraseña';
+                isValid = false;
+            } else {
+                document.getElementById('error-contrasena').textContent = '';
+            }
+
+            // Verificar si la fecha cumple con el formato esperado
+            if (!fechaNacimiento.match(fechaPattern)) {
+                document.getElementById('error-fecha').textContent = 'Por favor, ingresa una fecha válida en el formato DD-MM-AAAA';
+                isValid = false;
+            } else {
+                document.getElementById('error-fecha').textContent = '';
+            }
+
+            // Si no es válido, detener la ejecución
+            if (!isValid) {
+                e.preventDefault();
+                return;
+            }
+
+            e.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
+            $.ajax({
+                url: '/api/users/CrearUsuario',
+                type: 'POST',
+                data: {
+                    'Name': nombre,
+                    'Apellidos': apellido,
+                    'pswd': contrasena,
+                    'mail': emailRegistro,
+                    'FechaNacimiento': fechaNacimiento
+                },
+                success: function(response) {
+                    // Si la autenticación es exitosa, redirige al usuario a la API de películas
+                    window.location.href = '/api/users/planSuscripcion';
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    // Si la autenticación falla, muestra el mensaje de error al usuario
+                    if(jqXHR.status == 401) { // 401 es el código de estado para no autorizado
+                        document.getElementById('error-usuario-registrado').textContent = 'El correo ya esta registrado';
+                    } else {
+                        document.getElementById('error-usuario-registrado').textContent = 'Error desconocido. Por favor, inténtelo de nuevo más tarde.';
+                    }
+                }
+            });
+        });
+
+
+
 
     document.getElementById('Acceder').addEventListener('click', function(e) {
         e.preventDefault(); // Evitar que el formulario se envíe automáticamente
@@ -70,6 +108,8 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             document.getElementById('error-contrasena-acceso').textContent = '';
         }
+
+
 
 
         // Realizar la solicitud AJAX al controlador de autenticación
