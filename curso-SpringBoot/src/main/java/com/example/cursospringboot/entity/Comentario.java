@@ -32,6 +32,20 @@ public class Comentario{
     private Pelicula pelicula;
 
 
+    @ManyToOne
+    @JoinColumn(name = "liveContent_id", referencedColumnName = "id")
+    private LiveContent liveContent;
+
+    @ManyToOne
+    @JoinColumn(name = "f1Content_id", referencedColumnName = "id")
+    private F1Content f1Content;
+
+    @ManyToOne
+    @JoinColumn(name = "footballContent_id", referencedColumnName = "id")
+    private FootballContent footballContent;
+
+
+
     //Constructor
     public Comentario() {
     }
@@ -96,6 +110,27 @@ public class Comentario{
         this.pelicula = pelicula;
     }
 
+    public LiveContent getLiveContent() {
+        return liveContent;
+    }
 
+    public void setLiveContent(LiveContent liveContent) {
+        this.liveContent = liveContent;
+    }
 
+    public F1Content getF1Content() {
+        return f1Content;
+    }
+
+    public void setF1Content(F1Content f1Content) {
+        this.f1Content = f1Content;
+    }
+
+    public FootballContent getFootballContent() {
+        return footballContent;
+    }
+
+    public void setFootballContent(FootballContent footballContent) {
+        this.footballContent = footballContent;
+    }
 }
