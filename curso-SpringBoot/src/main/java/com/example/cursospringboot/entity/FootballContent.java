@@ -8,6 +8,9 @@ import java.util.List;
 public class FootballContent {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "nombrePartido", nullable = false, length = 50)
     private String nombrePartido;
 

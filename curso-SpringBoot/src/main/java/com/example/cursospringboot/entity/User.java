@@ -22,8 +22,8 @@ public class User {
     @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
 
-    @Column(name = "apellidos", length = 50, nullable = false)
-    private String apellidos;
+    @Column(name = "nickname", length = 50, nullable = false)
+    private String nickname;
 
     @Column(name = "contrasenha", length = 50, nullable = false)
     private String contrasenha;
@@ -56,10 +56,10 @@ public class User {
    }
 
     //Constructor con parametros
-    public User(String email, String nombre, String apellidos, String contrasenha, LocalDate fechaNacimiento, String planSuscripcion) {
+    public User(String email, String nombre, String nickname, String contrasenha, LocalDate fechaNacimiento, String planSuscripcion) {
         this.email = email;
         this.nombre = nombre;
-        this.apellidos = apellidos;
+        this.nickname = nickname;
         this.contrasenha = contrasenha;
         this.fechaNacimiento = fechaNacimiento;
         this.planSuscripcion = planSuscripcion;
@@ -84,12 +84,12 @@ public class User {
         this.nombre = nombre;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getContrasenha() {

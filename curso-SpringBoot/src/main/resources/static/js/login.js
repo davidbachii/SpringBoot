@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.getElementById('Registrar').addEventListener('click', function(e) {
             var nombre = document.getElementById('Name').value;
-            var apellido = document.getElementById('Apellidos').value;
+            var nickname = document.getElementById('nickname').value;
             var emailRegistro = document.getElementById('mail').value;
             var contrasena = document.getElementById('pswd').value;
             var fechaNacimiento = document.getElementById('FechaNacimiento').value;
@@ -19,11 +19,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('error-nombre').textContent = '';
             }
             // Verificar si el apellido está lleno
-            if (apellido.trim() === '') {
-                document.getElementById('error-apellido').textContent = 'Por favor, ingresa tu apellido';
+            if (nickname.trim() === '') {
+                document.getElementById('error-nickname').textContent = 'Por favor, ingresa un nickname valido';
                 isValid = false;
             } else {
-                document.getElementById('error-apellido').textContent = '';
+                document.getElementById('error-nickname').textContent = '';
             }
 
             // Verificar si el correo electrónico de registro es válido
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 type: 'POST',
                 data: {
                     'Name': nombre,
-                    'Apellidos': apellido,
+                    'nickname': nickname,
                     'pswd': contrasena,
                     'mail': emailRegistro,
                     'FechaNacimiento': fechaNacimiento

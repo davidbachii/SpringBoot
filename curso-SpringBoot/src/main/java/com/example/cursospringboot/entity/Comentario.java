@@ -37,7 +37,7 @@ public class Comentario{
     private LiveContent liveContent;
 
     @ManyToOne
-    @JoinColumn(name = "f1Content_id", referencedColumnName = "id")
+    @JoinColumn(name = "f1Content_id", referencedColumnName = "nombreCarrera")
     private F1Content f1Content;
 
     @ManyToOne

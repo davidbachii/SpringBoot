@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService{
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setNombre(userDetails.getNombre());
-        user.setApellidos(userDetails.getApellidos());
+        user.setNickname(userDetails.getNickname());
         user.setContrasenha(userDetails.getContrasenha());
         user.setFechaNacimiento(userDetails.getFechaNacimiento());
         user.setPlanSuscripcion(userDetails.getPlanSuscripcion());

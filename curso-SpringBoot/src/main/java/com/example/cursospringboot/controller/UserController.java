@@ -65,7 +65,7 @@ public class UserController {
     */
 
     @PostMapping("/CrearUsuario")
-    public ResponseEntity<String> createUser(@RequestParam String Name, @RequestParam String Apellidos, @RequestParam String pswd, @RequestParam String mail, @RequestParam LocalDate FechaNacimiento, HttpSession session) {
+    public ResponseEntity<String> createUser(@RequestParam String Name, @RequestParam String nickname, @RequestParam String pswd, @RequestParam String mail, @RequestParam LocalDate FechaNacimiento, HttpSession session) {
 
         boolean registrado = userService.estaRegistrado(mail);
         if(registrado){
@@ -75,7 +75,7 @@ public class UserController {
             User user = new User();
             user.setEmail(mail);
             user.setNombre(Name);
-            user.setApellidos(Apellidos);
+            user.setNickname(nickname);
             user.setContrasenha(pswd);
             user.setFechaNacimiento(FechaNacimiento);
             user.setPlanSuscripcion("Sin Plan");
