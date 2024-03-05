@@ -61,11 +61,7 @@ public class Pelicula{
         private List<Comentario> comentarios;
 
 
-        /*
-        @OneToMany(mappedBy = "pelicula")
-        @JsonBackReference // Esta anotación indica que este lado de la relación no debe ser serializado
-        private Set<Comentario> comentarios;
-        */
+
 
 
         //Constructor

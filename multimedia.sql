@@ -1,65 +1,18 @@
--- object: Pelicula | type: TABLE --
-CREATE TABLE Pelicula (
-    nombrePelicula varchar(50) NOT NULL,
-    sinopsis varchar(500) NOT NULL,
-    paginaOficial varchar(50),
-    tituloOriginal varchar(50),
-    genero varchar(50) NOT NULL,
-    nacionalidad varchar(50) NOT NULL,
-    duracion integer NOT NULL,
-    anho integer NOT NULL,
-    distribuidora varchar(50),
-    director varchar(50) NOT NULL,
-    clasificacionEdad smallint NOT NULL,
-    otrosDatos varchar(200) NOT NULL,
-    actores varchar(200) NOT NULL,
-    url_image varchar(500) NOT NULL,
-    url_video varchar(500) NOT NULL,
-    CONSTRAINT PK_Pelicula PRIMARY KEY (nombrePelicula)
-);
 
-
--- object: Usuario | type: TABLE --
-CREATE TABLE Usuario (
-    nombre varchar(50) NOT NULL,
-    apellidos varchar(50) NOT NULL,
-    contrasenha varchar(50) NOT NULL,
-    email varchar(50) NOT NULL,
-    fechaNacimiento varchar(12) NOT NULL,
-    CONSTRAINT PK_Usuario PRIMARY KEY (email)
-);
-
--- object: Comentario | type: TABLE --
-CREATE TABLE Comentario (
-    texto varchar(500) NOT NULL,
-    valoracion smallint NOT NULL,
-    fechaComentario varchar(12) NOT NULL,
-    email_Usuario varchar(50) NOT NULL,
-    nombrePelicula_Pelicula varchar(50)
-);
-
-
--- object: ComentarioUsuario_fk | type: CONSTRAINT --
-ALTER TABLE Comentario ADD CONSTRAINT ComentarioUsuario_fk FOREIGN KEY (email_Usuario)
-REFERENCES Usuario (email);
-
--- object: ComentarioPelicula_fk | type: CONSTRAINT --
-ALTER TABLE Comentario ADD CONSTRAINT ComentarioPelicula_fk FOREIGN KEY (nombrePelicula_Pelicula)
-REFERENCES Pelicula (nombrePelicula);
 
 
 
 --IMPORTS--
 
 -- Usuarios
-INSERT INTO Usuario (nombre, apellidos, contrasenha, email, fecha_nacimiento)
-VALUES ('Rafael', 'Gonzalez', '1234', 'rafael@example.com', '1990-05-15');
+INSERT INTO Usuario (nombre, nickname, contrasenha, email, fecha_nacimiento,plan_suscripcion)
+VALUES ('Rafael', 'Rafa33', '1234', 'rafael@example.com', '1990-05-15','Gratis');
 
-INSERT INTO Usuario (nombre, apellidos, contrasenha, email, fecha_nacimiento)
-VALUES ('Maria', 'Lopez', '12345', 'maria@example.com', '1985-09-22');
+INSERT INTO Usuario (nombre, nickname, contrasenha, email, fecha_nacimiento,plan_suscripcion)
+VALUES ('Maria', 'Maria33', '12345', 'maria@example.com', '1985-09-22','Pro');
 
-INSERT INTO Usuario (nombre, apellidos, contrasenha, email, fecha_nacimiento)
-VALUES ('Carlos', 'Martinez', '12345', 'carlos@example.com', '1995-12-10');
+INSERT INTO Usuario (nombre, nickname, contrasenha, email, fecha_nacimiento,plan_suscripcion)
+VALUES ('Carlos', 'Carlos33', '12345', 'carlos@example.com', '1995-12-10','Pro');
 
 -- Películas
 
@@ -103,15 +56,80 @@ INSERT INTO Pelicula (nombre_pelicula, sinopsis, pagina_oficial, titulo_original
 VALUES ('Titanic', 'La historia de amor entre Jack y Rose se desarrolla a bordo del Titanic, el famoso transatlántico que choca con un iceberg y enfrenta un trágico destino. Una épica romántica y dramática.', 'https://example.com/titanic', 'Titanic', 'Drama, Romance', 'Estados Unidos', 195, 1997, '20th Century Fox', 'James Cameron', 12, 'Ganadora de 11 premios Oscar.', 'Leonardo DiCaprio, Kate Winslet', 'images/Titanic.jpg', 'https://www.youtube.com/embed/2e-eXJ6HgkQ?si=IctQRBQoTeKUh86p');
 
 
+-- Inserts para la tabla FootballContent
+INSERT INTO football_content (nombre_partido, descripcion, pagina_oficial, estadio, equipos, nacionalidad, duracion, anho, otros_datos, jugadores, url_image, url_video)
+VALUES ('Final de la UEFA Champions League', 'El enfrentamiento definitivo entre los mejores equipos de Europa.', 'https://www.uefa.com/es/uefachampionsleague/', 'Estadio Olímpico Atatürk', 'Manchester City vs Chelsea', 'Inglesa', 90, 2023, 'Ambos equipos buscan su primer título de la Champions League.', 'De Bruyne, Havertz, Sterling', 'https://urlimage.com/championsleaguefinal', 'https://urlvideo.com/championsleaguefinal');
+
+INSERT INTO football_content (nombre_partido, descripcion, pagina_oficial, estadio, equipos, nacionalidad, duracion, anho, otros_datos, jugadores, url_image, url_video)
+VALUES ('Copa América Final', 'La emocionante conclusión del torneo sudamericano más importante.', 'https://www.conmebol.com/es/copa-america', 'Estadio Maracaná', 'Argentina vs Brasil', 'Argentina y Brasil', 90, 2024, 'El enfrentamiento entre Messi y Neymar acapara la atención mundial.', 'Messi, Neymar, Aguero', 'https://urlimage.com/copaamericafinal', 'https://urlvideo.com/copaamericafinal');
+
+INSERT INTO football_content (nombre_partido, descripcion, pagina_oficial, estadio, equipos, nacionalidad, duracion, anho, otros_datos, jugadores, url_image, url_video)
+VALUES ('El Superclásico Argentino', 'El duelo más caliente del fútbol argentino.', 'https://www.afa.com.ar/', 'Estadio Monumental', 'River Plate vs Boca Juniors', 'Argentina', 90, 2023, 'Un encuentro lleno de pasión y rivalidad.', 'Suárez, Tevez, De La Cruz', 'https://urlimage.com/superclasico', 'https://urlvideo.com/superclasico');
+
+INSERT INTO football_content (nombre_partido, descripcion, pagina_oficial, estadio, equipos, nacionalidad, duracion, anho, otros_datos, jugadores, url_image, url_video)
+VALUES ('Derbi de Madrid', 'La batalla entre los dos equipos más grandes de la capital española.', 'https://www.realmadrid.com/', 'Estadio Wanda Metropolitano', 'Real Madrid vs Atlético de Madrid', 'Española', 90, 2023, 'La rivalidad entre los colchoneros y los merengues se hace sentir en cada jugada.', 'Benzema, Suárez, João Félix', 'https://urlimage.com/derbimadrid', 'https://urlvideo.com/derbimadrid');
+
+INSERT INTO football_content (nombre_partido, descripcion, pagina_oficial, estadio, equipos, nacionalidad, duracion, anho, otros_datos, jugadores, url_image, url_video)
+VALUES ('Clásico de Avellaneda', 'El enfrentamiento entre los clubes más representativos de la ciudad de Avellaneda.', 'https://www.racingclub.com.ar/', 'Estadio Juan Domingo Perón', 'Racing Club vs Independiente', 'Argentina', 90, 2023, 'Una historia de rivalidad que se remonta a décadas.', 'López, Martínez, Benítez', 'https://urlimage.com/clasicoavellaneda', 'https://urlvideo.com/clasicoavellaneda');
+
+INSERT INTO football_content (nombre_partido, descripcion, pagina_oficial, estadio, equipos, nacionalidad, duracion, anho, otros_datos, jugadores, url_image, url_video)
+VALUES ('El Derbi de la Madonnina', 'El clásico de la ciudad de Milán entre los dos equipos más grandes.', 'https://www.inter.it/', 'Estadio Giuseppe Meazza', 'Inter de Milán vs AC Milan', 'Italiana', 90, 2023, 'El partido más esperado por los fanáticos del fútbol italiano.', 'Lautaro Martínez, Ibrahimović, Barella', 'https://urlimage.com/derbimadonnina', 'https://urlvideo.com/derbimadonnina');
+
+INSERT INTO football_content (nombre_partido, descripcion, pagina_oficial, estadio, equipos, nacionalidad, duracion, anho, otros_datos, jugadores, url_image, url_video)
+VALUES ('Clásico Universitario', 'El enfrentamiento entre las dos universidades más grandes de Perú.', 'https://www.udep.edu.pe/', 'Estadio Monumental', 'Universidad de San Martín vs Universidad de Lima', 'Peruana', 90, 2023, 'Una batalla por el orgullo universitario.', 'Gómez, Fernández, García', 'https://urlimage.com/clasicouniversitario', 'https://urlvideo.com/clasicouniversitario');
+
+INSERT INTO football_content (nombre_partido, descripcion, pagina_oficial, estadio, equipos, nacionalidad, duracion, anho, otros_datos, jugadores, url_image, url_video)
+VALUES ('El Clásico del Astillero', 'El derbi entre los equipos más populares de Guayaquil.', 'https://www.barcaymelateam.com/', 'Estadio George Capwell', 'Barcelona SC vs Club Sport Emelec', 'Ecuatoriana', 90, 2023, 'Una tradición futbolística que une a toda una ciudad.', 'Díaz, Cabezas, Caicedo', 'https://urlimage.com/clasicodelastillero', 'https://urlvideo.com/clasicodelastillero');
+
+INSERT INTO football_content (nombre_partido, descripcion, pagina_oficial, estadio, equipos, nacionalidad, duracion, anho, otros_datos, jugadores, url_image, url_video)
+VALUES ('El Derbi Valenciano', 'El choque entre los dos equipos más importantes de la Comunidad Valenciana.', 'https://www.valenciacf.com/', 'Estadio Mestalla', 'Valencia CF vs Villarreal CF', 'Española', 90, 2023, 'Una rivalidad que se vive con intensidad en toda la región.', 'Gómez, Moreno, Soler', 'https://urlimage.com/derbivalenciano', 'https://urlvideo.com/derbivalenciano');
+
+INSERT INTO football_content (nombre_partido, descripcion, pagina_oficial, estadio, equipos, nacionalidad, duracion, anho, otros_datos, jugadores, url_image, url_video)
+VALUES ('Final de la Copa Libertadores', 'La definición del torneo más prestigioso de clubes en América del Sur.', 'https://www.conmebol.com/es/copa-libertadores', 'Estadio Centenario', 'Boca Juniors vs River Plate', 'Argentina', 90, 2023, 'Una final histórica entre dos eternos rivales.', 'Zárate, De La Cruz, Tevez', 'https://urlimage.com/copalibertadoresfinal', 'https://urlvideo.com/copalibertadoresfinal');
+
+
+
+-- Inserts para la tabla F1Content
+INSERT INTO f1Content (nombre_carrera, descripcion, pagina_oficial, circuito, equipos, nacionalidad, duracion, anho, otros_datos, pilotos, url_image, url_video)
+VALUES ('Gran Premio de Mónaco', 'La carrera más glamurosa de la Fórmula 1.', 'https://www.formula1.com/', 'Circuito de Mónaco', 'Mercedes, Red Bull Racing, Ferrari', 'Internacional', 120, 2023, 'El circuito callejero más famoso del mundo.', 'Lewis Hamilton, Max Verstappen, Charles Leclerc', 'https://urlimage.com/monaco', 'https://urlvideo.com/monaco');
+
+INSERT INTO f1Content (nombre_carrera, descripcion, pagina_oficial, circuito, equipos, nacionalidad, duracion, anho, otros_datos, pilotos, url_image, url_video)
+VALUES ('Gran Premio de Italia', 'Una carrera legendaria con mucha historia.', 'https://www.formula1.com/', 'Autodromo Nazionale Monza', 'Alfa Romeo Racing, McLaren, Williams Racing', 'Internacional', 120, 2023, 'Conocida por su alta velocidad y emocionantes adelantamientos.', 'Daniel Ricciardo, Fernando Alonso, Nicholas Latifi', 'https://urlimage.com/italia', 'https://urlvideo.com/italia');
+
+INSERT INTO f1Content (nombre_carrera, descripcion, pagina_oficial, circuito, equipos, nacionalidad, duracion, anho, otros_datos, pilotos, url_image, url_video)
+VALUES ('Gran Premio de Estados Unidos', 'Una carrera emocionante en el Circuito de las Américas.', 'https://www.formula1.com/', 'Circuit of The Americas', 'McLaren, Red Bull Racing, Aston Martin', 'Internacional', 120, 2023, 'Una de las pistas más modernas y desafiantes del calendario.', 'Lando Norris, Sergio Pérez, Sebastian Vettel', 'https://urlimage.com/usa', 'https://urlvideo.com/usa');
+
+INSERT INTO f1Content (nombre_carrera, descripcion, pagina_oficial, circuito, equipos, nacionalidad, duracion, anho, otros_datos, pilotos, url_image, url_video)
+VALUES ('Gran Premio de Japón', 'Una carrera icónica en el legendario Circuito de Suzuka.', 'https://www.formula1.com/', 'Circuito de Suzuka', 'AlphaTauri, Alpine, Haas', 'Internacional', 120, 2023, 'Famoso por su "S", la famosa curva en forma de "S".', 'Pierre Gasly, Esteban Ocon, Mick Schumacher', 'https://urlimage.com/japon', 'https://urlvideo.com/japon');
+
+INSERT INTO f1Content (nombre_carrera, descripcion, pagina_oficial, circuito, equipos, nacionalidad, duracion, anho, otros_datos, pilotos, url_image, url_video)
+VALUES ('Gran Premio de Bélgica', 'Una carrera desafiante en el Circuito de Spa-Francorchamps.', 'https://www.formula1.com/', 'Circuito de Spa-Francorchamps', 'Alpine, Aston Martin, Red Bull Racing', 'Internacional', 120, 2023, 'Conocida como la "Catedral de la Velocidad".', 'Fernando Alonso, Sebastian Vettel, Sergio Pérez', 'https://urlimage.com/belgica', 'https://urlvideo.com/belgica');
+
+INSERT INTO f1Content (nombre_carrera, descripcion, pagina_oficial, circuito, equipos, nacionalidad, duracion, anho, otros_datos, pilotos, url_image, url_video)
+VALUES ('Gran Premio de Singapur', 'La carrera nocturna más emocionante en el Marina Bay Street Circuit.', 'https://www.formula1.com/', 'Marina Bay Street Circuit', 'Williams Racing, Alfa Romeo Racing, Haas', 'Internacional', 120, 2023, 'Un espectáculo visual único con luces deslumbrantes.', 'George Russell, Kimi Räikkönen, Nikita Mazepin', 'https://urlimage.com/singapur', 'https://urlvideo.com/singapur');
+
+INSERT INTO f1Content (nombre_carrera, descripcion, pagina_oficial, circuito, equipos, nacionalidad, duracion, anho, otros_datos, pilotos, url_image, url_video)
+VALUES ('Gran Premio de Australia', 'La carrera de apertura de la temporada en el Albert Park Circuit.', 'https://www.formula1.com/', 'Albert Park Circuit', 'Ferrari, McLaren, AlphaTauri', 'Internacional', 120, 2023, 'El inicio de la emoción y la competencia en la Fórmula 1.', 'Carlos Sainz, Daniel Ricciardo, Yuki Tsunoda', 'https://urlimage.com/australia', 'https://urlvideo.com/australia');
+
+INSERT INTO f1Content (nombre_carrera, descripcion, pagina_oficial, circuito, equipos, nacionalidad, duracion, anho, otros_datos, pilotos, url_image, url_video)
+VALUES ('Gran Premio de Gran Bretaña', 'La carrera en el histórico Circuito de Silverstone.', 'https://www.formula1.com/', 'Silverstone Circuit', 'Mercedes, Aston Martin, Red Bull Racing', 'Internacional', 120, 2023, 'Una de las carreras más antiguas y emocionantes del calendario.', 'Lewis Hamilton, Sebastian Vettel, Max Verstappen', 'https://urlimage.com/granbretana', 'https://urlvideo.com/granbretana');
+
+INSERT INTO f1Content (nombre_carrera, descripcion, pagina_oficial, circuito, equipos, nacionalidad, duracion, anho, otros_datos, pilotos, url_image, url_video)
+VALUES ('Gran Premio de Brasil', 'La carrera en el icónico Autódromo José Carlos Pace.', 'https://www.formula1.com/', 'Autódromo José Carlos Pace', 'McLaren, Alpine, Ferrari', 'Internacional', 120, 2023, 'Famoso por su inclinada curva final.', 'Lando Norris, Fernando Alonso, Charles Leclerc', 'https://urlimage.com/brasil', 'https://urlvideo.com/brasil');
+
+INSERT INTO f1Content (nombre_carrera, descripcion, pagina_oficial, circuito, equipos, nacionalidad, duracion, anho, otros_datos, pilotos, url_image, url_video)
+VALUES ('Gran Premio de Abu Dhabi', 'La carrera final de la temporada en el Yas Marina Circuit.', 'https://www.formula1.com/', 'Yas Marina Circuit', 'Red Bull Racing, Mercedes, Ferrari', 'Internacional', 120, 2023, 'La carrera decisiva que puede cambiar el campeonato.', 'Max Verstappen, Lewis Hamilton, Carlos Sainz', 'https://urlimage.com/abudhabi', 'https://urlvideo.com/abudhabi');
+
+
 -- Comentarios
-INSERT INTO Comentario (texto, valoracion, fecha_comentario, email_Usuario, nombre_pelicula_Pelicula)
-VALUES ('Una obra maestra, actuaciones increíbles.', 5, '2023-01-05', 'rafael@example.com', 'El Padrino');
+--INSERT INTO Comentario (texto, valoracion, fecha_comentario, email_Usuario, nombre_pelicula_Pelicula)
+--VALUES ('Una obra maestra, actuaciones increíbles.', 5, '2023-01-05', 'rafael@example.com', 'El Padrino');
 
-INSERT INTO Comentario (texto, valoracion, fecha_comentario, email_Usuario, nombre_pelicula_Pelicula)
-VALUES ('Emocionante de principio a fin.', 4, '2023-01-06', 'maria@example.com', 'Cadena Perpetua');
+--INSERT INTO Comentario (texto, valoracion, fecha_comentario, email_Usuario, nombre_pelicula_Pelicula)
+--VALUES ('Emocionante de principio a fin.', 4, '2023-01-06', 'maria@example.com', 'Cadena Perpetua');
 
-INSERT INTO Comentario (texto, valoracion, fecha_comentario, email_Usuario, nombre_pelicula_Pelicula)
-VALUES ('Efectos visuales asombrosos.', 4, '2023-01-07', 'carlos@example.com', 'El Caballero Oscuro');
+--INSERT INTO Comentario (texto, valoracion, fecha_comentario, email_Usuario, nombre_pelicula_Pelicula)
+--VALUES ('Efectos visuales asombrosos.', 4, '2023-01-07', 'carlos@example.com', 'El Caballero Oscuro');
 
 
 
