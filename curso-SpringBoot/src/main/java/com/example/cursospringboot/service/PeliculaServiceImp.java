@@ -53,6 +53,7 @@ public class PeliculaServiceImp implements PeliculaService{
         pelicula.setActores(detallesPelicula.getActores());
         pelicula.setUrl_image(detallesPelicula.getUrl_image());
         pelicula.setUrl_video(detallesPelicula.getUrl_video());
+        pelicula.setCalificacion(detallesPelicula.getCalificacion());
         // Actualiza otros campos según sea necesario
 
         return peliculaRepository.save(pelicula);

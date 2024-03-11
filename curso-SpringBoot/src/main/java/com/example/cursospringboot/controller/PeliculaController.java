@@ -33,7 +33,7 @@ public class PeliculaController {
     public String getAllPeliculas(Model model) {
         List<Pelicula> listaPeliculas = peliculaService.getAllPeliculas();
         model.addAttribute("listaPeliculas", listaPeliculas);
-        return "pagPrincipal";  // nombre de tu archivo Thymeleaf sin la extensión .html
+        return "index";  // nombre de tu archivo Thymeleaf sin la extensión .html
     }
 
 

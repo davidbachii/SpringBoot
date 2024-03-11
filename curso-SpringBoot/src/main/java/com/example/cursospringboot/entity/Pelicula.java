@@ -57,6 +57,9 @@ public class Pelicula{
         @Column(name = "url_video", length = 100, nullable = false)
         private String url_video;
 
+        @Column(name = "calificacion", length = 3, nullable = false)
+        private double calificacion;
+
         @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, orphanRemoval = true)
         private List<Comentario> comentarios;
 
@@ -70,7 +73,7 @@ public class Pelicula{
 
         //Constructor con parametros
 
-        public Pelicula(String nombrePelicula, String sinopsis, String paginaOficial, String tituloOriginal, String genero, String nacionalidad, Integer duracion, Integer anho, String distribuidora, String director, Short clasificacionEdad, String otrosDatos, String actores, String url_image, String url_video) {
+        public Pelicula(String nombrePelicula, String sinopsis, String paginaOficial, String tituloOriginal, String genero, String nacionalidad, Integer duracion, Integer anho, String distribuidora, String director, Short clasificacionEdad, String otrosDatos, String actores, String url_image, String url_video, double calificacion) {
             this.nombrePelicula = nombrePelicula;
             this.sinopsis = sinopsis;
             this.paginaOficial = paginaOficial;
@@ -86,6 +89,7 @@ public class Pelicula{
             this.actores = actores;
             this.url_image = url_image;
             this.url_video = url_video;
+            this.calificacion = calificacion;
 
         }
 
@@ -215,6 +219,16 @@ public class Pelicula{
         public void setUrl_video(String url_video) {
             this.url_video = url_video;
         }
+
+
+        public double getCalificacion() {
+            return calificacion;
+        }
+
+        public void setCalificacion(double calificacion) {
+            this.calificacion = calificacion;
+        }
+
 
 
         public List<Comentario> getComentarios() {
