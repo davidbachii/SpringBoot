@@ -66,7 +66,7 @@
                             <h1 class="tag" th:text="${pelicula.getCalificacion()}"></h1>
 
                             <div class="img has-background">
-                                <a href="pelicula/oppenheimer" class="event-pop-link">
+                                <a th:href="@{'/api/peliculas/' + ${pelicula.getNombrePelicula()}}" class="event-pop-link">
                                     <div class="event-pop-info">
                                         <p class="price" style="font-size:1.1em; padding: 5px;" th:text="${pelicula.getNombrePelicula()}"></p>
                                         <span style="font-size: 0.90em; background-color: #53234f;"

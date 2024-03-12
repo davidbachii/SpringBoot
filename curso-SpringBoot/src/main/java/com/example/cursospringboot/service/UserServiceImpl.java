@@ -69,8 +69,11 @@ public class UserServiceImpl implements UserService{
     // Metodo para la autenticacion de un usuario
     @Override
     public boolean authenticateUser(String email, String password) {
-        User user = userRepository.findById(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(email).orElse(null);
+
+        if(user == null){
+            return false;
+        }
         return user.getContrasenha().equals(password);
     }
 
