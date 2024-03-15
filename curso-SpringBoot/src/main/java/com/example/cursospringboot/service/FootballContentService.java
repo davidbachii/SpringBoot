@@ -9,11 +9,14 @@ public interface FootballContentService {
 
     List<FootballContent> getAllFootballContent();
 
-    Optional<FootballContent> getFootballContentByNombrePartido(Long id);
+    Optional<FootballContent> getFootballContentByNombrePartido(String nombrePartido);
 
     FootballContent createFootballContent(FootballContent footballContent);
 
-    FootballContent updateFootballContent(Long id, FootballContent footballContentDetails);
+    FootballContent updateFootballContent(String nombrePartido, FootballContent footballContentDetails);
 
-    void deleteFootballContent(Long id);
+    void deleteFootballContent(String nombrePartido);
+
+
+
 }

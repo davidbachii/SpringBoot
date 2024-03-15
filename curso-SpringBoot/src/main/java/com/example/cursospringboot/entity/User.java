@@ -13,8 +13,6 @@ import java.util.Set;
 @Table(name = "Usuario")
 public class User {
 
-
-
     @Id
     @Column(name = "email", nullable = false, length = 50)
     private String email;

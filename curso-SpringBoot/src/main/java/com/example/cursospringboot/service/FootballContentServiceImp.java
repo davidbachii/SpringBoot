@@ -1,6 +1,7 @@
 package com.example.cursospringboot.service;
 
 
+import com.example.cursospringboot.entity.F1Content;
 import com.example.cursospringboot.entity.FootballContent;
 import com.example.cursospringboot.repository.FootballContentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,10 @@ import java.util.Optional;
 @Service
 public class FootballContentServiceImp implements FootballContentService{
 
+
     @Autowired
     private FootballContentRepository footballContentRepository;
+
 
     // Implementación de los métodos del repositorio
     @Override
@@ -22,8 +25,8 @@ public class FootballContentServiceImp implements FootballContentService{
     }
 
     @Override
-    public Optional<FootballContent> getFootballContentByNombrePartido(Long id) {
-        return footballContentRepository.findById(id);
+    public Optional<FootballContent> getFootballContentByNombrePartido(String nombrePartido) {
+        return footballContentRepository.findByNombreContenido(nombrePartido);
     }
 
     @Override
@@ -32,8 +35,8 @@ public class FootballContentServiceImp implements FootballContentService{
     }
 
     @Override
-    public FootballContent updateFootballContent(Long id, FootballContent footballContentDetails) {
-        FootballContent footballContent = footballContentRepository.findById(id)
+    public FootballContent updateFootballContent(String nombrePartido, FootballContent footballContentDetails) {
+        FootballContent footballContent = footballContentRepository.findByNombreContenido(nombrePartido)
                 .orElseThrow(() -> new RuntimeException("FootballContent not found"));
 
         footballContent.setAnho(footballContentDetails.getAnho());
@@ -42,10 +45,9 @@ public class FootballContentServiceImp implements FootballContentService{
         footballContent.setEstadio(footballContentDetails.getEstadio());
         footballContent.setJugadores(footballContentDetails.getJugadores());
         footballContent.setNacionalidad(footballContentDetails.getNacionalidad());
-        footballContent.setPaginaOficial(footballContentDetails.getPaginaOficial());
         footballContent.setAnho(footballContentDetails.getAnho());
         footballContent.setOtrosDatos(footballContentDetails.getOtrosDatos());
-        footballContent.setNombrePartido(footballContentDetails.getNombrePartido());
+        footballContent.setNombreContenido(footballContentDetails.getNombreContenido());
         footballContent.setUrl_image(footballContentDetails.getUrl_image());
         footballContent.setUrl_video(footballContentDetails.getUrl_video());
         // Actualiza otros campos según sea necesario
@@ -56,9 +58,13 @@ public class FootballContentServiceImp implements FootballContentService{
     }
 
     @Override
-    public void deleteFootballContent(Long id) {
-        footballContentRepository.deleteById(id);
+    public void deleteFootballContent(String nombrePartido) {
+        FootballContent footballContent = footballContentRepository.findByNombreContenido(nombrePartido)
+                .orElseThrow(() -> new RuntimeException("Carrera de F1 not found"));
+        footballContentRepository.delete(footballContent);
     }
+
+
 
 
 

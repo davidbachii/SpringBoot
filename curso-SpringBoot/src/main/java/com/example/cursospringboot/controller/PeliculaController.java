@@ -2,8 +2,6 @@ package com.example.cursospringboot.controller;
 
 
 import com.example.cursospringboot.entity.Pelicula;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import com.example.cursospringboot.service.PeliculaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +38,7 @@ public class PeliculaController {
 
     @GetMapping("/{nombrePelicula}")
     public String getPelicula(@PathVariable String nombrePelicula, Model model) {
-        String decodedNombrePelicula = URLDecoder.decode(nombrePelicula, StandardCharsets.UTF_8);
-        Pelicula pelicula = peliculaService.getPeliculaByNombre(decodedNombrePelicula)
+        Pelicula pelicula = peliculaService.getPeliculaByNombre(nombrePelicula)
                 .orElseThrow(() -> new RuntimeException("Pelicula not found"));
         model.addAttribute("pelicula", pelicula);
         return "indexDetallado";

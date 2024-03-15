@@ -42,7 +42,7 @@ public class ComentarioServiceImp implements ComentarioService {
         comentario.setValoracion(detallesComentario.getValoracion());
         comentario.setFechaComentario(detallesComentario.getFechaComentario());
         comentario.setUsuario(detallesComentario.getUsuario());
-        comentario.setPelicula(detallesComentario.getPelicula());
+       // comentario.setContenido(detallesComentario.getContenido());
         // Actualiza otros campos según sea necesario
 
         return comentarioRepository.save(comentario);
