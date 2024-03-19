@@ -118,8 +118,16 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'POST',
             data: { 'mail-2': emailAcceso, 'pswd-2': contrasena },
             success: function(response) {
-                // Si la autenticación es exitosa, redirige al usuario a la API de películas
-                window.location.href = '/api/peliculas/';
+                if (response === "Autenticación exitosa") {
+                    // Si la autenticación es exitosa, redirigir al usuario a la API de películas
+                    window.location.href = '/api/peliculas/';
+                } else if (response === "Sin plan de suscripción, por favor selecciona uno.") {
+                    // Si el usuario no tiene un plan de suscripción, redirigir a la página de actualización de plan
+                    window.location.href = '/api/users/planSuscripcion';
+                } else {
+                    // Otro caso de respuesta (como error de autenticación)
+                    document.getElementById('error-contrasena-acceso').textContent = response;
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // Si la autenticación falla, muestra el mensaje de error al usuario

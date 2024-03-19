@@ -90,16 +90,29 @@ public class UserController {
 
 
     @PostMapping("/AccederUsuario")
-    public ResponseEntity<String> authenticateUser(@RequestParam("mail-2") String email, @RequestParam("pswd-2") String password) {
-        boolean authenticated = userService.authenticateUser(email, password);
-        if (authenticated) {
-            // Autenticación exitosa, devuelve un mensaje de éxito
-            return ResponseEntity.status(HttpStatus.OK).body("Autenticación exitosa");
+    public ResponseEntity<String> authenticateUser(@RequestParam("mail-2") String email, @RequestParam("pswd-2") String password, HttpSession session) {
+        Optional<User> userOptional = userService.getUserByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (userService.authenticateUser(email, password)) {
+                if (user.getPlanSuscripcion().equals("Sin Plan")) {
+                    // Si el usuario no tiene un plan de suscripción, crear una sesión y redirigir a la página de actualización de plan
+                    session.setAttribute("user", user);
+                    return ResponseEntity.status(HttpStatus.OK).body("Sin plan de suscripción, por favor selecciona uno.");
+                } else {
+                    // El usuario tiene un plan de suscripción, redirigir a la página de películas
+                    return ResponseEntity.status(HttpStatus.OK).body("Autenticación exitosa");
+                }
+            } else {
+                // Autenticación fallida, devuelve un mensaje de error
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario o contraseña incorrectos");
+            }
         } else {
-            // Autenticación fallida, devuelve un mensaje de error
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario o contraseña incorrectos");
+            // Usuario no encontrado, devuelve un mensaje de error
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no encontrado");
         }
     }
+
 
 
 
