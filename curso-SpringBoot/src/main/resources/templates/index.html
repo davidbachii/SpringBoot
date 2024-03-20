@@ -16,6 +16,7 @@
     <meta property="og:title" content="Plataforma de Contenido Multimedia | Web oficial"/>
     <meta property="og:description" content="Plataforma para visualizar todo tipo de contenidos multimedia"/>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Bootstrap core CSS -->
 
@@ -32,20 +33,18 @@
     <div class="header">
         <nav class="navbar fixed-top navbar-site navbar-light bg-light navbar-expand-lg" role="navigation">
             <div class="container">
-                <div class="navbar-identity">
-                    <a href="/" class="navbar-brand logo logo-title">
-                        <img th:src="@{/images/Logo.PNG}" style="width:200px; height: 50px" /></a>
+                <div class="form-group">
+                    <input type="text" id="search-input" class="form-control form-control-lg" placeholder="Buscar películas...">
 
                 </div>
                 <div class="navbar-collapse collapse" style="height: auto;">
                     <ul class="nav navbar-nav ml-auto navbar-right">
-                        <li class="nav-item"><a href="#" class="nav-link">PELÍCULAS</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">PARTIDOS DE FÚTBOL</a></li>
+                        <li class="nav-item"><a th:href="@{/api/peliculas/}" class="nav-link">PELÍCULAS</a></li>                        <li class="nav-item"><a href="#" class="nav-link">PARTIDOS DE FÚTBOL</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">CARRERAS DE F1</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">CONTENIDO EN DIRECTO</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">COMUNIDADES</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">PERFIL</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">INICIAR SESIÓN</a></li>
+                        <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">INICIAR SESIÓN</a></li>
                     </ul>
                 </div>
                 <!--/.nav-collapse -->
@@ -59,6 +58,7 @@
 
             <div class="white-box">
                 <h3 class="titulo-cine">ELIGE LA PELICULA</h3>
+                <div id="search-results"></div>
                 <div class="row">
                     <div th:each="pelicula : ${listaPeliculas}"  class="col-6 col-sm-4 col-md-3 col-xl-2dot4 mb20">
                         <div class="card card-event info-overlay">
@@ -68,7 +68,7 @@
                             <div class="img has-background">
                                 <a th:href="@{'/api/peliculas/' + ${pelicula.getNombreContenido()}}" class="event-pop-link">
                                     <div class="event-pop-info">
-                                        <p class="price" style="font-size:1.1em; padding: 5px;" th:text="${pelicula.getNombreContenido()()}"></p>
+                                        <p class="price" style="font-size:1.1em; padding: 5px;" th:text="${pelicula.getNombreContenido()}"></p>
                                         <span style="font-size: 0.90em; background-color: #53234f;"
                                               class="badge badge-primary">VER CONTENIDO</span><br/><br/>
                                     </div>
@@ -80,14 +80,54 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#search-input').on('input', function() {
+            var query = $(this).val();
+            var url = query ? '/api/peliculas/search/realtime' : '/api/peliculas/';
+            $.ajax({
+                url: url,
+                data: {
+                    query: query
+                },
+                success: function(data) {
+                    // Vacía el contenedor de resultados de búsqueda
+                    $('#search-results').empty();
+                    // Itera sobre los resultados de la búsqueda
+                    $.each(data, function(index, pelicula) {
+                        var peliculaElement = `
+                        <div class="row">
+                            <div class="col-6 col-sm-4 col-md-3 col-xl-2dot4 mb20">
+                                <div class="card card-event info-overlay">
+                                    <h1 class="tag">${pelicula.calificacion}</h1>
+                                    <div class="img has-background">
+                                        <a href="/api/peliculas/${pelicula.nombreContenido}" class="event-pop-link">
+                                            <div class="event-pop-info">
+                                                <p class="price" style="font-size:1.1em; padding: 5px;">${pelicula.nombreContenido}</p>
+                                                <span style="font-size: 0.90em; background-color: #53234f;" class="badge badge-primary">VER CONTENIDO</span><br/><br/>
+                                            </div>
+                                        </a>
+                                        <a href="/api/peliculas/${pelicula.nombreContenido}"><img class="img-responsive" src="/${pelicula.url_image}"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                        // Crea un nuevo elemento de película para cada resultado de la búsqueda
+                        // Agrega el nuevo elemento de película al contenedor de resultados de búsqueda
+                        $('#search-results').append(peliculaElement);
+                    });
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

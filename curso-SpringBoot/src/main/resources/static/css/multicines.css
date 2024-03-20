@@ -63,7 +63,7 @@ h3.titulo-cine {
     margin-bottom: 10px;
 }
 
-/* Sobrescritos por Juanma */
+
 .navbar-site.navbar {
     background-color: #53234f !important;
 }
@@ -436,6 +436,7 @@ body {
 .table-sala tr:nth-child(even) {
     background-color: #f5f5f5;
 }
+
 
 .text-naranja {
     color: #F7941D;

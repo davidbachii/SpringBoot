@@ -27,8 +27,8 @@
                 </div>
                 <div class="navbar-collapse collapse" style="height: auto;">
                     <ul class="nav navbar-nav ml-auto navbar-right">
-                        <li class="nav-item"><a href="index.jsp" class="nav-link">VOLVER AL MENU DE PELICULAS</a></li>
-                        <li class="nav-item"><a href="login.jsp" class="nav-link">REGISTRARSE</a></li>
+                        <li class="nav-item"><a th:href="@{/api/peliculas/}" class="nav-link">VOLVER AL MENU DE PELICULAS</a></li>
+                        <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">REGISTRARSE</a></li>
                     </ul>
                 </div>
             </div>
@@ -39,7 +39,7 @@
 
 
             <div class="row clearfix">
-                <h1 class="text-center title-1" th:text="${pelicula.getNombrePelicula()}"></h1>
+                <h1 class="text-center title-1" th:text="${pelicula.getNombreContenido()}"></h1>
                 <hr class="mx-auto small text-hr" style="margin-bottom: 30px !important">
 
                 <div style="clear:both">
@@ -53,9 +53,9 @@
                 <div class="row mb20">
                     <div class="col-3 d-none d-md-block">
 
-                        <a th:src="@{'/' + ${pelicula.getUrl_image}}" data-toggle="lightbox"><img class="img-responsive"
+                        <a th:src="@{'/' + ${pelicula.getUrl_image()}}" data-toggle="lightbox"><img class="img-responsive"
                                                                                                   style="width: 262px;"
-                                                                                                  th:src="@{'/' + ${pelicula.getUrl_image}}"/></a>
+                                                                                                  th:src="@{'/' + ${pelicula.getUrl_image()}}"/></a>
 
 
                     </div>

@@ -65,5 +65,10 @@ public class PeliculaServiceImp implements PeliculaService{
         peliculaRepository.delete(pelicula);
     }
 
+    @Override
+    public List<Pelicula> searchPeliculas(String query) {
+        return peliculaRepository.findByNombreContenidoStartingWith(query);
+    }
+
 
 }

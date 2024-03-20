@@ -4,6 +4,7 @@ import com.example.cursospringboot.entity.Pelicula;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -14,4 +15,5 @@ public interface PeliculaRepository extends JpaRepository<Pelicula, Long> {
     Para eso usamos jpa repository que es una interfaz que nos permite hacer consultas a la base de datos
     */
     Optional<Pelicula> findByNombreContenido(String nombreContenido);
+    List<Pelicula> findByNombreContenidoStartingWith(String query);
 }

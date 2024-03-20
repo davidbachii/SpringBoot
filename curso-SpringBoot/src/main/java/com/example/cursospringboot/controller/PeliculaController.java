@@ -44,6 +44,12 @@ public class PeliculaController {
         return "indexDetallado";
     }
 
+    @GetMapping("/search/realtime")
+    @ResponseBody
+    public List<Pelicula> realtimeSearch(@RequestParam String query) {
+        return peliculaService.searchPeliculas(query);
+    }
+
 
 
 
