@@ -55,11 +55,14 @@
     <!-- /.header -->
     <div class="main-container inner-page flex-fill " style="padding-top: 30px !important;">
         <div class="container">
-
+            <!-- Resultados de búsqueda -->
+            <div id="search-results"></div>
+            <!-- Lista de películas -->
             <div class="white-box">
                 <h3 class="titulo-cine">ELIGE LA PELICULA</h3>
-                <div id="search-results"></div>
+
                 <div class="row">
+                    <!-- Iteración sobre películas -->
                     <div th:each="pelicula : ${listaPeliculas}"  class="col-6 col-sm-4 col-md-3 col-xl-2dot4 mb20">
                         <div class="card card-event info-overlay">
 
@@ -100,10 +103,16 @@
                 success: function(data) {
                     // Vacía el contenedor de resultados de búsqueda
                     $('#search-results').empty();
-                    // Itera sobre los resultados de la búsqueda
+
+                    // Crea un nuevo elemento de película para cada resultado de la búsqueda
+                    var peliculasElement = `
+                        <div class="white-box">
+                            <h3 class="titulo-cine">RESULTADOS DE BÚSQUEDA</h3>
+                            <div class="row">
+                    `;
+
                     $.each(data, function(index, pelicula) {
-                        var peliculaElement = `
-                        <div class="row">
+                        peliculasElement += `
                             <div class="col-6 col-sm-4 col-md-3 col-xl-2dot4 mb20">
                                 <div class="card card-event info-overlay">
                                     <h1 class="tag">${pelicula.calificacion}</h1>
@@ -118,11 +127,16 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>`;
-                        // Crea un nuevo elemento de película para cada resultado de la búsqueda
-                        // Agrega el nuevo elemento de película al contenedor de resultados de búsqueda
-                        $('#search-results').append(peliculaElement);
+                        `;
                     });
+
+                    peliculasElement += `
+                            </div>
+                        </div>
+                    `;
+
+                    // Agrega todos los elementos de película al contenedor de resultados de búsqueda
+                    $('#search-results').append(peliculasElement);
                 }
             });
         });

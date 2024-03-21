@@ -29,11 +29,13 @@ public class PeliculaServiceImp implements PeliculaService{
     }
 
     @Override
+    @Transactional
     public Pelicula createPelicula(Pelicula pelicula) {
         return peliculaRepository.save(pelicula);
     }
 
     @Override
+    @Transactional
     public Pelicula updatePelicula(String nombrePelicula, Pelicula detallesPelicula) {
         Pelicula pelicula = peliculaRepository.findByNombreContenido(nombrePelicula)
                 .orElseThrow(() -> new RuntimeException("Pelicula not found"));
@@ -59,6 +61,7 @@ public class PeliculaServiceImp implements PeliculaService{
     }
 
     @Override
+    @Transactional
     public void deletePelicula(String nombrePelicula) {
         Pelicula pelicula = peliculaRepository.findByNombreContenido(nombrePelicula)
                 .orElseThrow(() -> new RuntimeException("Pelicula not found"));
