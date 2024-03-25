@@ -7,9 +7,7 @@ import java.util.List;
 @Table(name = "FootballContent")
 public class FootballContent extends Contenido{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     @Column(name = "estadio", length = 50, nullable = false)
     private String estadio;
     @Column(name = "equipos", length = 50, nullable = false)

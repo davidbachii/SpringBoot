@@ -6,11 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "LiveContent")
-public class LiveContent {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class LiveContent extends Contenido {
 
     @Column(name = "startTime",  nullable = false, length = 20)
     private LocalDateTime startTime;
@@ -27,7 +23,8 @@ public class LiveContent {
     }
 
     //Constructor con parametros
-    public LiveContent(LocalDateTime startTime, LocalDateTime endTime, String type) {
+    public LiveContent(String nombreContenido, String descripcion, String tipo, Integer anho, String url_image, String url_video, LocalDateTime startTime, LocalDateTime endTime, String type) {
+        super(nombreContenido, descripcion, tipo, anho, url_image, url_video);
         this.startTime = startTime;
         this.endTime = endTime;
         this.type = type;

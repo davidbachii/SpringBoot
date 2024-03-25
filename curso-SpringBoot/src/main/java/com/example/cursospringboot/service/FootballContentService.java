@@ -1,6 +1,7 @@
 package com.example.cursospringboot.service;
 
 import com.example.cursospringboot.entity.FootballContent;
+import com.example.cursospringboot.entity.Pelicula;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +17,8 @@ public interface FootballContentService {
     FootballContent updateFootballContent(String nombrePartido, FootballContent footballContentDetails);
 
     void deleteFootballContent(String nombrePartido);
+
+    public List<FootballContent> searchFootballContent(String query);
 
 
 

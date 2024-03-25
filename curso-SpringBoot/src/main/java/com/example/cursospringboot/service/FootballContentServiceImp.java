@@ -3,6 +3,7 @@ package com.example.cursospringboot.service;
 
 import com.example.cursospringboot.entity.F1Content;
 import com.example.cursospringboot.entity.FootballContent;
+import com.example.cursospringboot.entity.Pelicula;
 import com.example.cursospringboot.repository.FootballContentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,6 +63,11 @@ public class FootballContentServiceImp implements FootballContentService{
         FootballContent footballContent = footballContentRepository.findByNombreContenido(nombrePartido)
                 .orElseThrow(() -> new RuntimeException("Carrera de F1 not found"));
         footballContentRepository.delete(footballContent);
+    }
+
+    @Override
+    public List<FootballContent> searchFootballContent(String query) {
+        return footballContentRepository.findByNombreContenidoStartingWith(query);
     }
 
 

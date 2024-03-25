@@ -10,9 +10,7 @@ import java.util.Set;
 public class Pelicula extends Contenido {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     @Column(name = "tituloOriginal", length = 50, nullable = false)
     private String tituloOriginal;
 

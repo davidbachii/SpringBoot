@@ -7,8 +7,6 @@ import jakarta.persistence.*;
 @Table(name = "TarjetaCredito")
 public class TarjetaCredito {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

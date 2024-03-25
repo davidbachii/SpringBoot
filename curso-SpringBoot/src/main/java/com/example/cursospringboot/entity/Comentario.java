@@ -21,15 +21,17 @@ public class Comentario{
     @Column(name = "fechaComentario", length = 12, nullable = false)
     private String fechaComentario;
 
+    @Column(name = "tipo_Comentario", length = 18, nullable = false)
+    private String tipoComentario;
+
 
 
     @ManyToOne
     @JoinColumn(name = "user_email", referencedColumnName = "email",  nullable = false)
     private User usuario;
 
-   //@ManyToOne
-   //@JoinColumn(name = "contenido_id", referencedColumnName = "id", nullable = false)
-   //private Contenido contenido;
+
+
 
 
     //Constructor
@@ -73,6 +75,16 @@ public class Comentario{
     public void setUsuario(User usuario) {
         this.usuario = usuario;
     }
+
+    public String getTipoComentario() {
+        return tipoComentario;
+    }
+
+    public void setTipoComentario(String tipoComentario) {
+        this.tipoComentario = tipoComentario;
+    }
+
+
 
 
 }

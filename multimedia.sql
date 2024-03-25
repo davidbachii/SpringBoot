@@ -66,6 +66,17 @@ VALUES ('El Silencio de los Inocentes', 'Un joven agente del FBI busca la ayuda 
 INSERT INTO Pelicula (nombre_contenido, descripcion, titulo_original, genero, nacionalidad, duracion, anho, distribuidora, director, clasificacion_edad, otros_datos, actores, url_image, url_video, calificacion, tipo)
 VALUES ('La La Land', 'Un pianista de jazz y una aspirante a actriz se enamoran en Los Ángeles mientras persiguen sus sueños. Una historia de amor y ambición ambientada en la vibrante ciudad de las estrellas.', 'La La Land', 'Comedia, Drama, Musical', 'Estados Unidos', 128, 2016, 'Summit Entertainment', 'Damien Chazelle', 7, 'Ganadora de 6 premios Oscar.', 'Ryan Gosling, Emma Stone, John Legend', 'images/LaLaLand.jpg', 'https://www.youtube.com/embed/0pdqf4P9MB8?si=Tw-k8yPtTsmfqEUv', 7.8, 'pelicula');
 
+-- Película 1: El Corredor del Laberinto
+INSERT INTO Pelicula (nombre_contenido, descripcion, titulo_original, genero, nacionalidad, duracion, anho, distribuidora, director, clasificacion_edad, otros_datos, actores, url_image, url_video, calificacion, tipo)
+VALUES ('El Corredor del Laberinto', 'Un joven despierta en un ascensor con amnesia rodeado de un grupo de jóvenes en un claro rodeado por un laberinto impenetrable. Pronto aprenden que deben unir fuerzas para escapar del laberinto y descubrir quiénes son y por qué están ahí.', 'The Maze Runner', 'Acción, Ciencia Ficción, Aventura', 'Estados Unidos', 113, 2014, '20th Century Fox', 'Wes Ball', 12, 'Basada en la novela de James Dashner.', 'Dylan O Brien, Kaya Scodelario, Thomas Brodie-Sangster', 'images/MazeRunner.jpg', 'https://www.youtube.com/embed/AwwbhhjQ9Xk', 7.2, 'pelicula');
+
+-- Película 2: El Corredor del Laberinto: Prueba de Fuego
+INSERT INTO Pelicula (nombre_contenido, descripcion, titulo_original, genero, nacionalidad, duracion, anho, distribuidora, director, clasificacion_edad, otros_datos, actores, url_image, url_video, calificacion, tipo)
+VALUES ('El Corredor del Laberinto: Prueba de Fuego', 'Thomas y sus amigos se enfrentan a su mayor desafío hasta ahora: buscar pistas sobre la misteriosa y poderosa organización conocida como C.R.U.E.L. Su viaje les lleva a La Quemadura, un paisaje desolado lleno de obstáculos inimaginables.', 'Maze Runner: The Scorch Trials', 'Acción, Ciencia Ficción, Aventura', 'Estados Unidos', 131, 2015, '20th Century Fox', 'Wes Ball', 12, 'Secuela de El Corredor del Laberinto.', 'Dylan O Brien, Kaya Scodelario, Thomas Brodie-Sangster', 'images/MazeRunnerScorchTrials.jpg', 'https://www.youtube.com/embed/-44_igsZtgU', 6.3, 'pelicula');
+
+-- Película 3: El Corredor del Laberinto: La Cura Mortal
+INSERT INTO Pelicula (nombre_contenido, descripcion, titulo_original, genero, nacionalidad, duracion, anho, distribuidora, director, clasificacion_edad, otros_datos, actores, url_image, url_video, calificacion, tipo)
+VALUES ('El Corredor del Laberinto: La Cura Mortal', 'Thomas lidera a su grupo de rescatados de las mazmorras a la última y más peligrosa misión. Para salvar a sus amigos, deben entrar en la legendaria Última Ciudad, un laberinto controlado por WCKD que puede resultar ser el laberinto más mortífero de todos.', 'Maze Runner: The Death Cure', 'Acción, Ciencia Ficción, Aventura', 'Estados Unidos', 143, 2018, '20th Century Fox', 'Wes Ball', 12, 'Última entrega de la trilogía.', 'Dylan O Brien, Kaya Scodelario, Thomas Brodie-Sangster', 'images/MazeRunnerDeathCure.jpg', 'https://www.youtube.com/embed/S_9OSktlm6s', 6.2, 'pelicula');
 
 
 

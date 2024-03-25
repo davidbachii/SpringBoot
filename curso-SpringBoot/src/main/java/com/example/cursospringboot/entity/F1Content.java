@@ -7,12 +7,7 @@ import java.util.List;
 @Table(name = "F1Content")
 public class F1Content extends Contenido {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(name = "paginaOficial", length = 50, nullable = false)
-    private String paginaOficial;
 
     @Column(name = "circuito", length = 50, nullable = false)
     private String circuito;
@@ -39,9 +34,8 @@ public class F1Content extends Contenido {
     }
 
     //Constructor con parametros
-    public F1Content(String nombreContenido, String descripcion, String tipo, Integer anho, String url_image, String url_video, String paginaOficial, String circuito, String equipos, String nacionalidad, Integer duracion, String otrosDatos, String pilotos) {
+    public F1Content(String nombreContenido, String descripcion, String tipo, Integer anho, String url_image, String url_video, String circuito, String equipos, String nacionalidad, Integer duracion, String otrosDatos, String pilotos) {
         super(nombreContenido, descripcion, tipo, anho, url_image, url_video);
-        this.paginaOficial = paginaOficial;
         this.circuito = circuito;
         this.equipos = equipos;
         this.nacionalidad = nacionalidad;
@@ -51,13 +45,6 @@ public class F1Content extends Contenido {
     }
 
     //Getters y Setters
-    public String getPaginaOficial() {
-        return paginaOficial;
-    }
-
-    public void setPaginaOficial(String paginaOficial) {
-        this.paginaOficial = paginaOficial;
-    }
 
     public String getCircuito() {
         return circuito;

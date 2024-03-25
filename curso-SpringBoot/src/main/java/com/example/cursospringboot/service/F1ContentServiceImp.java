@@ -46,7 +46,6 @@ public class F1ContentServiceImp  implements F1ContentService{
         f1Content.setNacionalidad(f1ContentDetails.getNacionalidad());
         f1Content.setDescripcion(f1ContentDetails.getDescripcion());
         f1Content.setPilotos(f1ContentDetails.getPilotos());
-        f1Content.setPaginaOficial(f1ContentDetails.getPaginaOficial());
         f1Content.setNombreContenido(f1ContentDetails.getNombreContenido());
         f1Content.setDuracion(f1ContentDetails.getDuracion());
         f1Content.setUrl_image(f1ContentDetails.getUrl_image());
@@ -64,6 +63,10 @@ public class F1ContentServiceImp  implements F1ContentService{
     }
 
 
+    @Override
+    public List<F1Content> searchF1Content(String query) {
+        return f1ContentRepository.findByNombreContenidoStartingWith(query);
+    }
 
 
 
