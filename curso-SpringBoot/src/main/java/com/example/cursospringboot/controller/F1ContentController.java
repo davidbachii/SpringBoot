@@ -23,7 +23,7 @@ public class F1ContentController {
     public String getAllF1Content(Model model) {
         List<F1Content> listaf1 = f1ContentService.getAllF1Content();
         model.addAttribute("listaf1", listaf1);
-        return "index";  // nombre de tu archivo Thymeleaf sin la extensión .html
+        return "indexF1";  // nombre de tu archivo Thymeleaf sin la extensión .html
     }
 
 
@@ -32,7 +32,7 @@ public class F1ContentController {
         F1Content f1Content = f1ContentService.getF1ContentByNombreCarrera(nombreCarreraF1)
                 .orElseThrow(() -> new RuntimeException("Contenido de F1 not found"));
         model.addAttribute("f1Content", f1Content);
-        return "indexDetallado";
+        return "indexDetalladoF1";
     }
 
     @GetMapping("/search/realtime")

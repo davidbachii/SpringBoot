@@ -48,6 +48,7 @@ public class F1ContentServiceImp  implements F1ContentService{
         f1Content.setPilotos(f1ContentDetails.getPilotos());
         f1Content.setNombreContenido(f1ContentDetails.getNombreContenido());
         f1Content.setDuracion(f1ContentDetails.getDuracion());
+        f1Content.setOtrosDatos(f1ContentDetails.getOtrosDatos());
         f1Content.setUrl_image(f1ContentDetails.getUrl_image());
         f1Content.setUrl_video(f1ContentDetails.getUrl_video());
         // Actualiza otros campos según sea necesario

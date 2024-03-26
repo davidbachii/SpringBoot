@@ -24,7 +24,7 @@ public class LiveContent extends Contenido {
 
     //Constructor con parametros
     public LiveContent(String nombreContenido, String descripcion, String tipo, Integer anho, String url_image, String url_video, LocalDateTime startTime, LocalDateTime endTime, String type) {
-        super(nombreContenido, descripcion, tipo, anho, url_image, url_video);
+        super(nombreContenido, descripcion, anho, url_image, url_video);
         this.startTime = startTime;
         this.endTime = endTime;
         this.type = type;

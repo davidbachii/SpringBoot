@@ -12,7 +12,7 @@ public class F1Content extends Contenido {
     @Column(name = "circuito", length = 50, nullable = false)
     private String circuito;
 
-    @Column(name = "equipos", length = 50, nullable = false)
+    @Column(name = "equipos", length = 500, nullable = false)
     private String equipos;
 
     @Column(name = "nacionalidad", length = 50, nullable = false)
@@ -23,7 +23,7 @@ public class F1Content extends Contenido {
     @Column(name = "otrosDatos", length = 150, nullable = false)
     private String otrosDatos;
 
-    @Column(name = "pilotos", length = 200, nullable = false)
+    @Column(name = "pilotos", length = 500, nullable = false)
     private String pilotos;
 
 
@@ -35,7 +35,7 @@ public class F1Content extends Contenido {
 
     //Constructor con parametros
     public F1Content(String nombreContenido, String descripcion, String tipo, Integer anho, String url_image, String url_video, String circuito, String equipos, String nacionalidad, Integer duracion, String otrosDatos, String pilotos) {
-        super(nombreContenido, descripcion, tipo, anho, url_image, url_video);
+        super(nombreContenido, descripcion, anho, url_image, url_video);
         this.circuito = circuito;
         this.equipos = equipos;
         this.nacionalidad = nacionalidad;

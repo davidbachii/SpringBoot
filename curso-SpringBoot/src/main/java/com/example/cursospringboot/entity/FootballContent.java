@@ -27,7 +27,7 @@ public class FootballContent extends Contenido{
 
     //Constructor con parametros
     public FootballContent(String nombreContenido, String descripcion, String tipo, Integer anho, String url_image, String url_video, String estadio, String equipos, String nacionalidad, Integer duracion, String otrosDatos, String jugadores) {
-        super(nombreContenido, descripcion, tipo, anho, url_image, url_video);
+        super(nombreContenido, descripcion, anho, url_image, url_video);
         this.estadio = estadio;
         this.equipos = equipos;
         this.nacionalidad = nacionalidad;

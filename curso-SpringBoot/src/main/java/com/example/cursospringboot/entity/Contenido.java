@@ -12,10 +12,8 @@ public abstract class Contenido {
     private Long id;
     @Column(name = "nombreContenido", nullable = false, length = 100)
     private String nombreContenido;
-    @Column(name = "descripcion", length = 500, nullable = false)
+    @Column(name = "descripcion", length = 1000, nullable = false)
     private String descripcion;
-    @Column(name = "tipo", nullable = false, length = 100)
-    private String tipo;
     @Column(name = "anho", length = 5, nullable = false)
     private Integer anho;
     @Column(name = "url_image", length = 100, nullable = false)
@@ -31,10 +29,9 @@ public abstract class Contenido {
 
 
     //Constructor con parametros
-    public Contenido(String nombreContenido, String descripcion, String tipo, Integer anho, String url_image, String url_video) {
+    public Contenido(String nombreContenido, String descripcion, Integer anho, String url_image, String url_video) {
         this.nombreContenido = nombreContenido;
         this.descripcion = descripcion;
-        this.tipo = tipo;
         this.anho = anho;
         this.url_image = url_image;
         this.url_video = url_video;
@@ -59,12 +56,6 @@ public abstract class Contenido {
     }
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-    public String getTipo() {
-        return tipo;
-    }
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
     public Integer getAnho() {
         return anho;

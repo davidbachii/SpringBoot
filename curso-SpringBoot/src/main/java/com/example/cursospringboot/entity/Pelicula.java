@@ -51,7 +51,7 @@ public class Pelicula extends Contenido {
 
     //Constructor con parametros
     public Pelicula(String nombreContenido, String descripcion, String tipo, Integer anho, String url_image, String url_video, String tituloOriginal, String genero, String nacionalidad, Integer duracion, String distribuidora, String director, Short clasificacionEdad, String otrosDatos, String actores, double calificacion) {
-        super(nombreContenido, descripcion, tipo, anho, url_image, url_video);
+        super(nombreContenido, descripcion, anho, url_image, url_video);
         this.tituloOriginal = tituloOriginal;
         this.genero = genero;
         this.nacionalidad = nacionalidad;

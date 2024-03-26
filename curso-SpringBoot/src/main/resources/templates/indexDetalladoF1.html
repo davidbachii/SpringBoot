@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <title>Web oficial</title>
+    <meta charset="utf-8">
+
+
+    <link th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" href="../static/css/style.css" rel="stylesheet">
+    <!-- styles needed for carousel slider -->
+    <link th:href="@{/css/fontawesome.min.css}" href="../static/css/fontawesome.min.css" rel="stylesheet">
+    <link th:href="@{/css/multicines.css}" href="../static/css/multicines.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div id="wrapper" class="d-flex flex-column">
+    <div class="header">
+        <nav class="navbar fixed-top navbar-site navbar-light bg-light navbar-expand-lg" role="navigation">
+            <div class="container">
+                <div class="navbar-identity">
+
+                    <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggler pull-right"
+                            type="button">
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" style="height: auto;">
+                    <ul class="nav navbar-nav ml-auto navbar-right">
+                        <li class="nav-item"><a th:href="@{/api/F1/}" class="nav-link">VOLVER AL MENU DE f1</a></li>
+                        <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">REGISTRARSE</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="main-container inner-page flex-fill " style="padding-top: 30px !important;">
+        <div class="container">
+
+
+            <div class="row clearfix">
+                <h1 class="text-center title-1" th:text="${f1Content.getNombreContenido()}"></h1>
+                <hr class="mx-auto small text-hr" style="margin-bottom: 30px !important">
+
+                <div style="clear:both">
+                    <hr>
+                </div>
+            </div>
+
+
+            <div class="white-box" style="padding:15px">
+                <h3 class="titulo-cine" th:text="${f1Content.getNombreContenido()}"></h3>
+                <div class="row mb20">
+                    <div class="col-3 d-none d-md-block">
+
+                        <a th:src="@{'/' + ${f1Content.getUrl_image()}}" data-toggle="lightbox"><img class="img-responsive"
+                                                                                                    style="width: 262px;"
+                                                                                                    th:src="@{'/' + ${f1Content.getUrl_image()}}"/></a>
+
+
+                    </div>
+                    <div class="col-6 d-none d-md-block">
+                        <iframe width="100%" height="350" th:src="${f1Content.getUrl_video()}"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="col-3 d-none d-md-block" style="padding-left: 10px;">
+                        <ul class="list-unstyled">
+                            <li><p class="text-muted">Año:<br><strong class="text-dark"
+                                                                            th:text="${f1Content.getAnho()}"></strong>
+                            </p></li>
+
+                            <li><p class="text-muted">Circuito:<br><strong class="text-dark"
+                                                                           th:text="${f1Content.getCircuito()}"></strong>
+                            </p></li>
+
+                            <li><p class="text-muted">Nacionalidad:<br><strong class="text-dark"
+                                                                               th:text="${f1Content.getNacionalidad()}"></strong>
+                            </p></li>
+                            <li><p class="text-muted">Equipos:<br><strong class="text-dark"
+                                                                          th:text="${f1Content.getEquipos()}"></strong>
+                            </p></li>
+                            <li><p class="text-muted">Pilotos:<br><strong class="text-dark"
+                                                                              th:text="${f1Content.getPilotos()}"></strong>
+                            </p></li>
+                            <li><p class="text-muted">Otros Datos:<br><strong class="text-dark"
+                                                                      th:text="${f1Content.getOtrosDatos()}"></strong></p></li>
+                            <li><p class="text-muted">Duración:<br><strong class="text-dark"
+                                                                              th:text="${f1Content.getDuracion()}+ 'minutos'"></strong></p></li>
+
+                        </ul>
+                    </div>
+                    <div class="col-4 d-md-none">
+
+                        <span data-toggle="modal" data-target="#trailer" class="btn btn-primary"
+                              style="padding-top: 10px; margin-top: 10px; display: block; padding-bottom: 10px;">TRAILER <i
+                                class="fa fa-play" style="margin-left: 2px;"></i></span>
+                    </div>
+
+                </div>
+                <div class="row mb30">
+                    <div class="col-sm-12">
+                        <span class="text-muted">Sinopsis:</span>
+                        <p th:text="${f1Content.getDescripcion()}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#trailer").on('hidden.bs.modal', function (e) {
+            $("#trailer iframe").attr("src", $("#trailer iframe").attr("src"));
+        });
+    })
+</script>
+</body>
+</html>
