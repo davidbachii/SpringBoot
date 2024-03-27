@@ -26,6 +26,9 @@ public class F1Content extends Contenido {
     @Column(name = "pilotos", length = 500, nullable = false)
     private String pilotos;
 
+    @OneToMany(mappedBy = "f1Content", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ComentarioF1> comentarios;
+
 
 
 
@@ -93,4 +96,5 @@ public class F1Content extends Contenido {
     public void setPilotos(String pilotos) {
         this.pilotos = pilotos;
     }
+
 }

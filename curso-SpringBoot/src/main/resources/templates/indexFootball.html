@@ -34,7 +34,7 @@
         <nav class="navbar fixed-top navbar-site navbar-light bg-light navbar-expand-lg" role="navigation">
             <div class="container">
                 <div class="form-group">
-                    <input type="text" id="search-input" class="form-control form-control-lg" placeholder="Buscar películas...">
+                    <input type="text" id="search-input" class="form-control form-control-lg" placeholder="Buscar partidos...">
 
                 </div>
                 <div class="navbar-collapse collapse" style="height: auto;">
@@ -58,27 +58,27 @@
         <div class="container">
             <!-- Resultados de búsqueda -->
             <div id="search-results"></div>
-            <!-- Lista de películas -->
+            <!-- Lista de partidos -->
             <div class="white-box">
-                <h3 class="titulo-cine">ELIGE LA PELICULA</h3>
+                <h3 class="titulo-cine">ELIGE EL PARTIDO</h3>
 
                 <div class="row">
-                    <!-- Iteración sobre películas -->
-                    <div th:each="pelicula : ${listaPeliculas}"  class="col-6 col-sm-4 col-md-3 col-xl-2dot4 mb20">
+                    <!-- Iteración sobre partidos de futbol -->
+                    <div th:each="football : ${listaFootballContent}"  class="col-6 col-sm-4 col-md-3 col-xl-2dot4 mb20">
                         <div class="card card-event info-overlay">
 
-                            <h1 class="tag" th:text="${pelicula.getCalificacion()}"></h1>
+                            <h1 class="tag" th:text="${football.getNombreContenido()}"></h1>
 
                             <div class="img has-background">
-                                <a th:href="@{'/api/peliculas/' + ${pelicula.getNombreContenido()}}" class="event-pop-link">
+                                <a th:href="@{'/api/FootballContent/' + ${football.getNombreContenido()}}" class="event-pop-link">
                                     <div class="event-pop-info">
-                                        <p class="price" style="font-size:1.1em; padding: 5px;" th:text="${pelicula.getNombreContenido()}"></p>
+                                        <p class="price" style="font-size:1.1em; padding: 5px;" th:text="${football.getNombreContenido()}"></p>
                                         <span style="font-size: 0.90em; background-color: #53234f;"
                                               class="badge badge-primary">VER CONTENIDO</span><br/><br/>
                                     </div>
                                 </a>
 
-                                <a href="pelicula/oppenheimer"><img class="img-responsive" th:src="@{'/' + ${pelicula.getUrl_image}}"/>
+                                <a th:href="@{'/' + ${football.getUrl_image}}"><img class="img-responsive" th:src="@{'/' + ${football.getUrl_image}}"/>
                                 </a>
 
                             </div>
@@ -95,7 +95,7 @@
     $(document).ready(function() {
         $('#search-input').on('input', function() {
             var query = $(this).val();
-            var url = query ? '/api/peliculas/search/realtime' : '/api/peliculas/';
+            var url = query ? '/api/FootballContent/search/realtime' : '/api/FootballContent/';
             $.ajax({
                 url: url,
                 data: {
@@ -106,38 +106,38 @@
                     $('#search-results').empty();
 
                     // Crea un nuevo elemento de película para cada resultado de la búsqueda
-                    var peliculasElement = `
+                    var footballElement = `
                         <div class="white-box">
                             <h3 class="titulo-cine">RESULTADOS DE BÚSQUEDA</h3>
                             <div class="row">
                     `;
 
-                    $.each(data, function(index, pelicula) {
-                        peliculasElement += `
+                    $.each(data, function(index, football) {
+                        footballElement += `
                             <div class="col-6 col-sm-4 col-md-3 col-xl-2dot4 mb20">
                                 <div class="card card-event info-overlay">
-                                    <h1 class="tag">${pelicula.calificacion}</h1>
+                                    <h1 class="tag">${football.nombreContenido}</h1>
                                     <div class="img has-background">
-                                        <a href="/api/peliculas/${pelicula.nombreContenido}" class="event-pop-link">
+                                        <a href="/api/FootballContent/${football.nombreContenido}" class="event-pop-link">
                                             <div class="event-pop-info">
-                                                <p class="price" style="font-size:1.1em; padding: 5px;">${pelicula.nombreContenido}</p>
+                                                <p class="price" style="font-size:1.1em; padding: 5px;">${football.nombreContenido}</p>
                                                 <span style="font-size: 0.90em; background-color: #53234f;" class="badge badge-primary">VER CONTENIDO</span><br/><br/>
                                             </div>
                                         </a>
-                                        <a href="/api/peliculas/${pelicula.nombreContenido}"><img class="img-responsive" src="/${pelicula.url_image}"/></a>
+                                        <a href="/api/FootballContent/${football.nombreContenido}"><img class="img-responsive" src="/${football.url_image}"/></a>
                                     </div>
                                 </div>
                             </div>
                         `;
                     });
 
-                    peliculasElement += `
+                    footballElement += `
                             </div>
                         </div>
                     `;
 
                     // Agrega todos los elementos de película al contenedor de resultados de búsqueda
-                    $('#search-results').append(peliculasElement);
+                    $('#search-results').append(footballElement);
                 }
             });
         });

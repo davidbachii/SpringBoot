@@ -3,7 +3,9 @@ package com.example.cursospringboot.controller;
 
 import com.example.cursospringboot.entity.F1Content;
 import com.example.cursospringboot.entity.FootballContent;
+import com.example.cursospringboot.entity.User;
 import com.example.cursospringboot.service.FootballContentService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,16 +25,20 @@ public class FootballContentController {
     public String getAllFootballContent(Model model) {
         List<FootballContent> listaFootballContent = footballContentService.getAllFootballContent();
         model.addAttribute("listaFootballContent", listaFootballContent);
-        return "index";  // nombre de tu archivo Thymeleaf sin la extensión .html
+        return "indexFootball";  // nombre de tu archivo Thymeleaf sin la extensión .html
     }
 
 
-    @GetMapping("/{nombreCarreraF1}")
-    public String getNombreFootballContent(@PathVariable String nombrePartido, Model model) {
-        FootballContent footballContent = footballContentService.getFootballContentByNombrePartido(nombrePartido)
+    @GetMapping("/{nombreFootballContent}")
+    public String getNombreFootballContent(@PathVariable String nombreFootballContent, Model model, HttpSession session) {
+        FootballContent footballContent = footballContentService.getFootballContentByNombrePartido(nombreFootballContent)
                 .orElseThrow(() -> new RuntimeException("Contenido de Futbol not found"));
         model.addAttribute("footballContent", footballContent);
-        return "indexDetallado";
+        User user = (User) session.getAttribute("user");
+        if (user == null || "Sin Plan".equals(user.getPlanSuscripcion())) {
+            return "login"; // Redirige al usuario a la página de inicio de sesión si no está autenticado
+        }
+        return "indexDetalladoFootball";
     }
 
     @GetMapping("/search/realtime")

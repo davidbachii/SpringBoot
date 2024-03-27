@@ -28,7 +28,7 @@
                 <div class="navbar-collapse collapse" style="height: auto;">
                     <ul class="nav navbar-nav ml-auto navbar-right">
                         <li class="nav-item"><a th:href="@{/api/F1/}" class="nav-link">VOLVER AL MENU PRINCIPAL</a></li>
-                        <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">REGISTRARSE</a></li>
+                        <li class="nav-item"><a th:href="@{/api/FootballContent/}" class="nav-link">REGISTRARSE</a></li>
                     </ul>
                 </div>
             </div>
@@ -39,7 +39,7 @@
 
 
             <div class="row clearfix">
-                <h1 class="text-center title-1" th:text="${f1Content.getNombreContenido()}"></h1>
+                <h1 class="text-center title-1" th:text="${footballContent.getNombreContenido()}"></h1>
                 <hr class="mx-auto small text-hr" style="margin-bottom: 30px !important">
 
                 <div style="clear:both">
@@ -49,18 +49,18 @@
 
 
             <div class="white-box" style="padding:15px">
-                <h3 class="titulo-cine" th:text="${f1Content.getNombreContenido()}"></h3>
+                <h3 class="titulo-cine" th:text="${footballContent.getNombreContenido()}"></h3>
                 <div class="row mb20">
                     <div class="col-3 d-none d-md-block">
 
-                        <a th:src="@{'/' + ${f1Content.getUrl_image()}}" data-toggle="lightbox"><img class="img-responsive"
-                                                                                                    style="width: 262px;"
-                                                                                                    th:src="@{'/' + ${f1Content.getUrl_image()}}"/></a>
+                        <a th:src="@{'/' + ${footballContent.getUrl_image()}}" data-toggle="lightbox"><img class="img-responsive"
+                                                                                                     style="width: 262px;"
+                                                                                                     th:src="@{'/' + ${footballContent.getUrl_image()}}"/></a>
 
 
                     </div>
                     <div class="col-6 d-none d-md-block">
-                        <iframe width="100%" height="350" th:src="${f1Content.getUrl_video()}"
+                        <iframe width="100%" height="350" th:src="${footballContent.getUrl_video()}"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowfullscreen></iframe>
@@ -68,26 +68,25 @@
                     <div class="col-3 d-none d-md-block" style="padding-left: 10px;">
                         <ul class="list-unstyled">
                             <li><p class="text-muted">Año:<br><strong class="text-dark"
-                                                                            th:text="${f1Content.getAnho()}"></strong>
+                                                                      th:text="${footballContent.getAnho()}"></strong>
                             </p></li>
 
-                            <li><p class="text-muted">Circuito:<br><strong class="text-dark"
-                                                                           th:text="${f1Content.getCircuito()}"></strong>
+                            <li><p class="text-muted">Estadio:<br><strong class="text-dark"
+                                                                           th:text="${footballContent.getEstadio()}"></strong>
                             </p></li>
 
-                            <li><p class="text-muted">Nacionalidad:<br><strong class="text-dark"
-                                                                               th:text="${f1Content.getNacionalidad()}"></strong>
+                            <li><p class="text-muted">Competición:<br><strong class="text-dark"
+                                                                               th:text="${footballContent.getCompeticion()}"></strong>
                             </p></li>
                             <li><p class="text-muted">Equipos:<br><strong class="text-dark"
-                                                                          th:text="${f1Content.getEquipos()}"></strong>
+                                                                          th:text="${footballContent.getEquipos()}"></strong>
                             </p></li>
-                            <li><p class="text-muted">Pilotos:<br><strong class="text-dark"
-                                                                              th:text="${f1Content.getPilotos()}"></strong>
+                            <li><p class="text-muted">Jugadores:<br><strong class="text-dark"
+                                                                          th:text="${footballContent.getJugadores()}"></strong>
                             </p></li>
                             <li><p class="text-muted">Otros Datos:<br><strong class="text-dark"
-                                                                      th:text="${f1Content.getOtrosDatos()}"></strong></p></li>
-                            <li><p class="text-muted">Duración:<br><strong class="text-dark"
-                                                                              th:text="${f1Content.getDuracion()}+ 'minutos'"></strong></p></li>
+                                                                              th:text="${footballContent.getOtrosDatos()}"></strong></p></li>
+
 
                         </ul>
                     </div>
@@ -102,29 +101,7 @@
                 <div class="row mb30">
                     <div class="col-sm-12">
                         <span class="text-muted">Descripción:</span>
-                        <p th:text="${f1Content.getDescripcion()}"></p>
-                    </div>
-                </div>
-                <div th:if="${session != null}">
-                    <h3 class="titulo-cine">COMENTARIOS</h3>
-                    <div class="comentarios">
-                        <!-- Sección para hacer comentario -->
-                        <form th:action="@{'/api/ComentariosF1/CrearComentarioF1/' + ${f1Content.nombreContenido}}" method="post">
-                            <!-- Otros campos del formulario -->
-
-                            <label for="textoComentario">Comentario:</label>
-                            <textarea id="textoComentario" name="textoComentario" required></textarea>
-                            <button type="submit">Enviar Comentario</button>
-                        </form>
-                        <br><br>
-                        <!-- Sección para mostrar comentarios -->
-                        <div th:each="comentario : ${comentarios}" class="comentario">
-                            <h4 th:text="${comentario.nickname}"></h4>
-                            <div class="comentario-content">
-                                <p th:text="${comentario.texto}" class="comentario-texto"></p>
-                            </div>
-                        </div>
-
+                        <p th:text="${footballContent.getDescripcion()}"></p>
                     </div>
                 </div>
             </div>

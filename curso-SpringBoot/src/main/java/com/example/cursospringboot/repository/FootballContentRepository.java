@@ -22,4 +22,6 @@ public interface FootballContentRepository extends JpaRepository<FootballContent
      * @return Una lista de partidos de futbol cuyos nombres de contenido comienzan con la cadena proporcionada.
      */
     List<FootballContent> findByNombreContenidoStartingWith(String query);
+
+    List<FootballContent> findByCompeticion(String competicion);
 }

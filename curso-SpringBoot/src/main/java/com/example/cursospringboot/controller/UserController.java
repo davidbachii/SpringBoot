@@ -101,6 +101,7 @@ public class UserController {
                     return ResponseEntity.status(HttpStatus.OK).body("Sin plan de suscripción, por favor selecciona uno.");
                 } else {
                     // El usuario tiene un plan de suscripción, redirigir a la página de películas
+                    session.setAttribute("user", user);
                     return ResponseEntity.status(HttpStatus.OK).body("Autenticación exitosa");
                 }
             } else {

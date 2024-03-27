@@ -43,9 +43,10 @@ public class FootballContentServiceImp implements FootballContentService{
         footballContent.setAnho(footballContentDetails.getAnho());
         footballContent.setDescripcion(footballContentDetails.getDescripcion());
         footballContent.setDuracion(footballContentDetails.getDuracion());
+        footballContent.setEquipos(footballContentDetails.getEquipos());
         footballContent.setEstadio(footballContentDetails.getEstadio());
         footballContent.setJugadores(footballContentDetails.getJugadores());
-        footballContent.setNacionalidad(footballContentDetails.getNacionalidad());
+        footballContent.setCompeticion(footballContentDetails.getCompeticion());
         footballContent.setAnho(footballContentDetails.getAnho());
         footballContent.setOtrosDatos(footballContentDetails.getOtrosDatos());
         footballContent.setNombreContenido(footballContentDetails.getNombreContenido());
@@ -69,6 +70,13 @@ public class FootballContentServiceImp implements FootballContentService{
     public List<FootballContent> searchFootballContent(String query) {
         return footballContentRepository.findByNombreContenidoStartingWith(query);
     }
+
+    @Override
+    public List<FootballContent> getFootballContentByCompeticion(String competicion) {
+        return footballContentRepository.findByCompeticion(competicion);
+    }
+
+
 
 
 

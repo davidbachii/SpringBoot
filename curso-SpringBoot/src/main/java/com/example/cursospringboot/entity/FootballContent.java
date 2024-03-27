@@ -12,8 +12,8 @@ public class FootballContent extends Contenido{
     private String estadio;
     @Column(name = "equipos", length = 50, nullable = false)
     private String equipos;
-    @Column(name = "nacionalidad", length = 50, nullable = false)
-    private String nacionalidad;
+    @Column(name = "competicion", length = 50, nullable = false)
+    private String competicion;
     @Column(name = "duracion", length = 5, nullable = false)
     private Integer duracion;
     @Column(name = "otrosDatos", length = 150, nullable = false)
@@ -26,11 +26,11 @@ public class FootballContent extends Contenido{
     }
 
     //Constructor con parametros
-    public FootballContent(String nombreContenido, String descripcion, String tipo, Integer anho, String url_image, String url_video, String estadio, String equipos, String nacionalidad, Integer duracion, String otrosDatos, String jugadores) {
+    public FootballContent(String nombreContenido, String descripcion, Integer anho, String url_image, String url_video, String estadio, String equipos, String competicion, Integer duracion, String otrosDatos, String jugadores) {
         super(nombreContenido, descripcion, anho, url_image, url_video);
         this.estadio = estadio;
         this.equipos = equipos;
-        this.nacionalidad = nacionalidad;
+        this.competicion = competicion;
         this.duracion = duracion;
         this.otrosDatos = otrosDatos;
         this.jugadores = jugadores;
@@ -53,12 +53,12 @@ public class FootballContent extends Contenido{
         this.equipos = equipos;
     }
 
-    public String getNacionalidad() {
-        return nacionalidad;
+    public String getCompeticion() {
+        return competicion;
     }
 
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
+    public void setCompeticion(String competicion) {
+        this.competicion = competicion;
     }
 
     public Integer getDuracion() {

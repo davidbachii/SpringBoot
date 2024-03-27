@@ -20,6 +20,6 @@ public interface FootballContentService {
 
     public List<FootballContent> searchFootballContent(String query);
 
-
+    List<FootballContent> getFootballContentByCompeticion(String competicion);
 
 }

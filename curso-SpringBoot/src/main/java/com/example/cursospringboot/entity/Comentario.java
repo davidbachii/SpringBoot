@@ -3,10 +3,10 @@ package com.example.cursospringboot.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
-@Entity
-@Table(name = "Comentario")
-public class Comentario{
+@MappedSuperclass
+public abstract class Comentario{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,21 +15,11 @@ public class Comentario{
     @Column(name = "texto",length = 500, nullable = false)
     private String texto;
 
-    @Column(name = "valoracion", nullable = false)
-    private Short valoracion;
-
     @Column(name = "fechaComentario", length = 12, nullable = false)
-    private String fechaComentario;
+    private LocalDate fechaComentario;
 
-    @Column(name = "tipo_Comentario", length = 18, nullable = false)
-    private String tipoComentario;
-
-
-
-    @ManyToOne
-    @JoinColumn(name = "user_email", referencedColumnName = "email",  nullable = false)
-    private User usuario;
-
+    @Column(name = "user_nickname", nullable = false)
+    private String nickname;
 
 
 
@@ -39,11 +29,13 @@ public class Comentario{
     }
 
     //Constructor con parametros
+    public Comentario(String texto, LocalDate fechaComentario, String nickname) {
+        this.texto = texto;
+        this.fechaComentario = fechaComentario;
+        this.nickname = nickname;
+    }
 
-
-    // getters and setters
-
-
+    //Getters y Setters
     public String getTexto() {
         return texto;
     }
@@ -52,39 +44,19 @@ public class Comentario{
         this.texto = texto;
     }
 
-    public Short getValoracion() {
-        return valoracion;
-    }
-
-    public void setValoracion(Short valoracion) {
-        this.valoracion = valoracion;
-    }
-
-    public String getFechaComentario() {
+    public LocalDate getFechaComentario() {
         return fechaComentario;
     }
 
-    public void setFechaComentario(String fechaComentario) {
-        this.fechaComentario = fechaComentario;
+    public void setFechaComentario() {
+        this.fechaComentario = LocalDate.now();
     }
 
-    public User getUsuario() {
-        return usuario;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setUsuario(User usuario) {
-        this.usuario = usuario;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
-
-    public String getTipoComentario() {
-        return tipoComentario;
-    }
-
-    public void setTipoComentario(String tipoComentario) {
-        this.tipoComentario = tipoComentario;
-    }
-
-
-
-
 }

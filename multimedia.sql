@@ -186,3 +186,126 @@ INSERT INTO F1Content (nombre_contenido, descripcion, anho, url_image, url_video
 VALUES ('GP Mónaco 2023', 'El Gran Premio de Mónaco de 2023 se llevó a cabo en el Circuit de Monaco. Lewis Hamilton, de Mercedes, aseguró una impresionante victoria en las estrechas calles de Mónaco. Hamilton demostró su maestría en el circuito urbano más famoso del mundo y aseguró una victoria crucial en el campeonato.', 2023, 'images/f1/2023.png', 'https://www.youtube.com/embed/eGDOeMCViCo?si=dGZAypqVVBl6uG-X', 'Circuit de Monaco', 'Mercedes, Red Bull Racing, Ferrari, Alpine, Aston Martin, Alfa Romeo, Haas, Williams, AlphaTauri', 'Mónaco', 78, '1. Hamilton, 2. Verstappen, 3. Bottas', 'Hamilton, Verstappen, Bottas, Leclerc, Norris, Perez, Ocon, Sainz, Ricciardo, Russell, Alonso, Gasly, Stroll, Tsunoda, Giovinazzi, Zhou, Latifi, Schumacher, Mazepin, Armstrong');
 
 
+-- Football Content
+-- Liga Española 2024
+-- Partido 1
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Barcelona vs Real Madrid 2024', 'El Clásico español entre Barcelona y Real Madrid siempre es un evento imperdible. En este enfrentamiento, dos de los equipos más poderosos de La Liga se enfrentan en una batalla por la supremacía. ¿Quién saldrá victorioso esta vez?', 2024, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/iS6dII37CwM?si=v87ogWEmKufv4sah', 'Camp Nou', 'Barcelona, Real Madrid', 'Liga Española', '90', 'Partido jugado el 26 de marzo de 2024', 'Lionel Messi, Antoine Griezmann, Karim Benzema, Vinícius Júnior, Luka Modrić');
+
+-- Partido 2
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Atlético de Madrid vs Sevilla 2024', 'Un emocionante enfrentamiento entre el Atlético de Madrid y el Sevilla promete un choque de estilos. Con ambos equipos luchando por el título, cada gol y cada jugada serán cruciales en este partido de alto vuelo.', 2024, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/wCHO-uNB3TI?si=ZXEIuczq4jm09wkh', 'Wanda Metropolitano', 'Atlético de Madrid, Sevilla', 'Liga Española', '90', 'Partido jugado el 27 de marzo de 2024', 'Luis Suárez, João Félix, Youssef En-Nesyri, Jesús Navas, Ivan Rakitić');
+
+-- Partido 3
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Real Sociedad vs Valencia 2024', 'La Real Sociedad se enfrenta al Valencia en un duelo que promete ser vibrante. Con ambos equipos buscando asegurar un lugar en competiciones europeas, cada momento será crucial en este encuentro lleno de acción.', 2024, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/CmZ9tsw743g?si=r-BqZlwTIhGFNnLO', 'Reale Arena', 'Real Sociedad, Valencia', 'Liga Española', '90', 'Partido jugado el 28 de marzo de 2024', 'Mikel Oyarzabal, Alexander Isak, Carlos Soler, Gonçalo Guedes, José Gayà');
+
+-- Partido 4
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Villarreal vs Athletic Club 2024', 'El Villarreal se enfrenta al Athletic Club en un duelo de contrastes. Con el Villarreal buscando consolidarse en la parte alta de la tabla y el Athletic luchando por mantenerse en la liga, este partido promete ser una batalla intensa.', 2024, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/iXEpZoEc1cA?si=wRqBYeoJA7y6x937', 'Estadio de la Cerámica', 'Villarreal, Athletic Club', 'Liga Española', '90', 'Partido jugado el 29 de marzo de 2024', 'Gerard Moreno, Paco Alcácer, Iñaki Williams, Raúl García, Unai Simón');
+
+-- Partido 5
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Betis vs Getafe 2024', 'El Betis se enfrenta al Getafe en un choque de mitad de tabla. Con ambos equipos buscando mejorar su posición en la clasificación, cada punto será vital en este emocionante encuentro.', 2024, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/NKKEkCGQQmQ?si=kZ_lWVMnHO7d6iRA', 'Estadio Benito Villamarín', 'Betis, Getafe', 'Liga Española', '90', 'Partido jugado el 30 de marzo de 2024', 'Nabil Fekir, Sergio Canales, Jaime Mata, Marc Cucurella, Enes Ünal');
+
+
+-- Liga Española 2023
+-- Partido 1
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Sevilla vs Real Betis 2023', 'El derbi sevillano entre Sevilla y Real Betis es uno de los enfrentamientos más intensos de La Liga. Ambos equipos luchan por el dominio de la ciudad y por los puntos en la tabla de clasificación.', 2023, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/Ri9XFLoifQg?si=COEjfeQMfAtORBDJ', 'Estadio Ramón Sánchez-Pizjuán', 'Sevilla, Real Betis', 'Liga Española', '90', 'Partido jugado en 2023', 'Lucas Ocampos, Éver Banega, Nabil Fekir, Borja Iglesias');
+
+-- Partido 2
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Real Madrid vs Atlético 2023', 'El derbi madrileño entre Real Madrid y Atlético de Madrid es siempre un enfrentamiento emocionante. Dos de los equipos más grandes de España se disputan la supremacía de la capital.', 2023, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/cHPe6lITeTA?si=ihDkcWxcehB6Gtva', 'Santiago Bernabéu', 'Real Madrid, Atlético de Madrid', 'Liga Española', '90', 'Partido jugado en 2023', 'Karim Benzema, Toni Kroos, Luis Suárez, João Félix');
+
+-- Partido 3
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Barcelona vs Valencia 2023', 'Un encuentro entre dos equipos con una gran historia en La Liga. Barcelona y Valencia se enfrentan en un partido que promete ser emocionante y lleno de acción.', 2023, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/mXQ48fRRX34?si=sRomJPACe58xFCRP', 'Camp Nou', 'Barcelona, Valencia', 'Liga Española', '90', 'Partido jugado en 2023', 'Lionel Messi, Ansu Fati, Gonçalo Guedes, José Gayà');
+
+-- Partido 4
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Villarreal vs Real Sociedad 2023', 'Dos equipos con estilos de juego únicos se enfrentan en un emocionante duelo en La Liga. Villarreal y Real Sociedad buscarán la victoria en este partido crucial.', 2023, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/RoH3wvZIYRk?si=3vsgaESMGdRbaCVP', 'Estadio de la Cerámica', 'Villarreal, Real Sociedad', 'Liga Española', '90', 'Partido jugado en 2023', 'Gerard Moreno, Carlos Bacca, Mikel Oyarzabal, David Silva');
+
+-- Partido 5
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Athletic Club vs Eibar 2023', 'Dos equipos del norte de España se enfrentan en un duelo que puede influir en la lucha por la permanencia en La Liga. Athletic Club y Eibar buscarán los tres puntos en este emocionante partido.', 2023, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/vjvDeL6nZUo?si=kSCn2QAJbsiFfJyv', 'San Mamés', 'Athletic Club, Eibar', 'Liga Española', '90', 'Partido jugado en 2023', 'Iñaki Williams, Raúl García, Kike García, Sergi Enrich');
+
+
+-- Partido 1 (2022)
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Real Madrid vs Barcelona 2022', 'El clásico español entre Real Madrid y Barcelona es uno de los enfrentamientos más emocionantes del mundo del fútbol. En este partido, dos gigantes se enfrentan por el honor y los puntos en la Liga Española.', 2022, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/swLI6zuXtp4?si=f3G1Qa1nhcxo9VsZ', 'Santiago Bernabéu', 'Real Madrid, Barcelona', 'Liga Española', '90', 'Partido jugado en 2022', 'Karim Benzema, Vinícius Júnior, Lionel Messi, Frenkie de Jong');
+
+-- Partido 2 (2022)
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Atlético de Madrid vs Sevilla 2022', 'El Atlético de Madrid recibe al Sevilla en un enfrentamiento crucial por la parte alta de la tabla. Ambos equipos buscan asegurar su posición en la lucha por el título de La Liga.', 2022, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/1dxh7Rlij50?si=yU8GCE-F9ibbM_Hy', 'Wanda Metropolitano', 'Atlético de Madrid, Sevilla', 'Liga Española', '90', 'Partido jugado en 2022', 'Luis Suárez, Marcos Acuña, Youssef En-Nesyri, Jesús Navas');
+
+-- Partido 3 (2022)
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Valencia vs Real Sociedad 2022', 'Valencia se enfrenta a la Real Sociedad en un partido lleno de expectativas. Ambos equipos buscarán los tres puntos para consolidar sus respectivas posiciones en la clasificación.', 2022, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/IRxVUQMQo-k?si=4HpDkjwWeiicmXlM', 'Estadio Mestalla', 'Valencia, Real Sociedad', 'Liga Española', '90', 'Partido jugado en 2022', 'Gonçalo Guedes, Carlos Soler, Mikel Oyarzabal, Alexander Isak');
+
+-- Partido 4 (2022)
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Villarreal vs Athletic Club 2022', 'Villarreal y Athletic Club se enfrentan en un partido que promete emociones fuertes. Ambos equipos tienen una fuerte historia en La Liga y buscan agregar otro capítulo memorable.', 2022, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/9nSsd7MBJx4?si=mlXlY0TyWrQJLcvD', 'Estadio de la Cerámica', 'Villarreal, Athletic Club', 'Liga Española', '90', 'Partido jugado en 2022', 'Gerard Moreno, Paco Alcácer, Iñaki Williams, Raúl García');
+
+-- Partido 5 (2022)
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Sevilla vs Real Betis 2022', 'El derbi sevillano entre Sevilla y Real Betis es un enfrentamiento lleno de pasión y rivalidad. Ambos equipos darán lo mejor de sí en busca de los derechos de fanfarronear en la ciudad.', 2022, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/df2HS0-mk5c?si=w1eGxlyWjIta4I9N', 'Estadio Ramón Sánchez-Pizjuán', 'Sevilla, Real Betis', 'Liga Española', '90', 'Partido jugado en 2022', 'Lucas Ocampos, Éver Banega, Nabil Fekir, Borja Iglesias');
+
+
+
+-- Partido 1 (2021)
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Barcelona vs Real Madrid 2021', 'El Clásico entre Barcelona y Real Madrid es el partido más destacado de La Liga. La rivalidad entre estos dos gigantes del fútbol mundial siempre garantiza un espectáculo emocionante.', 2021, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/TU6zM63GuLo?si=mMVx74DPqacwFEIt', 'Camp Nou', 'Barcelona, Real Madrid', 'Liga Española', '90', 'Partido jugado en 2021', 'Lionel Messi, Karim Benzema, Sergio Ramos, Ansu Fati');
+
+-- Partido 2 (2021)
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Atlético de Madrid vs Sevilla 2021', 'Atlético de Madrid recibe a Sevilla en un duelo crucial por los puestos de arriba en La Liga. Ambos equipos buscarán la victoria para mantener sus aspiraciones de título.', 2021, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/FqBQT7GIxoI?si=vXWuOC3-oBnKCS1c', 'Wanda Metropolitano', 'Atlético de Madrid, Sevilla', 'Liga Española', '90', 'Partido jugado en 2021', 'Luis Suárez, João Félix, Youssef En-Nesyri, Jesús Navas');
+
+-- Partido 3 (2021)A
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Real Sociedad vs Villarreal 2021', 'Real Sociedad y Villarreal se enfrentan en un partido crucial en la lucha por los puestos europeos. Ambos equipos buscan la victoria para consolidarse en la parte alta de la tabla.', 2021, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/4Uzp8HAwMEM?si=cgkXbMZ979y02J6w', 'Estadio Anoeta', 'Real Sociedad, Villarreal', 'Liga Española', '90', 'Partido jugado en 2021', 'Mikel Oyarzabal, Alexander Isak, Gerard Moreno, Dani Parejo');
+-- Partido 4 (2021)
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Real Madrid vs Sevilla 2021', 'Real Madrid y Sevilla se enfrentan en un choque entre dos equipos de élite de La Liga. Ambos buscarán los tres puntos para mantener sus respectivas luchas en la tabla.', 2021, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/_28CyM8Ndio?si=q0odw-WzaYFNBxvA', 'Santiago Bernabéu', 'Real Madrid, Sevilla', 'Liga Española', '90', 'Partido jugado en 2021', 'Karim Benzema, Vinícius Júnior, Youssef En-Nesyri, Jesús Navas');
+
+-- Partido 5 (2021)
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Barcelona vs Atlético de Madrid 2021', 'Barcelona y Atlético de Madrid se enfrentan en un partido clave en la carrera por el título de La Liga. Este enfrentamiento promete ser un espectáculo emocionante de principio a fin.', 2021, 'images/FootballContent/LALIGA.jpg', 'https://www.youtube.com/embed/CryjvegXMcI?si=Vhoxd2jHRc3Sjnwj', 'Camp Nou', 'Barcelona, Atlético de Madrid', 'Liga Española', '90', 'Partido jugado en 2021', 'Lionel Messi, Luis Suárez, Antoine Griezmann, João Félix');
+
+
+-- Champions
+
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Real Madrid vs Juventus 2017', 'La final de la Champions League 2017 enfrentó al Real Madrid contra la Juventus. Fue un partido emocionante que terminó con la victoria del Real Madrid.', 2017, 'images/FootballContent/Champions.jpg', 'https://www.youtube.com/embed/OnAkIkKj13Q?si=OfGvIq2o-1ibPftP', 'Millennium Stadium', 'Real Madrid, Juventus', 'Champions League', '90', 'Final de la Champions League 2017', 'Cristiano Ronaldo, Sergio Ramos, Paulo Dybala, Gianluigi Buffon');
+
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Real Madrid vs. Atlético 2017', 'El Real Madrid se enfrentó al Atlético de Madrid en las semifinales de la Champions League 2017. Fue un enfrentamiento emocionante que terminó con la victoria del Real Madrid.', 2017, 'images/FootballContent/Champions.jpg', 'https://www.youtube.com/embed/OnAkIkKj13Q?si=OfGvIq2o-1ibPftP', 'Estadio Santiago Bernabéu', 'Real Madrid, Atlético de Madrid', 'Champions League', '90', 'Semifinal de la Champions League 2017', 'Cristiano Ronaldo, Antoine Griezmann, Karim Benzema, Jan Oblak');
+
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Real Madrid vs Bayern 2017', 'El Real Madrid se enfrentó al Bayern de Múnich en los cuartos de final de la Champions League 2017. Fue un emocionante encuentro que terminó con la victoria del Real Madrid.', 2017, 'images/FootballContent/Champions.jpg', 'https://www.youtube.com/embed/OnAkIkKj13Q?si=OfGvIq2o-1ibPftP', 'Estadio Santiago Bernabéu', 'Real Madrid, Bayern de Múnich', 'Champions League', '90', 'Cuartos de final de la Champions League 2017', 'Cristiano Ronaldo, Robert Lewandowski, Gareth Bale, Manuel Neuer');
+
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Real Madrid vs Nápoles 2017', 'El Real Madrid se enfrentó al Nápoles en los octavos de final de la Champions League 2017. Fue un enfrentamiento emocionante que terminó con la victoria del Real Madrid.', 2017, 'images/FootballContent/Champions.jpg', 'https://www.youtube.com/embed/OnAkIkKj13Q?si=OfGvIq2o-1ibPftP', 'Estadio Santiago Bernabéu', 'Real Madrid, Nápoles', 'Champions League', '90', 'Octavos de final de la Champions League 2017', 'Cristiano Ronaldo, Lorenzo Insigne, Karim Benzema, Pepe Reina');
+
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Real Madrid vs Dortmund 2017', 'El Real Madrid se enfrentó al Borussia Dortmund en la fase de grupos de la Champions League 2017. Fue un emocionante encuentro que terminó con la victoria del Real Madrid.', 2017, 'images/FootballContent/Champions.jpg', 'https://www.youtube.com/embed/OnAkIkKj13Q?si=OfGvIq2o-1ibPftP', 'Signal Iduna Park', 'Real Madrid, Borussia Dortmund', 'Champions League', '90', 'Fase de grupos de la Champions League 2017. Partido 6/6', 'Cristiano Ronaldo, Pierre-Emerick Aubameyang, Karim Benzema, Roman Bürki');
+
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Sporting vs Real Madrid 2017', 'El Sporting de Lisboa se enfrentó al Real Madrid en la fase de grupos de la Champions League 2017. Fue un emocionante encuentro que terminó con la victoria del Real Madrid.', 2017, 'images/FootballContent/Champions.jpg', 'https://www.youtube.com/embed/OnAkIkKj13Q?si=OfGvIq2o-1ibPftP', 'Estádio José Alvalade', 'Sporting de Lisboa, Real Madrid', 'Champions League', '90', 'Fase de grupos de la Champions League 2017. Partido 5/6', 'Gelson Martins, Cristiano Ronaldo, Karim Benzema, Rui Patrício');
+
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Varsovia vs. Real Madrid 2017', 'El Legia de Varsovia se enfrentó al Real Madrid en la jornada 2 de la fase de grupos de la Champions League 2017. Fue un emocionante encuentro que terminó con la victoria del Real Madrid.', 2017, 'images/FootballContent/Champions.jpg', 'https://www.youtube.com/embed/OnAkIkKj13Q?si=OfGvIq2o-1ibPftP', 'Estadio Wojska Polskiego', 'Legia de Varsovia, Real Madrid', 'Champions League', '90', 'Fase de grupos de la Champions League 2017. Partido 4/6', 'Vadis Odjidja-Ofoe, Gareth Bale, Marco Asensio, Keylor Navas');
+
+
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Real Madrid vs Varsovia 2017', 'El Real Madrid se enfrentó al Legia de Varsovia en la fase de grupos de la Champions League 2017. Fue un emocionante encuentro que terminó con la victoria del Real Madrid.', 2017, 'images/FootballContent/Champions.jpg', 'https://www.youtube.com/embed/OnAkIkKj13Q?si=OfGvIq2o-1ibPftP', 'Estadio Santiago Bernabéu', 'Real Madrid, Legia de Varsovia', 'Champions League', '90', 'Fase de grupos de la Champions League 2017. Partido 3/6', 'Cristiano Ronaldo, Gareth Bale, Vadis Odjidja-Ofoe, Keylor Navas');
+
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Dortmund vs Real Madrid 2017', 'El Borussia Dortmund se enfrentó al Real Madrid en la fase de grupos de la Champions League 2017. Fue un emocionante encuentro que terminó con la victoria del Real Madrid.', 2017, 'images/FootballContent/Champions.jpg', 'https://www.youtube.com/embed/OnAkIkKj13Q?si=OfGvIq2o-1ibPftP', 'Signal Iduna Park', 'Borussia Dortmund, Real Madrid', 'Champions League', '90', 'Fase de grupos de la Champions League 2017. Partido 2/6', 'Pierre-Emerick Aubameyang, Cristiano Ronaldo, Karim Benzema, Roman Bürki');
+
+INSERT INTO Football_Content (nombre_contenido, descripcion, anho, url_image, url_video, estadio, equipos, competicion, duracion, otros_datos, jugadores)
+VALUES ('Real Madrid vs Sporting 2017', 'El Real Madrid se enfrentó al Sporting de Lisboa en la jornada 1 de la fase de grupos de la Champions League 2017. Fue un emocionante encuentro que terminó con la victoria del Real Madrid.', 2017, 'images/FootballContent/Champions.jpg', 'https://www.youtube.com/embed/OnAkIkKj13Q?si=OfGvIq2o-1ibPftP', 'Estadio Santiago Bernabéu', 'Real Madrid, Sporting de Lisboa', 'Champions League', '90', 'Fase de grupos de la Champions League 2017. Partido 1/6', 'Cristiano Ronaldo, Bryan Ruiz, Karim Benzema, Rui Patrício');
+
+
+
+

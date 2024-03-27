@@ -44,6 +44,9 @@ public class Pelicula extends Contenido {
     @Column(name = "calificacion", length = 3, nullable = false)
     private double calificacion;
 
+    @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ComentarioPelicula> comentarios;
+
 
     //Constructor
     public Pelicula() {
@@ -154,4 +157,7 @@ public class Pelicula extends Contenido {
     public void setCalificacion(double calificacion) {
         this.calificacion = calificacion;
     }
+
+
+
 }

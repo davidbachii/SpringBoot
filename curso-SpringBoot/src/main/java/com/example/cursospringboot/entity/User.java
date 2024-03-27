@@ -36,7 +36,7 @@ public class User {
     private List<TarjetaCredito> tarjetas;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comentario> comentarios;
+    private List<ComentarioPelicula> comentarios;
 
 
     //Set de comentarios que ha hecho el usuario en la aplicacion
@@ -126,13 +126,15 @@ public class User {
         this.tarjetas = tarjetas;
     }
 
-    public List<Comentario> getComentarios() {
-        return comentarios;
+    public List<ComentarioPelicula> getComentarios() {
+            return comentarios;
     }
 
-    public void setComentarios(List<Comentario> comentarios) {
+    public void setComentarios(List<ComentarioPelicula> comentarios) {
         this.comentarios = comentarios;
     }
+
+
 
 
 

@@ -27,7 +27,7 @@
                 </div>
                 <div class="navbar-collapse collapse" style="height: auto;">
                     <ul class="nav navbar-nav ml-auto navbar-right">
-                        <li class="nav-item"><a th:href="@{/api/peliculas/}" class="nav-link">VOLVER AL MENU DE PELICULAS</a></li>
+                        <li class="nav-item"><a th:href="@{/api/peliculas/}" class="nav-link">VOLVER AL MENU PRINCIPAL</a></li>
                         <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">REGISTRARSE</a></li>
                     </ul>
                 </div>
@@ -101,6 +101,33 @@
                     <div class="col-sm-12">
                         <span class="text-muted">Sinopsis:</span>
                         <p th:text="${pelicula.getDescripcion()}"></p>
+                    </div>
+                </div>
+                <div th:if="${session != null}">
+                    <h3 class="titulo-cine">COMENTARIOS</h3>
+                    <div class="comentarios">
+                        <!-- Sección para hacer comentario -->
+                        <form th:action="@{'/api/ComentariosPelicula/CrearComentarioPelicula/' + ${pelicula.nombreContenido}}" method="post">
+                            <!-- Otros campos del formulario -->
+
+                            <label for="textoComentario">Comentario:</label>
+                            <textarea id="textoComentario" name="textoComentario" required></textarea>
+
+                            <label for="valoracionComentario">Valoración:</label>
+                            <input type="number" id="valoracionComentario" name="valoracionComentario" min="0" max="10" required>
+
+                            <button type="submit">Enviar Comentario</button>
+                        </form>
+                        <br><br>
+                        <!-- Sección para mostrar comentarios -->
+                        <div th:each="comentario : ${comentarios}" class="comentario">
+                            <h4 th:text="${comentario.nickname}"></h4>
+                            <div class="comentario-content">
+                                <p th:text="${comentario.texto}" class="comentario-texto"></p>
+                                <p th:text="${comentario.valoracion}" class="comentario-valoracion"></p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
