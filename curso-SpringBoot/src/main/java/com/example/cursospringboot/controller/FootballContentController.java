@@ -1,9 +1,8 @@
 package com.example.cursospringboot.controller;
 
 
-import com.example.cursospringboot.entity.F1Content;
-import com.example.cursospringboot.entity.FootballContent;
-import com.example.cursospringboot.entity.User;
+import com.example.cursospringboot.entity.*;
+import com.example.cursospringboot.service.ComentarioFootballService;
 import com.example.cursospringboot.service.FootballContentService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,9 @@ public class FootballContentController {
 
     @Autowired
     FootballContentService footballContentService;
+
+    @Autowired
+    ComentarioFootballService comentarioFootballService;
 
     @GetMapping("/")
     public String getAllFootballContent(Model model) {
@@ -38,6 +40,10 @@ public class FootballContentController {
         if (user == null || "Sin Plan".equals(user.getPlanSuscripcion())) {
             return "login"; // Redirige al usuario a la página de inicio de sesión si no está autenticado
         }
+        // Fetch the list of comments for the specific movie
+        List<ComentarioFootball> comentarios = comentarioFootballService.getAllComentariosByFootballContent(footballContent);
+        model.addAttribute("comentarios", comentarios);
+        model.addAttribute("session", user);
         return "indexDetalladoFootball";
     }
 

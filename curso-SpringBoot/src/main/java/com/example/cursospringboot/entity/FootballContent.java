@@ -21,6 +21,9 @@ public class FootballContent extends Contenido{
     @Column(name = "jugadores", length = 200, nullable = false)
     private String jugadores;
 
+    @OneToMany(mappedBy = "footballContent", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ComentarioFootball> comentarios;
+
     //Constructor
     public FootballContent() {
     }

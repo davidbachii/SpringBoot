@@ -5,12 +5,12 @@ import com.example.cursospringboot.entity.ComentarioF1;
 import com.example.cursospringboot.entity.F1Content;
 import com.example.cursospringboot.repository.ComentarioF1Repository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Service
 public class Comentariof1ServiceImp implements ComentarioF1Service{
 
     @Autowired
