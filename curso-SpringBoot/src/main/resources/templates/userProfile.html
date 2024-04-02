@@ -8,9 +8,32 @@
     <link rel='stylesheet' href='https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/style.css?ver=1590611604' />
 
 
+    <link th:href="@{/css/style.css}" href="../static/css/style.css" rel="stylesheet">
+    <!-- styles needed for carousel slider -->
+    <link th:href="@{/css/multicines.css}" href="../static/css/multicines.css" rel="stylesheet">
+
+
 </head>
 <body class="page-template-default page page-id-7 page-parent logged-in woocommerce theme-dokan woocommerce-account woocommerce-page woocommerce-edit-account woocommerce-no-js dokan-theme-dokan">
 
+<div class="header">
+    <nav class="navbar fixed-top navbar-site navbar-light bg-light navbar-expand-lg" role="navigation">
+        <div class="container">
+            <div class="navbar-identity">
+
+                <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggler pull-right"
+                        type="button">
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" style="height: auto;">
+                <ul class="nav navbar-nav ml-auto navbar-right">
+                    <li class="nav-item"><a th:href="@{/api/peliculas/}" class="nav-link">VOLVER AL MENU PRINCIPAL</a></li>
+                    <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">REGISTRARSE</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
 
 <!-- Mensaje de cambios correctos-->
 <div class="alert alert-success wc_notice">Account details changed successfully.</div>

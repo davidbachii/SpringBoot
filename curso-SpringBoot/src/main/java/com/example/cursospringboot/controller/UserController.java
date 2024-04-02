@@ -164,6 +164,11 @@ public class UserController {
         return "planSuscripcion";
     }
 
+    @GetMapping("/UserProfile")
+    public String root3() {
+        return "userProfile";
+    }
+
     @DeleteMapping("/{email}")
     public ResponseEntity<Void> deleteUser(@PathVariable String email) {
         try {
