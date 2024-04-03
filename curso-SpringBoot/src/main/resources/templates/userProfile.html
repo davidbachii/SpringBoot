@@ -50,30 +50,25 @@
                         <div class="woocommerce-notices-wrapper"></div><div class="container container--xs">
                         <h1 class="mb-1 text-center">Tu Cuenta</h1>
                         <p class="fs-14 text-gray text-center mb-5">Cambia el nombre, correo, contraseña o actualiza el plan de suscripción</p>
-                        <form class="woocommerce-EditAccountForm edit-account" action="" method="post">
+
+                        <form class="woocommerce-EditAccountForm edit-account" action="/api/userProfile/updateInfo" method="post">
                             <div class="form-group row">
-
-                                <div class="clear"></div>
-
                                 <div class="col-sm-6 mb-4 mb-sm-0">
                                     <label for="account_first_name">Nombre <span class="required">*</span></label>
-                                    <input type="text" class="form-control woocommerce-Input woocommerce-Input--text input-text" name="account_first_name" id="account_first_name" value="David" />
-
+                                    <input type="text" class="form-control woocommerce-Input woocommerce-Input--text input-text" name="account_first_name" id="account_first_name" th:value="${user.nombre}" />
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="account_last_name">Nickname <span class="required">*</span></label>
-                                    <input type="text" class="form-control woocommerce-Input woocommerce-Input--text input-text" name="account_last_name" id="account_last_name" value="Bachiller" />
-
+                                    <input type="text" class="form-control woocommerce-Input woocommerce-Input--text input-text" name="account_last_name" id="account_last_name" th:value="${user.nickname}" />
                                 </div>
                             </div>
                             <div class="form-group">
-
                                 <label for="account_email">Email <span class="required">*</span></label>
-                                <input type="email" class="form-control woocommerce-Input woocommerce-Input--email input-text" name="account_email" id="account_email" value="davidbachillerv@gmail.com" />
-
-
+                                <input type="email" class="form-control woocommerce-Input woocommerce-Input--email input-text" name="account_email" id="account_email" th:value="${user.email}" />
                             </div>
                             <input type="submit" class="btn btn-outline-brand btn-block mb-4" name="save_account_details" value="Actualizar Informacion"/>
+                        </form>
+                         <form class="woocommerce-EditAccountForm edit-account" action="" method="post">
                             <hr class="my-5">
                             <div class="form-group">
                                 <label for="password_current">Contraseña Actual </label>

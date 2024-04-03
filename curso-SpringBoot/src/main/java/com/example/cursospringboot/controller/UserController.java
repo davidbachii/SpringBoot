@@ -6,17 +6,14 @@ import com.example.cursospringboot.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
+
 
 @Controller // Esto es para que sea un controlador de spring boot
 @RequestMapping("/api/users") //Para que todas las rutas de este controlador empiecen con /api/users
@@ -164,10 +161,7 @@ public class UserController {
         return "planSuscripcion";
     }
 
-    @GetMapping("/UserProfile")
-    public String root3() {
-        return "userProfile";
-    }
+
 
     @DeleteMapping("/{email}")
     public ResponseEntity<Void> deleteUser(@PathVariable String email) {
