@@ -4,6 +4,8 @@ import com.example.cursospringboot.entity.User;
 import com.example.cursospringboot.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +28,26 @@ public class UserProfileController {
     }
 
     @PostMapping("/updateInfo")
-    public String updateInfo(@ModelAttribute User updatedUser, HttpSession session) {
+    public ResponseEntity<String> updateInfo(@ModelAttribute User updatedUser, HttpSession session) {
         User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no autenticado");
+        }
+        if (updatedUser.getEmail() != null && !updatedUser.getEmail().equals(user.getEmail())) {
+            if (userService.emailExists(updatedUser.getEmail())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El correo electrónico ya existe");
+            }
+            user.setEmail(updatedUser.getEmail());
+        }
+        if (updatedUser.getNickname() != null && !updatedUser.getNickname().equals(user.getNickname())) {
+            if (userService.nicknameExists(updatedUser.getNickname())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nickname ya existe");
+            }
+            user.setNickname(updatedUser.getNickname());
+        }
         user.setNombre(updatedUser.getNombre());
-        user.setNickname(updatedUser.getNickname());
-        user.setEmail(updatedUser.getEmail());
         userService.updateUser(user.getEmail(), user);
-        return "redirect:/userProfile";
+        return ResponseEntity.status(HttpStatus.OK).body("Información actualizada con éxito");
     }
 
     @PostMapping("/updatePassword")

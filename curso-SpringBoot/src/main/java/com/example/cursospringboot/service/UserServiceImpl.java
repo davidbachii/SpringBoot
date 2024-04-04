@@ -81,5 +81,15 @@ public class UserServiceImpl implements UserService{
     public boolean estaRegistrado(String email) {
         return userRepository.existsById(email);
     }
+
+    @Override
+    public boolean emailExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public boolean nicknameExists(String nickname) {
+        return userRepository.existsByNickname(nickname);
+    }
 }
 
