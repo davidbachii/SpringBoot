@@ -62,7 +62,7 @@ public class UserController {
     */
 
     @PostMapping("/CrearUsuario")
-    public ResponseEntity<String> createUser(@RequestParam String Name, @RequestParam String nickname, @RequestParam String pswd, @RequestParam String mail, @RequestParam LocalDate FechaNacimiento, HttpSession session) {
+    public ResponseEntity<String> createUser(@RequestParam String Name, @RequestParam String nickname, @RequestParam String apellido, @RequestParam String pswd, @RequestParam String mail, @RequestParam LocalDate FechaNacimiento, HttpSession session) {
 
         boolean registrado = userService.estaRegistrado(mail);
         if(registrado){
@@ -71,6 +71,7 @@ public class UserController {
 
             User user = new User();
             user.setEmail(mail);
+            user.setApellidos(apellido);
             user.setNombre(Name);
             user.setNickname(nickname);
             user.setContrasenha(pswd);
@@ -119,8 +120,6 @@ public class UserController {
     @PostMapping("/updatePlan")
     public RedirectView updatePlan(@RequestParam String plan, HttpSession session) {
         User user = (User) session.getAttribute("user");
-
-
         user.setPlanSuscripcion(plan);
         userService.updateUser(user.getEmail(), user);
 

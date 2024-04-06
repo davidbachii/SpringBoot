@@ -1,12 +1,12 @@
 -- Usuarios
-INSERT INTO Usuario (nombre, nickname, contrasenha, email, fecha_nacimiento,plan_suscripcion)
-VALUES ('Rafael', 'Rafa33', '1234', 'rafael@example.com', '1990-05-15','Gratis');
+INSERT INTO Usuario (nombre, apellidos, nickname, contrasenha, email, fecha_nacimiento,plan_suscripcion)
+VALUES ('Rafael', 'Martinez Valero', 'Rafa33', '1234', 'rafael@example.com', '1990-05-15','Gratis');
 
-INSERT INTO Usuario (nombre, nickname, contrasenha, email, fecha_nacimiento,plan_suscripcion)
-VALUES ('Maria', 'Maria33', '12345', 'maria@example.com', '1985-09-22','Pro');
+INSERT INTO Usuario (nombre, apellidos, nickname, contrasenha, email, fecha_nacimiento,plan_suscripcion)
+VALUES ('Maria', 'Casas Gonzalez', 'Maria33', '12345', 'maria@example.com', '1985-09-22','Pro');
 
-INSERT INTO Usuario (nombre, nickname, contrasenha, email, fecha_nacimiento,plan_suscripcion)
-VALUES ('Carlos', 'Carlos33', '12345', 'carlos@example.com', '1995-12-10','Pro');
+INSERT INTO Usuario (nombre, apellidos, nickname, contrasenha, email, fecha_nacimiento,plan_suscripcion)
+VALUES ('Carlos', 'Rodriguez Sanz', 'Carlos33', '12345', 'carlos@example.com', '1995-12-10','Pro');
 
 -- Películas
 INSERT INTO Pelicula (nombre_contenido, descripcion, titulo_original, genero, nacionalidad, duracion, anho, distribuidora, director, clasificacion_edad, otros_datos, actores, url_image, url_video, calificacion)

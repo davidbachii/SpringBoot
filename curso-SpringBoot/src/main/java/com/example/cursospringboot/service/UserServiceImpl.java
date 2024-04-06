@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService{
         user.setContrasenha(userDetails.getContrasenha());
         user.setFechaNacimiento(userDetails.getFechaNacimiento());
         user.setPlanSuscripcion(userDetails.getPlanSuscripcion());
+        user.setApellidos(userDetails.getApellidos());
 
         return userRepository.save(user);
     }

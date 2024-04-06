@@ -20,6 +20,9 @@ public class User {
     @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
 
+    @Column(name = "apellidos", length = 80, nullable = false)
+    private String apellidos;
+
     @Column(name = "nickname", length = 50, nullable = false)
     private String nickname;
 
@@ -54,13 +57,14 @@ public class User {
    }
 
     //Constructor con parametros
-    public User(String email, String nombre, String nickname, String contrasenha, LocalDate fechaNacimiento, String planSuscripcion) {
+    public User(String email, String nombre, String nickname, String contrasenha, LocalDate fechaNacimiento, String planSuscripcion, String apellidos) {
         this.email = email;
         this.nombre = nombre;
         this.nickname = nickname;
         this.contrasenha = contrasenha;
         this.fechaNacimiento = fechaNacimiento;
         this.planSuscripcion = planSuscripcion;
+        this.apellidos = apellidos;
     }
 
     //Getters y Setters
@@ -117,6 +121,12 @@ public class User {
         this.planSuscripcion = planSuscripcion;
     }
 
+    public String getApellidos() {
+        return apellidos;
+    }
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
 
     public List<TarjetaCredito> getTarjetas() {
         return tarjetas;

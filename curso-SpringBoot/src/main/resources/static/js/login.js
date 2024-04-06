@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('Registrar').addEventListener('click', function(e) {
             var nombre = document.getElementById('Name').value;
             var nickname = document.getElementById('nickname').value;
+            var apellido = document.getElementById('apellido').value;
             var emailRegistro = document.getElementById('mail').value;
             var contrasena = document.getElementById('pswd').value;
             var fechaNacimiento = document.getElementById('FechaNacimiento').value;
@@ -18,12 +19,20 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 document.getElementById('error-nombre').textContent = '';
             }
-            // Verificar si el apellido está lleno
+            // Verificar si el nickname está lleno
             if (nickname.trim() === '') {
                 document.getElementById('error-nickname').textContent = 'Por favor, ingresa un nickname valido';
                 isValid = false;
             } else {
                 document.getElementById('error-nickname').textContent = '';
+            }
+
+            // Verificar si el apellido está lleno
+            if (apellido.trim() === '') {
+                document.getElementById('error-apellido').textContent = 'Por favor, ingresa un apellido valido';
+                isValid = false;
+            } else {
+                document.getElementById('error-apellido').textContent = '';
             }
 
             // Verificar si el correo electrónico de registro es válido
@@ -65,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Name': nombre,
                     'nickname': nickname,
                     'pswd': contrasena,
+                    'apellido': apellido,
                     'mail': emailRegistro,
                     'FechaNacimiento': fechaNacimiento
                 },
@@ -131,9 +141,12 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // Si la autenticación falla, muestra el mensaje de error al usuario
-                if(jqXHR.status == 401) { // 401 es el código de estado para no autorizado
+                var responseText = jqXHR.responseText;
+                if(responseText === "Usuario o contraseña incorrectos") { // 401 es el código de estado para no autorizado
                     document.getElementById('error-contrasena-acceso').textContent = 'Usuario o contraseña incorrectos';
-                } else {
+                } else if(responseText === "Usuario no encontrado"){
+                    document.getElementById('error-contrasena-acceso').textContent = 'Por favor registrese.';
+                } else{
                     document.getElementById('error-contrasena-acceso').textContent = 'Error desconocido. Por favor, inténtelo de nuevo más tarde.';
                 }
             }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/api/userProfile")
@@ -20,51 +21,61 @@ public class UserProfileController {
     @GetMapping("/")
     public String showProfile(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
-        if (user == null || "Sin Plan".equals(user.getPlanSuscripcion())) {
-            return "login"; // Redirige al usuario a la página de inicio de sesión si no está autenticado
+        if (user == null) {
+            return "login"; // Redirect the user to the login page if not authenticated
         }
+        model.addAttribute("user", user); // Add the user object to the model
         return "userProfile";
     }
 
     @PostMapping("/updateInfo")
-    public ResponseEntity<String> updateInfo(@ModelAttribute User updatedUser, HttpSession session) {
+    public String updateInfo(@RequestParam("nombre") String nombre, @RequestParam("apellidos") String apellidos, @RequestParam("nickname") String nickname, HttpSession session, RedirectAttributes redirectAttributes) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no autenticado");
+            return "login";
         }
-        if (updatedUser.getEmail() != null && !updatedUser.getEmail().equals(user.getEmail())) {
-            if (userService.emailExists(updatedUser.getEmail())) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El correo electrónico ya existe");
+        if (nickname != null && !nickname.equals(user.getNickname())) {
+            if (userService.nicknameExists(nickname)) {
+                redirectAttributes.addFlashAttribute("errorMessage", "El nickname ya está en uso");
+                return "redirect:/api/userProfile/";
             }
-            user.setEmail(updatedUser.getEmail());
+            user.setNickname(nickname);
         }
-        if (updatedUser.getNickname() != null && !updatedUser.getNickname().equals(user.getNickname())) {
-            if (userService.nicknameExists(updatedUser.getNickname())) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nickname ya existe");
-            }
-            user.setNickname(updatedUser.getNickname());
+        user.setNombre(nombre);
+        user.setApellidos(apellidos);
+        try {
+            userService.updateUser(user.getEmail(), user);
+            redirectAttributes.addFlashAttribute("successMessage", "Información actualizada con éxito");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error al actualizar la información");
         }
-        user.setNombre(updatedUser.getNombre());
-        userService.updateUser(user.getEmail(), user);
-        return ResponseEntity.status(HttpStatus.OK).body("Información actualizada con éxito");
+        return "redirect:/api/userProfile/";
     }
 
     @PostMapping("/updatePassword")
-    public String updatePassword(@RequestParam String password_current, @RequestParam String password_1, @RequestParam String password_2, HttpSession session) {
+    public String updatePassword(@RequestParam String password_current, @RequestParam String password_1, @RequestParam String password_2, HttpSession session, RedirectAttributes redirectAttributes ) {
         User user = (User) session.getAttribute("user");
-        if (userService.authenticateUser(user.getEmail(), password_current) && password_1.equals(password_2)) {
+        if (user == null) {
+            return "login";
+        }
+        else if (password_current.trim().isEmpty() || password_1.trim().isEmpty() || password_2.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Por favor complete todos los campos de contraseña");
+            return "redirect:/api/userProfile/";
+        }
+        else if (!userService.authenticateUser(user.getEmail(), password_current)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Contraseña actual incorrecta");
+            return "redirect:/api/userProfile/";
+        }
+        else if (!password_1.equals(password_2)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Las contraseñas no coinciden");
+            return "redirect:/api/userProfile/";
+        }
+        else {
             user.setContrasenha(password_1);
             userService.updateUser(user.getEmail(), user);
+            redirectAttributes.addFlashAttribute("successMessage", "Contraseña actualizada con éxito");
+            return "redirect:/api/userProfile/";
         }
-        return "redirect:/userProfile";
     }
 
-    @PostMapping("/updatePlan")
-    public String updatePlan(@RequestParam String account_planSuscripcion, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        user.setPlanSuscripcion(account_planSuscripcion);
-        userService.updateUser(user.getEmail(), user);
-        return "redirect:/userProfile";
-    }
 }
