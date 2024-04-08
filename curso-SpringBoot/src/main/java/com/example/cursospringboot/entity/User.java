@@ -41,15 +41,11 @@ public class User {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ComentarioPelicula> comentarios;
 
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChatCommunity> createdCommunities;
 
-    //Set de comentarios que ha hecho el usuario en la aplicacion
-
-    /*
-    @OneToMany(mappedBy = "usuario")
-    @JsonBackReference // Esta anotación indica que este lado de la relación no debe ser serializado
-    private Set<Comentario> comentarios;
-
-     */
+    @OneToMany(mappedBy = "sentBy", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChatMessage> sentMessages;
 
 
    //Constructor
