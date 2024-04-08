@@ -13,14 +13,15 @@ import java.util.Set;
 @Table(name = "Usuario")
 public class User {
 
-
-
     @Id
     @Column(name = "email", nullable = false, length = 50)
     private String email;
 
     @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
+
+    @Column(name = "apellidos", length = 80, nullable = false)
+    private String apellidos;
 
     @Column(name = "nickname", length = 50, nullable = false)
     private String nickname;
@@ -38,17 +39,13 @@ public class User {
     private List<TarjetaCredito> tarjetas;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comentario> comentarios;
+    private List<ComentarioPelicula> comentarios;
 
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChatCommunity> createdCommunities;
 
-    //Set de comentarios que ha hecho el usuario en la aplicacion
-
-    /*
-    @OneToMany(mappedBy = "usuario")
-    @JsonBackReference // Esta anotación indica que este lado de la relación no debe ser serializado
-    private Set<Comentario> comentarios;
-
-     */
+    @OneToMany(mappedBy = "sentBy", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChatMessage> sentMessages;
 
 
    //Constructor
@@ -56,13 +53,14 @@ public class User {
    }
 
     //Constructor con parametros
-    public User(String email, String nombre, String nickname, String contrasenha, LocalDate fechaNacimiento, String planSuscripcion) {
+    public User(String email, String nombre, String nickname, String contrasenha, LocalDate fechaNacimiento, String planSuscripcion, String apellidos) {
         this.email = email;
         this.nombre = nombre;
         this.nickname = nickname;
         this.contrasenha = contrasenha;
         this.fechaNacimiento = fechaNacimiento;
         this.planSuscripcion = planSuscripcion;
+        this.apellidos = apellidos;
     }
 
     //Getters y Setters
@@ -119,6 +117,12 @@ public class User {
         this.planSuscripcion = planSuscripcion;
     }
 
+    public String getApellidos() {
+        return apellidos;
+    }
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
 
     public List<TarjetaCredito> getTarjetas() {
         return tarjetas;
@@ -128,13 +132,15 @@ public class User {
         this.tarjetas = tarjetas;
     }
 
-    public List<Comentario> getComentarios() {
-        return comentarios;
+    public List<ComentarioPelicula> getComentarios() {
+            return comentarios;
     }
 
-    public void setComentarios(List<Comentario> comentarios) {
+    public void setComentarios(List<ComentarioPelicula> comentarios) {
         this.comentarios = comentarios;
     }
+
+
 
 
 

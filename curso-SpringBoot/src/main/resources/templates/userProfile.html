@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+    <title>My account - Bootstrap Themes</title>
+    <link rel='stylesheet' href='https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/style.css?ver=1590611604' />
+
+
+    <link th:href="@{/css/style.css}" href="../static/css/style.css" rel="stylesheet">
+    <!-- styles needed for carousel slider -->
+    <link th:href="@{/css/multicines.css}" href="../static/css/multicines.css" rel="stylesheet">
+
+
+</head>
+<body class="page-template-default page page-id-7 page-parent logged-in woocommerce theme-dokan woocommerce-account woocommerce-page woocommerce-edit-account woocommerce-no-js dokan-theme-dokan">
+
+<div class="header">
+    <nav class="navbar fixed-top navbar-site navbar-light bg-light navbar-expand-lg" role="navigation">
+        <div class="container">
+            <div class="navbar-identity">
+
+                <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggler pull-right"
+                        type="button">
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" style="height: auto;">
+                <ul class="nav navbar-nav ml-auto navbar-right">
+                    <li class="nav-item"><a th:href="@{/api/peliculas/}" class="nav-link">VOLVER AL MENU PRINCIPAL</a></li>
+                    <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">REGISTRARSE</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!-- Mensaje de cambios correctos-->
+<div class="alert alert-success wc_notice">Account details changed successfully.</div>
+
+<!-- Mensaje de cambios correctos-->
+<div th:if="${successMessage}" class="alert alert-success wc_notice" th:text="${successMessage}"></div>
+<!-- Mensaje de error -->
+<div th:if="${errorMessage}" class="alert alert-danger wc_notice" th:text="${errorMessage}"></div>
+<main id="main" class="site-main main">
+    <section class="section">
+        <div class="container">
+            <div class="row">
+
+
+                <div class="woocommerce">
+                    <div class="woocommerce-MyAccount-content">
+                        <div class="woocommerce-notices-wrapper"></div><div class="container container--xs">
+                        <h1 class="mb-1 text-center">Tu Cuenta</h1>
+                        <p class="fs-14 text-gray text-center mb-5">Cambia el nombre, nickname, contraseña o actualiza el plan de suscripción</p>
+                        <form class="woocommerce-EditAccountForm edit-account" action="/api/userProfile/updateInfo" method="post">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-4 mb-sm-0">
+                                    <label for="nombre">Nombre <span class="required">*</span></label>
+                                    <input type="text" class="form-control woocommerce-Input woocommerce-Input--text input-text" name="nombre" id="nombre" th:value="${user.nombre}"/>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="apellidos">Apellidos <span class="required">*</span></label>
+                                    <input type="text" class="form-control woocommerce-Input woocommerce-Input--text input-text" name="apellidos" id="apellidos" th:value="${user.apellidos}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="nickname">Nickname <span class="required">*</span></label>
+                                <input type="text" class="form-control woocommerce-Input woocommerce-Input--email input-text" name="nickname" id="nickname" th:value="${user.nickname}"/>
+                            </div>
+                            <input type="submit" class="btn btn-outline-brand btn-block mb-4" name="save_account_details" value="Actualizar Informacion"/>
+                        </form>
+                        <hr class="my-5">
+                        <div class="form-group row">
+                            <div class="col-sm-6 mb-4 mb-sm-0">
+                                <label for="email">Email <span class="required">*</span></label>
+                                <input type="email" class="form-control woocommerce-Input woocommerce-Input--text input-text" name="email" id="email" th:value="${user.email}" readonly/>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="fecha_nacimiento">Fecha de Nacimiento <span class="required">*</span></label>
+                                <input type="date" class="form-control woocommerce-Input woocommerce-Input--text input-text" name="fecha_nacimiento" id="fecha_nacimiento" th:value="${user.fechaNacimiento}" readonly/>
+                            </div>
+                        </div>
+                        <hr class="my-5">
+                        <form class="woocommerce-EditAccountForm edit-account" action="/api/userProfile/updatePassword" method="post">
+                            <!-- Rest of the form fields -->
+                            <div class="form-group">
+                                <label for="password_current">Contraseña Actual </label>
+                                <input type="password" class="form-control woocommerce-Input woocommerce-Input--password input-text" name="password_current" id="password_current" />
+
+                            </div>
+                            <div class="form-group">
+                                <label for="password_1">Nueva Contraseña </label>
+                                <input type="password" class="form-control woocommerce-Input woocommerce-Input--password input-text" name="password_1" id="password_1" />
+
+                            </div>
+                            <div class="form-group">
+                                <label for="password_2">Confirmar nueva contraseña</label>
+                                <input type="password" class="form-control woocommerce-Input woocommerce-Input--password input-text" name="password_2" id="password_2" />
+                            </div>
+                            <input type="submit" class="btn btn-outline-brand btn-block mb-4" name="save_account_details" value="Actualizar Contraseña" />
+                        </form>
+                        <form class="woocommerce-EditPlanSuscripcion edit-plan" action="/api/users/planSuscripcion" method="get">
+                            <hr class="my-5">
+                            <div class="form-group">
+                                <label>Plan de suscripción actual <span class="required">*</span></label>
+                                <input type="text" class="form-control woocommerce-Input woocommerce-Input--email input-text" name="account_planSuscripcion" id="account_planSuscripcion" th:value="${user.planSuscripcion}" readonly />
+                            </div>
+                            <input type="submit" class="btn btn-outline-brand btn-block mb-4" name="update_plan_Suscripcion" value="Actualizar Plan de Suscripción" />
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+</body>
+</html>

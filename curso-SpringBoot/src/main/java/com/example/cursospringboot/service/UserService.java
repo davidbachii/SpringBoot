@@ -32,4 +32,10 @@ public interface UserService {
     // Metodo para saber si el usuario esta ya registrado
     public boolean estaRegistrado(String email);
 
+    // Metodo para saber si el email ya existe
+    public boolean emailExists(String email);
+
+    // Metodo para saber si el nickname ya existe
+    public boolean nicknameExists(String nickname);
+
 }

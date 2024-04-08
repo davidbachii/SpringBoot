@@ -6,17 +6,14 @@ import com.example.cursospringboot.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
+
 
 @Controller // Esto es para que sea un controlador de spring boot
 @RequestMapping("/api/users") //Para que todas las rutas de este controlador empiecen con /api/users
@@ -65,7 +62,7 @@ public class UserController {
     */
 
     @PostMapping("/CrearUsuario")
-    public ResponseEntity<String> createUser(@RequestParam String Name, @RequestParam String nickname, @RequestParam String pswd, @RequestParam String mail, @RequestParam LocalDate FechaNacimiento, HttpSession session) {
+    public ResponseEntity<String> createUser(@RequestParam String Name, @RequestParam String nickname, @RequestParam String apellido, @RequestParam String pswd, @RequestParam String mail, @RequestParam LocalDate FechaNacimiento, HttpSession session) {
 
         boolean registrado = userService.estaRegistrado(mail);
         if(registrado){
@@ -74,6 +71,7 @@ public class UserController {
 
             User user = new User();
             user.setEmail(mail);
+            user.setApellidos(apellido);
             user.setNombre(Name);
             user.setNickname(nickname);
             user.setContrasenha(pswd);
@@ -90,16 +88,30 @@ public class UserController {
 
 
     @PostMapping("/AccederUsuario")
-    public ResponseEntity<String> authenticateUser(@RequestParam("mail-2") String email, @RequestParam("pswd-2") String password) {
-        boolean authenticated = userService.authenticateUser(email, password);
-        if (authenticated) {
-            // Autenticación exitosa, devuelve un mensaje de éxito
-            return ResponseEntity.status(HttpStatus.OK).body("Autenticación exitosa");
+    public ResponseEntity<String> authenticateUser(@RequestParam("mail-2") String email, @RequestParam("pswd-2") String password, HttpSession session) {
+        Optional<User> userOptional = userService.getUserByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (userService.authenticateUser(email, password)) {
+                if (user.getPlanSuscripcion().equals("Sin Plan")) {
+                    // Si el usuario no tiene un plan de suscripción, crear una sesión y redirigir a la página de actualización de plan
+                    session.setAttribute("user", user);
+                    return ResponseEntity.status(HttpStatus.OK).body("Sin plan de suscripción, por favor selecciona uno.");
+                } else {
+                    // El usuario tiene un plan de suscripción, redirigir a la página de películas
+                    session.setAttribute("user", user);
+                    return ResponseEntity.status(HttpStatus.OK).body("Autenticación exitosa");
+                }
+            } else {
+                // Autenticación fallida, devuelve un mensaje de error
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario o contraseña incorrectos");
+            }
         } else {
-            // Autenticación fallida, devuelve un mensaje de error
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario o contraseña incorrectos");
+            // Usuario no encontrado, devuelve un mensaje de error
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no encontrado");
         }
     }
+
 
 
 
@@ -108,8 +120,6 @@ public class UserController {
     @PostMapping("/updatePlan")
     public RedirectView updatePlan(@RequestParam String plan, HttpSession session) {
         User user = (User) session.getAttribute("user");
-
-
         user.setPlanSuscripcion(plan);
         userService.updateUser(user.getEmail(), user);
 
@@ -149,6 +159,8 @@ public class UserController {
         // Si el usuario está registrado, continuar como antes
         return "planSuscripcion";
     }
+
+
 
     @DeleteMapping("/{email}")
     public ResponseEntity<Void> deleteUser(@PathVariable String email) {

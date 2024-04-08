@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService{
         user.setContrasenha(userDetails.getContrasenha());
         user.setFechaNacimiento(userDetails.getFechaNacimiento());
         user.setPlanSuscripcion(userDetails.getPlanSuscripcion());
+        user.setApellidos(userDetails.getApellidos());
 
         return userRepository.save(user);
     }
@@ -80,6 +81,16 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean estaRegistrado(String email) {
         return userRepository.existsById(email);
+    }
+
+    @Override
+    public boolean emailExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public boolean nicknameExists(String nickname) {
+        return userRepository.existsByNickname(nickname);
     }
 }
 

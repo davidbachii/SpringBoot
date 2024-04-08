@@ -17,12 +17,18 @@ public interface PeliculaService {
 
     //Metodo para obtener una pelicula por su nombre
     Optional<Pelicula> getPeliculaByNombre(String nombrePelicula);
+
     //Metodo para guardar una pelicula
     Pelicula createPelicula(Pelicula pelicula);
+
     //Metodo para actualizar una pelicula
     Pelicula updatePelicula(String nombrePelicula, Pelicula detallesPelicula);
+
     //Metodo para eliminar una pelicula
     void deletePelicula(String nombrePelicula);
 
+    public List<Pelicula> searchPeliculas(String query);
 
 }
+
+

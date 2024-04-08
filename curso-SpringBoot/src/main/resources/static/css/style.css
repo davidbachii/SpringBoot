@@ -76,6 +76,27 @@ html[theme="dark"] {
   --brand-warning: #aa8a0a;
   --brand-primary: #0d5d4d; }
 
+.comentario {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.comentario-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comentario-texto {
+  flex-grow: 1;
+  margin-right: 20px;
+}
+
+.comentario-valoracion {
+  width: 50px;
+  text-align: right;
+}
+
 html {
   font-family: sans-serif;
   line-height: 1.15;

@@ -21,6 +21,10 @@ public interface UserRepository extends JpaRepository<User, String> {
     Para eso usamos jpa repository que es una interfaz que nos permite hacer consultas a la base de datos
     */
 
+    //Aqui se pueden hacer consultas personalizadas
+    boolean existsByEmail(String email);
+    boolean existsByNickname(String nickname);
+
 
 
 }

@@ -27,8 +27,8 @@
                 </div>
                 <div class="navbar-collapse collapse" style="height: auto;">
                     <ul class="nav navbar-nav ml-auto navbar-right">
-                        <li class="nav-item"><a href="index.jsp" class="nav-link">VOLVER AL MENU DE PELICULAS</a></li>
-                        <li class="nav-item"><a href="login.jsp" class="nav-link">REGISTRARSE</a></li>
+                        <li class="nav-item"><a th:href="@{/api/peliculas/}" class="nav-link">VOLVER AL MENU PRINCIPAL</a></li>
+                        <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">REGISTRARSE</a></li>
                     </ul>
                 </div>
             </div>
@@ -39,7 +39,7 @@
 
 
             <div class="row clearfix">
-                <h1 class="text-center title-1" th:text="${pelicula.getNombrePelicula()}"></h1>
+                <h1 class="text-center title-1" th:text="${pelicula.getNombreContenido()}"></h1>
                 <hr class="mx-auto small text-hr" style="margin-bottom: 30px !important">
 
                 <div style="clear:both">
@@ -49,13 +49,13 @@
 
 
             <div class="white-box" style="padding:15px">
-                <h3 class="titulo-cine" th:text="${pelicula.getNombrePelicula()}"></h3>
+                <h3 class="titulo-cine" th:text="${pelicula.getNombreContenido()}"></h3>
                 <div class="row mb20">
                     <div class="col-3 d-none d-md-block">
 
-                        <a th:src="@{'/' + ${pelicula.getUrl_image}}" data-toggle="lightbox"><img class="img-responsive"
+                        <a th:src="@{'/' + ${pelicula.getUrl_image()}}" data-toggle="lightbox"><img class="img-responsive"
                                                                                                   style="width: 262px;"
-                                                                                                  th:src="@{'/' + ${pelicula.getUrl_image}}"/></a>
+                                                                                                  th:src="@{'/' + ${pelicula.getUrl_image()}}"/></a>
 
 
                     </div>
@@ -100,7 +100,34 @@
                 <div class="row mb30">
                     <div class="col-sm-12">
                         <span class="text-muted">Sinopsis:</span>
-                        <p th:text="${pelicula.getSinopsis()}"></p>
+                        <p th:text="${pelicula.getDescripcion()}"></p>
+                    </div>
+                </div>
+                <div th:if="${session != null}">
+                    <h3 class="titulo-cine">COMENTARIOS</h3>
+                    <div class="comentarios">
+                        <!-- Sección para hacer comentario -->
+                        <form th:action="@{'/api/ComentariosPelicula/CrearComentarioPelicula/' + ${pelicula.nombreContenido}}" method="post">
+                            <!-- Otros campos del formulario -->
+
+                            <label for="textoComentario">Comentario:</label>
+                            <textarea id="textoComentario" name="textoComentario" required></textarea>
+
+                            <label for="valoracionComentario">Valoración:</label>
+                            <input type="number" id="valoracionComentario" name="valoracionComentario" min="0" max="10" required>
+
+                            <button type="submit">Enviar Comentario</button>
+                        </form>
+                        <br><br>
+                        <!-- Sección para mostrar comentarios -->
+                        <div th:each="comentario : ${comentarios}" class="comentario">
+                            <h4 th:text="${comentario.nickname}"></h4>
+                            <div class="comentario-content">
+                                <p th:text="${comentario.texto}" class="comentario-texto"></p>
+                                <p th:text="${comentario.valoracion}" class="comentario-valoracion"></p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

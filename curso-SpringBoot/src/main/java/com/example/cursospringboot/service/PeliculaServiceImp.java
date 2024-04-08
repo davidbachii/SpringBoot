@@ -25,22 +25,23 @@ public class PeliculaServiceImp implements PeliculaService{
 
     @Override
     public Optional<Pelicula> getPeliculaByNombre(String nombrePelicula) {
-        return peliculaRepository.findById(nombrePelicula);
+        return peliculaRepository.findByNombreContenido(nombrePelicula);
     }
 
     @Override
+    @Transactional
     public Pelicula createPelicula(Pelicula pelicula) {
         return peliculaRepository.save(pelicula);
     }
 
     @Override
+    @Transactional
     public Pelicula updatePelicula(String nombrePelicula, Pelicula detallesPelicula) {
-        Pelicula pelicula = peliculaRepository.findById(nombrePelicula)
+        Pelicula pelicula = peliculaRepository.findByNombreContenido(nombrePelicula)
                 .orElseThrow(() -> new RuntimeException("Pelicula not found"));
 
-        pelicula.setNombrePelicula(detallesPelicula.getNombrePelicula());
-        pelicula.setSinopsis(detallesPelicula.getSinopsis());
-        pelicula.setPaginaOficial(detallesPelicula.getPaginaOficial());
+        pelicula.setNombreContenido(detallesPelicula.getNombreContenido());
+        pelicula.setDescripcion(detallesPelicula.getDescripcion());
         pelicula.setTituloOriginal(detallesPelicula.getTituloOriginal());
         pelicula.setGenero(detallesPelicula.getGenero());
         pelicula.setNacionalidad(detallesPelicula.getNacionalidad());
@@ -60,8 +61,16 @@ public class PeliculaServiceImp implements PeliculaService{
     }
 
     @Override
+    @Transactional
     public void deletePelicula(String nombrePelicula) {
-        peliculaRepository.deleteById(nombrePelicula);
+        Pelicula pelicula = peliculaRepository.findByNombreContenido(nombrePelicula)
+                .orElseThrow(() -> new RuntimeException("Pelicula not found"));
+        peliculaRepository.delete(pelicula);
+    }
+
+    @Override
+    public List<Pelicula> searchPeliculas(String query) {
+        return peliculaRepository.findByNombreContenidoStartingWith(query);
     }
 
 

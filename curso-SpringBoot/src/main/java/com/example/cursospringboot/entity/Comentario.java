@@ -3,10 +3,10 @@ package com.example.cursospringboot.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
-@Entity
-@Table(name = "Comentario")
-public class Comentario{
+@MappedSuperclass
+public abstract class Comentario{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,34 +15,12 @@ public class Comentario{
     @Column(name = "texto",length = 500, nullable = false)
     private String texto;
 
-    @Column(name = "valoracion", nullable = false)
-    private Short valoracion;
-
     @Column(name = "fechaComentario", length = 12, nullable = false)
-    private String fechaComentario;
+    private LocalDate fechaComentario;
 
+    @Column(name = "user_nickname", nullable = false)
+    private String nickname;
 
-
-    @ManyToOne
-    @JoinColumn(name = "user_email", referencedColumnName = "email",  nullable = false)
-    private User usuario;
-
-    @ManyToOne
-    @JoinColumn(name = "nombrePelicula_Pelicula", referencedColumnName = "nombrePelicula",nullable = false)
-    private Pelicula pelicula;
-
-
-    @ManyToOne
-    @JoinColumn(name = "liveContent_id", referencedColumnName = "id")
-    private LiveContent liveContent;
-
-    @ManyToOne
-    @JoinColumn(name = "f1Content_id", referencedColumnName = "nombreCarrera")
-    private F1Content f1Content;
-
-    @ManyToOne
-    @JoinColumn(name = "footballContent_id", referencedColumnName = "id")
-    private FootballContent footballContent;
 
 
 
@@ -51,25 +29,13 @@ public class Comentario{
     }
 
     //Constructor con parametros
-    public Comentario(String texto, Short valoracion, String fechaComentario, User usuario, Pelicula pelicula) {
+    public Comentario(String texto, LocalDate fechaComentario, String nickname) {
         this.texto = texto;
-        this.valoracion = valoracion;
         this.fechaComentario = fechaComentario;
-        this.usuario = usuario;
-        this.pelicula = pelicula;
+        this.nickname = nickname;
     }
 
-    // getters and setters
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    //Getters y Setters
     public String getTexto() {
         return texto;
     }
@@ -78,59 +44,19 @@ public class Comentario{
         this.texto = texto;
     }
 
-    public Short getValoracion() {
-        return valoracion;
-    }
-
-    public void setValoracion(Short valoracion) {
-        this.valoracion = valoracion;
-    }
-
-    public String getFechaComentario() {
+    public LocalDate getFechaComentario() {
         return fechaComentario;
     }
 
-    public void setFechaComentario(String fechaComentario) {
-        this.fechaComentario = fechaComentario;
+    public void setFechaComentario() {
+        this.fechaComentario = LocalDate.now();
     }
 
-    public User getUsuario() {
-        return usuario;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setUsuario(User usuario) {
-        this.usuario = usuario;
-    }
-
-    public Pelicula getPelicula() {
-        return pelicula;
-    }
-
-    public void setPelicula(Pelicula pelicula) {
-        this.pelicula = pelicula;
-    }
-
-    public LiveContent getLiveContent() {
-        return liveContent;
-    }
-
-    public void setLiveContent(LiveContent liveContent) {
-        this.liveContent = liveContent;
-    }
-
-    public F1Content getF1Content() {
-        return f1Content;
-    }
-
-    public void setF1Content(F1Content f1Content) {
-        this.f1Content = f1Content;
-    }
-
-    public FootballContent getFootballContent() {
-        return footballContent;
-    }
-
-    public void setFootballContent(FootballContent footballContent) {
-        this.footballContent = footballContent;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

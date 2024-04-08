@@ -1,11 +1,13 @@
 package com.example.cursospringboot.controller;
 
 
+import com.example.cursospringboot.entity.ComentarioPelicula;
 import com.example.cursospringboot.entity.Pelicula;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
+import com.example.cursospringboot.entity.User;
+import com.example.cursospringboot.service.ComentarioPeliculaService;
 import com.example.cursospringboot.service.PeliculaService;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,9 @@ public class PeliculaController {
     @Autowired
     private PeliculaService peliculaService;
 
+    @Autowired
+    private ComentarioPeliculaService comentarioPeliculaService;
+
 
 
 
@@ -39,12 +44,26 @@ public class PeliculaController {
 
 
     @GetMapping("/{nombrePelicula}")
-    public String getPelicula(@PathVariable String nombrePelicula, Model model) {
-        String decodedNombrePelicula = URLDecoder.decode(nombrePelicula, StandardCharsets.UTF_8);
-        Pelicula pelicula = peliculaService.getPeliculaByNombre(decodedNombrePelicula)
+    public String getPelicula(@PathVariable String nombrePelicula, Model model, HttpSession session) {
+        Pelicula pelicula = peliculaService.getPeliculaByNombre(nombrePelicula)
                 .orElseThrow(() -> new RuntimeException("Pelicula not found"));
         model.addAttribute("pelicula", pelicula);
+        User user = (User) session.getAttribute("user");
+        if (user == null || "Sin Plan".equals(user.getPlanSuscripcion())) {
+            return "login"; // Redirige al usuario a la página de inicio de sesión si no está autenticado
+        }
+
+        // Fetch the list of comments for the specific movie
+        List<ComentarioPelicula> comentarios = comentarioPeliculaService.getAllComentariosByPelicula(pelicula);
+        model.addAttribute("comentarios", comentarios);
+        model.addAttribute("session", user);
         return "indexDetallado";
+    }
+
+    @GetMapping("/search/realtime")
+    @ResponseBody
+    public List<Pelicula> realtimeSearch(@RequestParam String query) {
+        return peliculaService.searchPeliculas(query);
     }
 
 
