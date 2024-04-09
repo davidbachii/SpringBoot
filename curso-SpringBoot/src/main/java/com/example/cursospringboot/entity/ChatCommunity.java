@@ -22,6 +22,9 @@ public class ChatCommunity {
     @Column(name = "fechaCreacion", length = 12, nullable = false)
     private LocalDate fechaCreacion;
 
+    @Column(name = "url_image", length = 100, nullable = false)
+    private String url_image;
+
     @ManyToOne
     private User createdBy;
 
@@ -34,11 +37,12 @@ public class ChatCommunity {
     }
 
     //Constructor con parametros
-    public ChatCommunity(String nombreComunidad, String descripcion, LocalDate fechaCreacion, User createdBy) {
+    public ChatCommunity(String nombreComunidad, String descripcion, LocalDate fechaCreacion, User createdBy, String url_image) {
         this.nombreComunidad = nombreComunidad;
         this.descripcion = descripcion;
-        this.fechaCreacion = fechaCreacion;
+        this.fechaCreacion = LocalDate.now();;
         this.createdBy = createdBy;
+        this.url_image = url_image;
     }
 
     //Getters y Setters
@@ -73,5 +77,13 @@ public class ChatCommunity {
 
     public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public String getUrl_image() {
+        return url_image;
+    }
+
+    public void setUrl_image(String url_image) {
+        this.url_image = url_image;
     }
 }

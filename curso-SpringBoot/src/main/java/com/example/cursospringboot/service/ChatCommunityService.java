@@ -10,7 +10,7 @@ public interface ChatCommunityService {
     List<ChatCommunity> getAllCommunities();
     ChatCommunity getCommunityById(Long id);
 
-    Optional<ChatCommunity> findByNombreComunidad(String nombreComunidad);
+    Optional<ChatCommunity> getCommunityByName(String nombreComunidad);
     ChatCommunity createCommunity(ChatCommunity chatCommunity);
     void deleteCommunity(Long id);
 

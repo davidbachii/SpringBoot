@@ -309,3 +309,11 @@ VALUES ('Real Madrid vs Sporting 2017', 'El Real Madrid se enfrentó al Sporting
 
 
 
+INSERT INTO chat_community (nombre_comunidad, descripcion, fecha_creacion, created_by_email, url_image) 
+VALUES ('Comunidad de Fórmula 1', '¡Únete a nuestra comunidad para discutir sobre las últimas noticias, carreras, pilotos y todo lo relacionado con la Fórmula 1!', '2023-12-31', 'david@gmail.com', 'images/Comunidades/f1_logo.png');
+
+INSERT INTO chat_community (nombre_comunidad, descripcion, fecha_creacion, created_by_email, url_image) 
+VALUES ('Comunidad de Fútbol', '¡Únete a nuestra comunidad para debatir sobre partidos, equipos, jugadores y todo lo relacionado con el mundo del fútbol!', '2023-12-31', 'david@gmail.com', 'images/Comunidades/futbol_logo.png');
+
+INSERT INTO chat_community (nombre_comunidad, descripcion, fecha_creacion, created_by_email, url_image) 
+VALUES ('Comunidad de Películas', '¡Únete a nuestra comunidad para conversar sobre las últimas películas, actores, directores y todo lo relacionado con el cine!', '2023-12-31', 'david@gmail.com', 'images/Comunidades/peliculas_logo.png');
