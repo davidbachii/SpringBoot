@@ -4,6 +4,7 @@ package com.example.cursospringboot.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ChatMessage")
@@ -20,6 +21,9 @@ public class ChatMessage {
     @Column(name = "sentDate", length = 12, nullable = false)
     private LocalDate sentDate;
 
+    @Column(name = "horaEnvio", nullable = false)
+    private LocalDateTime horaEnvio;
+
     @ManyToOne
     private User sentBy;
 
@@ -31,11 +35,12 @@ public class ChatMessage {
     }
 
     //Constructor con parametros
-    public ChatMessage(String message, LocalDate sentDate, User sentBy, ChatCommunity community) {
+    public ChatMessage(String message, LocalDate sentDate, User sentBy, ChatCommunity community, LocalDateTime horaEnvio) {
         this.message = message;
-        this.sentDate = sentDate;
+        this.sentDate = LocalDate.now();
         this.sentBy = sentBy;
         this.community = community;
+        this.horaEnvio = LocalDateTime.now();
     }
 
     //Getters y Setters
@@ -71,4 +76,13 @@ public class ChatMessage {
     public void setCommunity(ChatCommunity community) {
         this.community = community;
     }
+
+    public LocalDateTime getHoraEnvio() {
+        return horaEnvio;
+    }
+
+    public void setHoraEnvio(LocalDateTime horaEnvio) {
+        this.horaEnvio = LocalDateTime.now();
+    }
+
 }

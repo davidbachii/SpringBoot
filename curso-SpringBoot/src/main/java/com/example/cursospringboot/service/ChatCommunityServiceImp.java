@@ -26,7 +26,7 @@ public class ChatCommunityServiceImp implements ChatCommunityService{
     }
 
     @Override
-    public Optional<ChatCommunity> getCommunityByName(String nombreComunidad) {
+    public ChatCommunity getCommunityByName(String nombreComunidad) {
         return chatCommunityRepository.findByNombreComunidad(nombreComunidad);
     }
 

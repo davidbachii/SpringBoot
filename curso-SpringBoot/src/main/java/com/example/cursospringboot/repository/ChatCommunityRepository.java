@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface ChatCommunityRepository extends JpaRepository<ChatCommunity, Long> {
 
-    Optional<ChatCommunity> findByNombreComunidad(String nombreComunidad);
+    ChatCommunity findByNombreComunidad(String nombreComunidad);
 }

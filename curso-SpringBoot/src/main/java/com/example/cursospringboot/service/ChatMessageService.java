@@ -1,5 +1,6 @@
 package com.example.cursospringboot.service;
 
+import com.example.cursospringboot.entity.ChatCommunity;
 import com.example.cursospringboot.entity.ChatMessage;
 import com.example.cursospringboot.entity.User;
 
@@ -11,7 +12,7 @@ public interface ChatMessageService {
     ChatMessage getMessageById(Long id);
     ChatMessage createMessage(ChatMessage chatMessage);
     void deleteMessage(Long id);
-    List<ChatMessage> getMessagesByUser(User user);
-    List<ChatMessage> getMessagesByOtherUsers(User user);
+    List<ChatMessage> getMessagesByUserAndCommunity(User user, ChatCommunity community);
+    List<ChatMessage> getMessagesByOtherUsersAndCommunity(User user, ChatCommunity community);
 
 }

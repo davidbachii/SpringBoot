@@ -1,5 +1,6 @@
 package com.example.cursospringboot.service;
 
+import com.example.cursospringboot.entity.ChatCommunity;
 import com.example.cursospringboot.entity.ChatMessage;
 import com.example.cursospringboot.entity.User;
 import com.example.cursospringboot.repository.ChatMessageRepository;
@@ -35,12 +36,12 @@ public class ChatMessageServiceImp implements ChatMessageService{
     }
 
     @Override
-    public List<ChatMessage> getMessagesByUser(User user) {
-        return chatMessageRepository.findBySentBy(user);
+    public List<ChatMessage> getMessagesByUserAndCommunity(User user, ChatCommunity community) {
+        return chatMessageRepository.findBySentByAndCommunity(user, community);
     }
 
     @Override
-    public List<ChatMessage> getMessagesByOtherUsers(User user) {
-        return chatMessageRepository.findBySentByNot(user);
+    public List<ChatMessage> getMessagesByOtherUsersAndCommunity(User user, ChatCommunity community) {
+        return chatMessageRepository.findBySentByNotAndCommunity(user, community);
     }
 }
