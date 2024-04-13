@@ -13,4 +13,8 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> 
 
     List<ChatMessage> findBySentByAndCommunity(User user, ChatCommunity community);
     List<ChatMessage> findBySentByNotAndCommunity(User user, ChatCommunity community);
+
+    List<ChatMessage> findByCommunity(ChatCommunity community);
+
+    boolean existsBySentByAndCommunity(User user, ChatCommunity community);
 }

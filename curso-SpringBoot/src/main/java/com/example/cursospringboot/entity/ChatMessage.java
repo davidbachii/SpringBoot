@@ -57,7 +57,7 @@ public class ChatMessage {
         return sentDate;
     }
 
-    public void setSentDate(LocalDate sentDate) {
+    public void setSentDate() {
         this.sentDate = LocalDate.now();
     }
 
@@ -81,7 +81,7 @@ public class ChatMessage {
         return horaEnvio;
     }
 
-    public void setHoraEnvio(LocalDateTime horaEnvio) {
+    public void setHoraEnvio() {
         this.horaEnvio = LocalDateTime.now();
     }
 

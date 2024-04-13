@@ -18,8 +18,14 @@ body,html{
 }
 
 .username {
-    color: white;
+    color: #0a090e;
     font-weight: bold;
+}
+
+.username-send{
+    color: #ffffff;
+    font-weight: bold;
+
 }
 
 .contacts_body{
@@ -56,10 +62,7 @@ body,html{
     height: 45px !important;
     overflow-y: auto;
 }
-.type_msg:focu  s{
-    box-shadow:none !important;
-    outline:0px !important;
-}
+
 .attach_btn{
     border-radius: 15px 0 0 15px !important;
     background-color: rgba(0,0,0,0.3) !important;
@@ -146,8 +149,8 @@ body,html{
     margin-bottom: auto;
     margin-left: 10px;
     border-radius: 25px;
-    background-color: #82ccdd;
-    padding: 7px;
+    background-color: #dfe7e8;
+    padding: 13px;
     position: relative;
 }
 .msg_cotainer_send{
@@ -155,8 +158,9 @@ body,html{
     margin-bottom: auto;
     margin-right: 10px;
     border-radius: 25px;
-    background-color: #78e08f;
-    padding: 10px;
+    color: whitesmoke;
+    background-color: #3b4044;
+    padding: 13px;
     position: relative;
 }
 .msg_time{

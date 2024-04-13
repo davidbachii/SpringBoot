@@ -44,4 +44,14 @@ public class ChatMessageServiceImp implements ChatMessageService{
     public List<ChatMessage> getMessagesByOtherUsersAndCommunity(User user, ChatCommunity community) {
         return chatMessageRepository.findBySentByNotAndCommunity(user, community);
     }
+
+    @Override
+    public List<ChatMessage> getMessagesByCommunity(ChatCommunity community) {
+        return chatMessageRepository.findByCommunity(community);
+    }
+
+    @Override
+    public boolean isMessageSentByUserInCommunity(User user, ChatCommunity community) {
+        return chatMessageRepository.existsBySentByAndCommunity(user, community);
+    }
 }

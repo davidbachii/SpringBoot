@@ -10,9 +10,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,13 +41,38 @@ public class ChatCommunityController {
         // Fetch the community and the list of messages for the specific community
         String communityNameToUse = communityName.orElse("Comunidad de Formula 1");
         ChatCommunity community = chatCommunityService.getCommunityByName(communityNameToUse);
-        List<ChatMessage> mensajesUser = chatMessageService.getMessagesByUserAndCommunity(user, community);
-        List<ChatMessage> mensajesOthers = chatMessageService.getMessagesByOtherUsersAndCommunity(user, community);
+        List<ChatMessage> allMessages = chatMessageService.getMessagesByCommunity(community);
         model.addAttribute("comunidadSeleccionada", community);
-        model.addAttribute("mensajesUser", mensajesUser);
-        model.addAttribute("mensajesOthers", mensajesOthers);
+        model.addAttribute("AllMessages", allMessages);
         model.addAttribute("user", user); // Add the user object to the model
         return "chat";
+    }
+
+
+    @PostMapping("/sendMessage")
+    public String sendMessage(@RequestParam("content") String content, @RequestParam("communityName") String communityName, HttpSession session, RedirectAttributes redirectAttributes) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        ChatCommunity community = chatCommunityService.getCommunityByName(communityName);
+        if (community == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Comunidad no encontrada");
+            return "redirect:/api/ChatCommunity/";
+        }
+        try {
+            ChatMessage newMessage = new ChatMessage();
+            newMessage.setMessage(content);
+            newMessage.setSentBy(user);
+            newMessage.setCommunity(community);
+            newMessage.setSentDate();
+            newMessage.setHoraEnvio();
+            chatMessageService.createMessage(newMessage);
+            redirectAttributes.addFlashAttribute("successMessage", "Mensaje enviado con éxito");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error al enviar el mensaje: " + e.getMessage());
+        }
+        return "redirect:/api/ChatCommunity/" + communityName;
     }
 
 }

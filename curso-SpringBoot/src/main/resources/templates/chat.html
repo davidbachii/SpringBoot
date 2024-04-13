@@ -7,9 +7,33 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" th:href="@{/css/chat.css}"  href="../static/css/chat.css">
+
+    <link th:href="@{/css/style.css}" href="../static/css/style.css" rel="stylesheet">
+    <!-- styles needed for carousel slider -->
+    <link th:href="@{/css/multicines.css}" href="../static/css/multicines.css" rel="stylesheet">
+
+
 </head>
 <!--Coded With Love By Mutiullah Samim-->
 <body>
+<div class="header">
+    <nav class="navbar fixed-top navbar-site navbar-light bg-light navbar-expand-lg" role="navigation">
+        <div class="container">
+            <div class="navbar-identity">
+
+                <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggler pull-right"
+                        type="button">
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" style="height: auto;">
+                <ul class="nav navbar-nav ml-auto navbar-right">
+                    <li class="nav-item"><a th:href="@{/api/peliculas/}" class="nav-link">VOLVER AL MENU PRINCIPAL</a></li>
+                    <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">REGISTRARSE</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
 <div class="container-fluid h-100">
     <div class="row justify-content-center h-100">
         <div class="col-md-8 col-xl-5 chat"><div class="card mb-sm-3 mb-md-0 contacts_card">
@@ -57,38 +81,38 @@
                     <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
                 </div>
                 <div class="card-body msg_card_body">
-                    <div class="d-flex justify-content-start mb-4">
-                        <div class="img_cont_msg">
+                    <div th:each="mensaje : ${AllMessages}" th:class="${mensaje.sentBy.nickname == user.nickname} ? 'd-flex justify-content-end mb-4' : 'd-flex justify-content-start mb-4'">
+                        <div th:if="${mensaje.sentBy.nickname == user.nickname}" class="msg_cotainer_send">
+                            <span class="username-send" th:text="${mensaje.sentBy.nickname}"></span><br>
+                            <span th:text="${mensaje.getMessage()}"></span>
+                            <span class="msg_time_send" th:text="${mensaje.getHoraEnvio() + ' ' }"></span>
+                        </div>
+                        <div th:if="${mensaje.sentBy.nickname == user.nickname}" class="img_cont_msg">
                             <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
                         </div>
-                        <div class="msg_cotainer">
-                            <span class="username">David33</span><br>
-                            Hi, how are you samim?
-                            <span class="msg_time">8:40 AM, 09/04/2024</span>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-end mb-4">
-                        <div class="img_cont_msg">
+                        <div th:unless="${mensaje.sentBy.nickname == user.nickname}" class="img_cont_msg">
                             <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
                         </div>
-                        <div class="msg_cotainer_send">
-                            Hi Khalid i am good tnx how about you?
-                            <span class="msg_time_send">8:55 AM, 09/04/2024</span>
-                        </div>
-                        <div class="img_cont_msg">
+                        <div th:unless="${mensaje.sentBy.nickname == user.nickname}" class="msg_cotainer">
+                            <span class="username" th:text="${mensaje.sentBy.nickname}"></span><br>
+                            <span th:text="${mensaje.getMessage()}"></span>
+                            <span class="msg_time" th:text="${mensaje.getHoraEnvio() + ' ' }"></span>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
+                    <form th:action="@{/api/ChatCommunity/sendMessage}" method="post">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
+                            </div>
+                            <textarea name="content" class="form-control type_msg" placeholder="Type your message..." required></textarea>
+                            <input type="hidden" name="communityName" th:value="${comunidadSeleccionada.nombreComunidad}" />
+                            <div class="input-group-append">
+                                <button type="submit" class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></button>
+                            </div>
                         </div>
-                        <textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
-                        <div class="input-group-append">
-                            <span class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></span>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

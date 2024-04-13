@@ -15,4 +15,9 @@ public interface ChatMessageService {
     List<ChatMessage> getMessagesByUserAndCommunity(User user, ChatCommunity community);
     List<ChatMessage> getMessagesByOtherUsersAndCommunity(User user, ChatCommunity community);
 
+    List<ChatMessage> getMessagesByCommunity(ChatCommunity community);
+
+    boolean isMessageSentByUserInCommunity(User user, ChatCommunity community);
+
+
 }

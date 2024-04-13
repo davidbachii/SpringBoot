@@ -1,6 +1,8 @@
 package com.example.cursospringboot.service;
 
 import com.example.cursospringboot.entity.ChatCommunity;
+import com.example.cursospringboot.entity.ChatMessage;
+import com.example.cursospringboot.entity.User;
 import com.example.cursospringboot.repository.ChatCommunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,4 +41,6 @@ public class ChatCommunityServiceImp implements ChatCommunityService{
     public void deleteCommunity(Long id) {
         chatCommunityRepository.deleteById(id);
     }
+
+
 }
