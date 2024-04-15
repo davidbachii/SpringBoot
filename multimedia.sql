@@ -8,6 +8,11 @@ VALUES ('Maria', 'Casas Gonzalez', 'Maria33', '12345', 'maria@example.com', '198
 INSERT INTO Usuario (nombre, apellidos, nickname, contrasenha, email, fecha_nacimiento,plan_suscripcion)
 VALUES ('Carlos', 'Rodriguez Sanz', 'Carlos33', '12345', 'carlos@example.com', '1995-12-10','Pro');
 
+-- Contenido en directo
+
+INSERT INTO live_content (nombre_contenido, descripcion, anho, url_image, url_video, start_time, end_time, type)
+VALUES ('Prueba de Contenido en directo', 'Descripción del contenido en directo', 2024, 'images/Peliculas/ElPadrino.jpeg', 'https://www.youtube.com/embed/iOyQx7MXaz0?si=nuCJfNniJoPzuQTb', '2024-04-15T19:30:00', '2024-04-15T20:00:00', 'Tipo de contenido en directo');
+
 -- Películas
 INSERT INTO Pelicula (nombre_contenido, descripcion, titulo_original, genero, nacionalidad, duracion, anho, distribuidora, director, clasificacion_edad, otros_datos, actores, url_image, url_video, calificacion)
 VALUES ('El Padrino', 'Un poderoso drama criminal que sigue la vida de la familia Corleone en el mundo del crimen organizado.', 'Il Padrino', 'Crimen, Drama', 'Estados Unidos', 175, 1972, 'Paramount Pictures', 'Francis Ford Coppola', 18, 'Ganadora de 3 premios Oscar.', 'Marlon Brando, Al Pacino, James Caan','images/Peliculas/ElPadrino.jpeg', 'https://www.youtube.com/embed/iOyQx7MXaz0?si=nuCJfNniJoPzuQTb', 7.8);
