@@ -27,7 +27,8 @@
                 </div>
                 <div class="navbar-collapse collapse" style="height: auto;">
                     <ul class="nav navbar-nav ml-auto navbar-right">
-                        <li class="nav-item"><a th:href="@{/api/FootballContent/}" class="nav-link">VOLVER AL MENU PRINCIPAL</a></li>
+                        <li class="nav-item"><a th:href="@{/api/FootballContent/}" class="nav-link">VOLVER AL MENU
+                            PRINCIPAL</a></li>
                         <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">REGISTRARSE</a></li>
                     </ul>
                 </div>
@@ -53,9 +54,10 @@
                 <div class="row mb20">
                     <div class="col-3 d-none d-md-block">
 
-                        <a th:src="@{'/' + ${footballContent.getUrl_image()}}" data-toggle="lightbox"><img class="img-responsive"
-                                                                                                     style="width: 262px;"
-                                                                                                     th:src="@{'/' + ${footballContent.getUrl_image()}}"/></a>
+                        <a th:src="@{'/' + ${footballContent.getUrl_image()}}" data-toggle="lightbox"><img
+                                class="img-responsive"
+                                style="width: 262px;"
+                                th:src="@{'/' + ${footballContent.getUrl_image()}}"/></a>
 
 
                     </div>
@@ -72,20 +74,21 @@
                             </p></li>
 
                             <li><p class="text-muted">Estadio:<br><strong class="text-dark"
-                                                                           th:text="${footballContent.getEstadio()}"></strong>
+                                                                          th:text="${footballContent.getEstadio()}"></strong>
                             </p></li>
 
                             <li><p class="text-muted">Competición:<br><strong class="text-dark"
-                                                                               th:text="${footballContent.getCompeticion()}"></strong>
+                                                                              th:text="${footballContent.getCompeticion()}"></strong>
                             </p></li>
                             <li><p class="text-muted">Equipos:<br><strong class="text-dark"
                                                                           th:text="${footballContent.getEquipos()}"></strong>
                             </p></li>
                             <li><p class="text-muted">Jugadores:<br><strong class="text-dark"
-                                                                          th:text="${footballContent.getJugadores()}"></strong>
+                                                                            th:text="${footballContent.getJugadores()}"></strong>
                             </p></li>
                             <li><p class="text-muted">Otros Datos:<br><strong class="text-dark"
-                                                                              th:text="${footballContent.getOtrosDatos()}"></strong></p></li>
+                                                                              th:text="${footballContent.getOtrosDatos()}"></strong>
+                            </p></li>
 
 
                         </ul>
@@ -108,7 +111,8 @@
                     <h3 class="titulo-cine">COMENTARIOS</h3>
                     <div class="comentarios">
                         <!-- Sección para hacer comentario -->
-                        <form th:action="@{'/api/ComentariosFootball/CrearComentarioFootabll/' + ${footballContent.nombreContenido}}" method="post">
+                        <form th:action="@{'/api/ComentariosFootball/CrearComentarioFootabll/' + ${footballContent.nombreContenido}}"
+                              method="post">
                             <!-- Otros campos del formulario -->
 
                             <label for="textoComentario">Comentario:</label>

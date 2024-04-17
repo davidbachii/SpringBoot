@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Formulario</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
-    <link rel="stylesheet" th:href="@{/css/login.css}"  href="../static/css/login.css">
+    <link rel="stylesheet" th:href="@{/css/login.css}" href="../static/css/login.css">
 </head>
 <body>
 <div class="container" id="container">
@@ -30,7 +30,7 @@
             <input type="date" placeholder="FechaNacimiento" id="FechaNacimiento" name="FechaNacimiento"/>
             <span id="error-fecha" class="error"></span>
             <span id="error-usuario-registrado" class="error"></span>
-            <button  type="submit" id="Registrar">Registrar</button>
+            <button type="submit" id="Registrar">Registrar</button>
         </form>
     </div>
     <div class="form-container sign-in-container">
@@ -42,9 +42,9 @@
                 <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
             <span>o usa tu cuenta</span>
-            <input type="email" placeholder="Correo electronico"  id = "mail-2" name="mail-2"/>
+            <input type="email" placeholder="Correo electronico" id="mail-2" name="mail-2"/>
             <span id="error-email-acceso" class="error"></span>
-            <input type="password" placeholder="Contrasena" id = "pswd-2" name="pswd-2"/>
+            <input type="password" placeholder="Contrasena" id="pswd-2" name="pswd-2"/>
             <span id="error-contrasena-acceso" class="error"></span>
             <a href="#">¿Olvidaste tu contrasena?</a>
             <button type="submit" id="Acceder">Acceder</button>
@@ -66,7 +66,7 @@
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script th:src="@{/js/login.js}"  src="../static/js/login.js"></script>
+<script th:src="@{/js/login.js}" src="../static/js/login.js"></script>
 
 </body>
 </html>

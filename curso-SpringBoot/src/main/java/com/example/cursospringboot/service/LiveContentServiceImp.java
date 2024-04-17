@@ -53,4 +53,20 @@ public class LiveContentServiceImp implements LiveContentService{
 
         return liveContentRepository.findByEndTime(endTime);
     }
+
+
+    @Override
+    public LiveContent getCurrentLiveContent() {
+        LocalDateTime now = LocalDateTime.now();
+        List<LiveContent> liveContents = liveContentRepository.findActiveLiveContents(now);
+        for (LiveContent liveContent : liveContents) {
+            LocalDateTime startTime = liveContent.getStartTime();
+            LocalDateTime endTime = liveContent.getEndTime();
+            if (now.isAfter(startTime) && now.isBefore(endTime)) {
+                return liveContent;
+            }
+        }
+        return null;
+    }
+
 }

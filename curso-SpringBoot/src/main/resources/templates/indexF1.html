@@ -34,15 +34,18 @@
         <nav class="navbar fixed-top navbar-site navbar-light bg-light navbar-expand-lg" role="navigation">
             <div class="container">
                 <div class="form-group">
-                    <input type="text" id="search-input" class="form-control form-control-lg" placeholder="Buscar Carreras...">
+                    <input type="text" id="search-input" class="form-control form-control-lg"
+                           placeholder="Buscar Carreras...">
 
                 </div>
                 <div class="navbar-collapse collapse" style="height: auto;">
                     <ul class="nav navbar-nav ml-auto navbar-right">
                         <li class="nav-item"><a th:href="@{/api/peliculas/}" class="nav-link">PELÍCULAS</a></li>
                         <li class="nav-item"><a th:href="@{/api/F1/}" class="nav-link">CARRERAS DE F1</a></li>
-                        <li class="nav-item"><a th:href="@{/api/FootballContent/}" class="nav-link">PARTIDOS DE FÚTBOL</a></li>
-                        <li class="nav-item"><a th:href="@{/api/LiveContent/}" class="nav-link">CONTENIDO EN DIRECTO</a></li>
+                        <li class="nav-item"><a th:href="@{/api/FootballContent/}" class="nav-link">PARTIDOS DE
+                            FÚTBOL</a></li>
+                        <li class="nav-item"><a th:href="@{/api/LiveContent/}" class="nav-link">CONTENIDO EN DIRECTO</a>
+                        </li>
                         <li class="nav-item"><a th:href="@{/api/ChatCommunity/}" class="nav-link">COMUNIDADES</a></li>
                         <li class="nav-item"><a th:href="@{/api/userProfile/}" class="nav-link">PERFIL</a></li>
                         <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">INICIAR SESIÓN</a></li>
@@ -64,7 +67,7 @@
 
                 <div class="row">
                     <!-- Iteración sobre películas -->
-                    <div th:each="listaf1 : ${listaf1}"  class="col-6 col-sm-4 col-md-3 col-xl-2dot4 mb20">
+                    <div th:each="listaf1 : ${listaf1}" class="col-6 col-sm-4 col-md-3 col-xl-2dot4 mb20">
                         <div class="card card-event info-overlay">
 
                             <h1 class="tag" th:text="${listaf1.getNombreContenido()}"></h1>
@@ -72,13 +75,15 @@
                             <div class="img has-background">
                                 <a th:href="@{'/api/F1/' + ${listaf1.getNombreContenido()}}" class="event-pop-link">
                                     <div class="event-pop-info">
-                                        <p class="price" style="font-size:1.1em; padding: 5px;" th:text="${listaf1.getNombreContenido()}"></p>
+                                        <p class="price" style="font-size:1.1em; padding: 5px;"
+                                           th:text="${listaf1.getNombreContenido()}"></p>
                                         <span style="font-size: 0.90em; background-color: #53234f;"
                                               class="badge badge-primary">VER CARRERA</span><br/><br/>
                                     </div>
                                 </a>
 
-                                <a href="pelicula/oppenheimer"><img class="img-responsive" th:src="@{'/' + ${listaf1.getUrl_image}}"/>
+                                <a href="pelicula/oppenheimer"><img class="img-responsive"
+                                                                    th:src="@{'/' + ${listaf1.getUrl_image}}"/>
                                 </a>
 
                             </div>
@@ -92,8 +97,8 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('#search-input').on('input', function() {
+    $(document).ready(function () {
+        $('#search-input').on('input', function () {
             var query = $(this).val();
             var url = query ? '/api/F1/search/realtime' : '/api/F1/';
             $.ajax({
@@ -101,7 +106,7 @@
                 data: {
                     query: query
                 },
-                success: function(data) {
+                success: function (data) {
                     // Vacía el contenedor de resultados de búsqueda
                     $('#search-results').empty();
 
@@ -112,7 +117,7 @@
                             <div class="row">
                     `;
 
-                    $.each(data, function(index, f1) {
+                    $.each(data, function (index, f1) {
                         F1Element += `
                             <div class="col-6 col-sm-4 col-md-3 col-xl-2dot4 mb20">
                                 <div class="card card-event info-overlay">

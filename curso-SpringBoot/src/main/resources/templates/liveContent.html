@@ -11,115 +11,156 @@
     <link th:href="@{/css/multicines.css}" href="../static/css/multicines.css" rel="stylesheet">
 </head>
 <body>
-<div class="header">
-    <nav class="navbar fixed-top navbar-site navbar-light bg-light navbar-expand-lg" role="navigation">
-        <div class="container">
-            <div class="form-group">
-                <input type="text" id="search-input" class="form-control form-control-lg" placeholder="Buscar partidos...">
+<div id="wrapper" class="d-flex flex-column">
+    <div class="header">
+        <nav class="navbar fixed-top navbar-site navbar-light bg-light navbar-expand-lg" role="navigation">
+            <div class="container">
 
+                <ul class="nav navbar-nav ml-auto navbar-right">
+                    <li class="nav-item"><a th:href="@{/api/peliculas/}" class="nav-link">PELÍCULAS</a></li>
+                    <li class="nav-item"><a th:href="@{/api/F1/}" class="nav-link">CARRERAS DE F1</a></li>
+                    <li class="nav-item"><a th:href="@{/api/FootballContent/}" class="nav-link">PARTIDOS DE FÚTBOL</a>
+                    </li>
+                    <li class="nav-item"><a th:href="@{/api/LiveContent/}" class="nav-link">CONTENIDO EN DIRECTO</a>
+                    </li>
+                    <li class="nav-item"><a th:href="@{/api/ChatCommunity/}" class="nav-link">COMUNIDADES</a></li>
+                    <li class="nav-item"><a th:href="@{/api/userProfile/}" class="nav-link">PERFIL</a></li>
+                    <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">INICIAR SESIÓN</a></li>
+                </ul>
+                <!--/.nav-collapse -->
             </div>
-            <ul class="nav navbar-nav ml-auto navbar-right">
-                <li class="nav-item"><a th:href="@{/api/peliculas/}" class="nav-link">PELÍCULAS</a></li>
-                <li class="nav-item"><a th:href="@{/api/F1/}" class="nav-link">CARRERAS DE F1</a></li>
-                <li class="nav-item"><a th:href="@{/api/FootballContent/}" class="nav-link">PARTIDOS DE FÚTBOL</a></li>
-                <li class="nav-item"><a th:href="@{/api/LiverContent/}" class="nav-link">CONTENIDO EN DIRECTO</a></li>
-                <li class="nav-item"><a th:href="@{/api/ChatCommunity/}" class="nav-link">COMUNIDADES</a></li>
-                <li class="nav-item"><a th:href="@{/api/userProfile/}" class="nav-link">PERFIL</a></li>
-                <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">INICIAR SESIÓN</a></li>
-            </ul>
-            <!--/.nav-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-</div>
-<div class="white-box" style="padding:15px">
-    <h3 class="titulo-cine" th:text="${liveContent.getNombreContenido()}"></h3>
-    <div class="row mb20">
-        <div class="col-3 d-none d-md-block">
-
-            <a th:src="@{'/' + ${liveContent.getUrl_image()}}" data-toggle="lightbox"><img class="img-responsive"
-                                                                                           style="width: 262px;"
-                                                                                           th:src="@{'/' + ${liveContent.getUrl_image()}}"/></a>
+            <!-- /.container-fluid -->
+        </nav>
+    </div>
+    <div class="main-container inner-page flex-fill " style="padding-top: 30px !important;">
+        <div class="container">
 
 
-        </div>
-        <div class="col-6 d-none d-md-block">
-            <iframe width="100%" height="350" th:src="${liveContent.getUrl_video()}"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen
-                    th:attr="data-start-time=${liveContent.getStartTime()},data-end-time=${liveContent.getEndTime()}"></iframe>
-        </div>
-        <div class="col-3 d-none d-md-block" style="padding-left: 10px;">
-            <ul class="list-unstyled">
-                <li><p class="text-muted">Hora de inicio:<br><strong class="text-dark"
-                                                                     th:text="${liveContent.getStartTime()}"></strong>
-                </p></li>
+            <div class="row clearfix">
 
-                <li><p class="text-muted">Hora de fin:<br><strong class="text-dark"
-                                                                  th:text="${liveContent.getEndTime()}"></strong>
-                </p></li>
+                <h1 class="text-center title-1" th:if="${liveContent != null}"
+                    th:text="${liveContent.nombreContenido}"></h1>
+                <h1 class="text-center title-1" th:if="${liveContent == null}">No hay contenido disponible
+                    actualmente.</h1>
+                <hr class="mx-auto small text-hr" style="margin-bottom: 30px !important">
 
-                <li><p class="text-muted">Tipo:<br><strong class="text-dark"
-                                                           th:text="${liveContent.getType()}"></strong>
-                </p></li>
-            </ul>
-        </div>
-        <div class="row mb30">
-            <div class="col-sm-12">
-                <span class="text-muted">Descripción:</span>
-                <p th:text="${liveContent.getDescripcion()}"></p>
+                <div style="clear:both">
+                    <hr>
+                </div>
+            </div>
+            <div class="white-box" style="padding:15px" id="liveContentContainer">
+                <h3 class="titulo-cine" th:if="${liveContent != null}" th:text="${liveContent.nombreContenido}">No hay
+                    contenido disponible actualmente.</h3>
+                <div class="row mb20" th:if="${liveContent != null}">
+                    <div class="col-3 d-none d-md-block">
+                        <a th:src="@{'/' + ${liveContent.url_image}}" data-toggle="lightbox">
+                            <img class="img-responsive" style="width: 262px;"
+                                 th:src="@{'/' + ${liveContent.url_image}}"/>
+                        </a>
+                    </div>
+                    <div class="col-6 d-none d-md-block">
+                        <iframe width="100%" height="350" th:src="${liveContent.url_video}"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen
+                                controlsList="nodownload"
+                                th:attr="data-start-time=${liveContent.startTime},data-end-time=${liveContent.endTime}">
+                        </iframe>
+                    </div>
+                    <div class="col-3 d-none d-md-block" style="padding-left: 10px;">
+                        <ul class="list-unstyled">
+                            <li>
+                                <p class="text-muted">Hora de inicio:<br/>
+                                    <strong class="text-dark" th:text="${liveContent.getStartTime() + ' '}"></strong>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="text-muted">Hora de fin:<br/>
+                                    <strong class="text-dark" th:text="${liveContent.getEndTime() + ' '}"></strong>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="text-muted">Tipo:<br/>
+                                    <strong class="text-dark" th:text="${liveContent.type}"></strong>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row mb30">
+                        <div class="col-sm-12">
+                            <span class="text-muted">Descripción:</span>
+                            <p th:text="${liveContent.descripcion}"></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    window.onload = function() {
-        // Obtén el elemento de video
-        var video = document.querySelector('video');
-
-        // Obtén la hora de inicio y fin del contenido en directo
-        var startTime = new Date(video.getAttribute('data-start-time'));
-        var endTime = new Date(video.getAttribute('data-end-time'));
-
-        // Obtén la fecha y hora actuales
-        var now = new Date();
-
-        // Comprueba si la fecha actual está dentro del rango de fechas de inicio y fin del contenido en directo
-        if (now.toDateString() === startTime.toDateString() && now.toDateString() === endTime.toDateString()) {
-            // Si es así, comprueba si la hora actual está dentro del rango de horas de inicio y fin del contenido en directo
-            if (now.getTime() >= startTime.getTime() && now.getTime() <= endTime.getTime()) {
-                // Si es así, inicia la reproducción del contenido en directo
-                video.play();
-            } else {
-                // Si no es así, finaliza la reproducción del contenido en directo
-                video.pause();
-                video.currentTime = 0;
-            }
-        } else {
-            // Si la fecha actual no está dentro del rango, finaliza la reproducción del contenido en directo
-            video.pause();
-            video.currentTime = 0;
-        }
-
-        // Deshabilita la capacidad de buscar en el video
-        video.addEventListener('timeupdate', function() {
-            if (!video.seeking) {
-                var buffer = 0.5; // A buffer of 0.5 seconds
-                if (video.currentTime < video.played.end(video.played.length - 1) - buffer ) {
-                    video.currentTime = video.played.end(video.played.length - 1);
+    function updateLiveContent() {
+        fetch('/api/LiveContent/')
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById('liveContentContainer').innerHTML = `
+                        <h3 class="titulo-cine">${data.nombreContenido}</h3>
+                        <div class="row mb20">
+                            <div class="col-3 d-none d-md-block">
+                                <a href="${data.url_image}" data-toggle="lightbox">
+                                    <img class="img-responsive" style="width: 262px;" src="${data.url_image}" />
+                                </a>
+                            </div>
+                            <div class="col-6 d-none d-md-block">
+                                <iframe width="100%" height="350" src="${data.url_video}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowfullscreen
+                                        controlsList="nodownload"
+                                        data-start-time="${data.startTime}" data-end-time="${data.endTime}">
+                                </iframe>
+                            </div>
+                            <div class="col-3 d-none d-md-block" style="padding-left: 10px;">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <p class="text-muted">Hora de inicio:<br />
+                                            <strong class="text-dark">${data.startTime}</strong>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="text-muted">Hora de fin:<br />
+                                            <strong class="text-dark">${data.endTime}</strong>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="text-muted">Tipo:<br />
+                                            <strong class="text-dark">${data.type}</strong>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row mb30">
+                                <div class="col-sm-12">
+                                    <span class="text-muted">Descripción:</span>
+                                    <p>${data.descripcion}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('liveContentContainer').innerHTML = `
+                        <h3 class="titulo-cine">No hay contenido disponible actualmente.</h3>
+                    `;
                 }
-            }
-        });
+            })
+            .catch(error => console.error('Error:', error));
+    }
 
-        video.addEventListener('seeking', function() {
-            var buffer = 0.5; // A buffer of 0.5 seconds
-            if (video.currentTime < video.played.end(video.played.length - 1) - buffer ) {
-                video.currentTime = video.played.end(video.played.length - 1);
-            }
-        });
-    };
+    // Llamada a la función de actualización cada 10 segundos (10000 milisegundos)
+    setInterval(updateLiveContent, 10000);
 </script>
+
+
 </body>
 </html>

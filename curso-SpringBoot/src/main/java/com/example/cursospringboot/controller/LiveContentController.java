@@ -22,19 +22,18 @@ public class LiveContentController {
 
     @GetMapping
     public String getLiveContent(Model model, HttpSession session) {
-        // Comprueba si el usuario está autenticado
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            // Si el usuario no está autenticado, redirige a la página de inicio de sesión
-            return "login";
+            return "login"; // Redirige a la página de inicio de sesión si el usuario no está autenticado
         }
 
-        // Obtén todos los contenidos en directo
-        List<LiveContent> allLiveContents = liveContentService.getAllLiveContents();
+        // Lógica para obtener el contenido en directo que coincide con la hora actual
+        LiveContent liveContent = liveContentService.getCurrentLiveContent();
 
-        // Añade todos los contenidos en directo al modelo
-        model.addAttribute("liveContent", allLiveContents);
+        // Añade el contenido al modelo
+        model.addAttribute("liveContent", liveContent);
 
         return "liveContent";
     }
+
 }

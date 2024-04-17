@@ -53,9 +53,10 @@
                 <div class="row mb20">
                     <div class="col-3 d-none d-md-block">
 
-                        <a th:src="@{'/' + ${f1Content.getUrl_image()}}" data-toggle="lightbox"><img class="img-responsive"
-                                                                                                    style="width: 262px;"
-                                                                                                    th:src="@{'/' + ${f1Content.getUrl_image()}}"/></a>
+                        <a th:src="@{'/' + ${f1Content.getUrl_image()}}" data-toggle="lightbox"><img
+                                class="img-responsive"
+                                style="width: 262px;"
+                                th:src="@{'/' + ${f1Content.getUrl_image()}}"/></a>
 
 
                     </div>
@@ -68,7 +69,7 @@
                     <div class="col-3 d-none d-md-block" style="padding-left: 10px;">
                         <ul class="list-unstyled">
                             <li><p class="text-muted">Año:<br><strong class="text-dark"
-                                                                            th:text="${f1Content.getAnho()}"></strong>
+                                                                      th:text="${f1Content.getAnho()}"></strong>
                             </p></li>
 
                             <li><p class="text-muted">Circuito:<br><strong class="text-dark"
@@ -82,12 +83,14 @@
                                                                           th:text="${f1Content.getEquipos()}"></strong>
                             </p></li>
                             <li><p class="text-muted">Pilotos:<br><strong class="text-dark"
-                                                                              th:text="${f1Content.getPilotos()}"></strong>
+                                                                          th:text="${f1Content.getPilotos()}"></strong>
                             </p></li>
                             <li><p class="text-muted">Otros Datos:<br><strong class="text-dark"
-                                                                      th:text="${f1Content.getOtrosDatos()}"></strong></p></li>
+                                                                              th:text="${f1Content.getOtrosDatos()}"></strong>
+                            </p></li>
                             <li><p class="text-muted">Duración:<br><strong class="text-dark"
-                                                                              th:text="${f1Content.getDuracion()}+ 'minutos'"></strong></p></li>
+                                                                           th:text="${f1Content.getDuracion()}+ 'minutos'"></strong>
+                            </p></li>
 
                         </ul>
                     </div>
@@ -109,7 +112,8 @@
                     <h3 class="titulo-cine">COMENTARIOS</h3>
                     <div class="comentarios">
                         <!-- Sección para hacer comentario -->
-                        <form th:action="@{'/api/ComentariosF1/CrearComentarioF1/' + ${f1Content.nombreContenido}}" method="post">
+                        <form th:action="@{'/api/ComentariosF1/CrearComentarioF1/' + ${f1Content.nombreContenido}}"
+                              method="post">
                             <!-- Otros campos del formulario -->
 
                             <label for="textoComentario">Comentario:</label>

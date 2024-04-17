@@ -20,4 +20,6 @@ public interface LiveContentService {
     public List<LiveContent> getLiveContentByStartTime(LocalDateTime startTime);
 
     public List<LiveContent> getLiveContentByEndTime(LocalDateTime endTime);
+
+    public LiveContent getCurrentLiveContent();
 }
