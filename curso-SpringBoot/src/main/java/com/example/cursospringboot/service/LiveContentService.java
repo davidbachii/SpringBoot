@@ -22,4 +22,6 @@ public interface LiveContentService {
     public List<LiveContent> getLiveContentByEndTime(LocalDateTime endTime);
 
     public LiveContent getCurrentLiveContent();
+
+    public List<LiveContent> getFutureLiveContents();
 }

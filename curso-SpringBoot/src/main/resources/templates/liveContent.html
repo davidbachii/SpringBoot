@@ -41,17 +41,16 @@
                 <h1 class="text-center title-1" th:if="${liveContent != null}"
                     th:text="${liveContent.nombreContenido}"></h1>
                 <h1 class="text-center title-1" th:if="${liveContent == null}">No hay contenido disponible
-                    actualmente.</h1>
+                    actualmente</h1>
                 <hr class="mx-auto small text-hr" style="margin-bottom: 30px !important">
 
                 <div style="clear:both">
                     <hr>
                 </div>
             </div>
-            <div class="white-box" style="padding:15px" id="liveContentContainer">
-                <h3 class="titulo-cine" th:if="${liveContent != null}" th:text="${liveContent.nombreContenido}">No hay
-                    contenido disponible actualmente.</h3>
-                <div class="row mb20" th:if="${liveContent != null}">
+            <div class="white-box" style="padding:15px" id="liveContentContainer" th:if="${liveContent != null}">
+                <h3 class="titulo-cine" th:text="${liveContent.nombreContenido}"></h3>
+                <div class="row mb20">
                     <div class="col-3 d-none d-md-block">
                         <a th:src="@{'/' + ${liveContent.url_image}}" data-toggle="lightbox">
                             <img class="img-responsive" style="width: 262px;"
@@ -86,6 +85,7 @@
                             </li>
                         </ul>
                     </div>
+
                     <div class="row mb30">
                         <div class="col-sm-12">
                             <span class="text-muted">Descripción:</span>
@@ -94,72 +94,42 @@
                     </div>
                 </div>
             </div>
+            <div class="main-container inner-page flex-fill " style="padding-top: 30px !important;">
+                <div class="container">
+                    <!-- Lista de películas -->
+                    <div class="white-box">
+                        <h3 class="titulo-cine">PROXIMOS CONTENIDOS EN DIRECTO</h3>
+
+                        <div class="row">
+                            <!-- Iteración sobre películas -->
+                            <div th:each="content : ${futureLiveContents}"
+                                 class="col-6 col-sm-4 col-md-3 col-xl-2dot4 mb20">
+                                <div class="card card-event info-overlay">
+                                    <h1 class="tag" th:text="${content.type}"></h1>
+                                    <div class="img has-background">
+                                        <a class="event-pop-link">
+                                            <div class="event-pop-info">
+                                                <p class="price" style="font-size:1.1em; padding: 5px;"
+                                                   th:text="${content.nombreContenido}"></p>
+                                                <span style="font-size: 0.90em; background-color: #53234f; color: #ffffff;"
+                                                      th:text="${'Hora de inicio: ' + content.startTime + ' '}"></span><br/>
+                                            </div>
+                                        </a>
+                                        <a th:href="@{'/' + ${content.url_image}}"><img class="img-responsive"
+                                                                                        th:src="@{'/' + ${content.url_image}}"/>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<script>
-    function updateLiveContent() {
-        fetch('/api/LiveContent/')
-            .then(response => response.json())
-            .then(data => {
-                if (data) {
-                    document.getElementById('liveContentContainer').innerHTML = `
-                        <h3 class="titulo-cine">${data.nombreContenido}</h3>
-                        <div class="row mb20">
-                            <div class="col-3 d-none d-md-block">
-                                <a href="${data.url_image}" data-toggle="lightbox">
-                                    <img class="img-responsive" style="width: 262px;" src="${data.url_image}" />
-                                </a>
-                            </div>
-                            <div class="col-6 d-none d-md-block">
-                                <iframe width="100%" height="350" src="${data.url_video}"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        allowfullscreen
-                                        controlsList="nodownload"
-                                        data-start-time="${data.startTime}" data-end-time="${data.endTime}">
-                                </iframe>
-                            </div>
-                            <div class="col-3 d-none d-md-block" style="padding-left: 10px;">
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <p class="text-muted">Hora de inicio:<br />
-                                            <strong class="text-dark">${data.startTime}</strong>
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p class="text-muted">Hora de fin:<br />
-                                            <strong class="text-dark">${data.endTime}</strong>
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p class="text-muted">Tipo:<br />
-                                            <strong class="text-dark">${data.type}</strong>
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="row mb30">
-                                <div class="col-sm-12">
-                                    <span class="text-muted">Descripción:</span>
-                                    <p>${data.descripcion}</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    document.getElementById('liveContentContainer').innerHTML = `
-                        <h3 class="titulo-cine">No hay contenido disponible actualmente.</h3>
-                    `;
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
 
-    // Llamada a la función de actualización cada 10 segundos (10000 milisegundos)
-    setInterval(updateLiveContent, 10000);
-</script>
 
 
 </body>

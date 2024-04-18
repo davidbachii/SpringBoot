@@ -11,7 +11,17 @@ VALUES ('Carlos', 'Rodriguez Sanz', 'Carlos33', '12345', 'carlos@example.com', '
 -- Contenido en directo
 
 INSERT INTO live_content (nombre_contenido, descripcion, anho, url_image, url_video, start_time, end_time, type)
-VALUES ('Prueba de Contenido en directo', 'Descripción del contenido en directo', 2024, 'images/Peliculas/ElPadrino.jpeg', 'https://www.youtube.com/embed/iOyQx7MXaz0?si=nuCJfNniJoPzuQTb', '2024-04-15T19:30:00', '2024-04-15T20:00:00', 'Tipo de contenido en directo');
+VALUES ('El Padrino', 'Un poderoso drama criminal que sigue la vida de la familia Corleone en el mundo del crimen organizado.', 2024, 'images/Peliculas/ElPadrino.jpeg', 'https://www.youtube.com/embed/iOyQx7MXaz0?si=nuCJfNniJoPzuQTb', '2024-04-19T19:30:00', '2024-04-19T20:00:00', 'Pelicula en directo');
+
+INSERT INTO live_content (nombre_contenido, descripcion, anho, url_image, url_video, start_time, end_time, type)
+VALUES ('Cars 3', 'Con una nueva generación de corredores amenazando su posición, Rayo McQueen se embarca en un emocionante viaje de redescubrimiento y superación. Con la ayuda de entrenadores y nuevos amigos, Rayo intenta volver al ruedo y dejar su marca.', 2024, 'images/Peliculas/Cars3.png', 'https://www.youtube.com/embed/wtmW9rSRIzU?si=MttED7g2UgQk5A08', '2024-04-18T19:20:00', '2024-04-18T19:25:00', 'Pelicula en directo');
+
+INSERT INTO live_content (nombre_contenido, descripcion, anho, url_image, url_video, start_time, end_time, type)
+VALUES ('Cars', 'Rayo McQueen y su amigo Mate se ven envueltos en una misión internacional de espionaje cuando son reclutados para participar en el Grand Prix Mundial. Intrigas, giros y vueltas esperan a nuestros héroes mientras luchan contra una misteriosa amenaza.', 2024, 'images/Peliculas/Cars.png', 'https://www.youtube.com/embed/wtmW9rSRIzU?si=MttED7g2UgQk5A08', '2024-04-20T19:00:00', '2024-04-20T19:30:00', 'Pelicula en directo');
+
+INSERT INTO live_content (nombre_contenido, descripcion, anho, url_image, url_video, start_time, end_time, type)
+VALUES ('Cars 2', 'En un mundo donde los autos son seres vivos, el aspirante a corredor Rayo McQueen termina en un pequeño pueblo llamado Radiador Springs. Aprendiendo lecciones valiosas de amistad y humildad, Rayo descubre el verdadero significado de la velocidad.', 2024, 'images/Peliculas/Cars2.png', 'https://www.youtube.com/embed/wtmW9rSRIzU?si=MttED7g2UgQk5A08', '2024-04-21T19:00:00', '2024-04-21T19:05:00', 'Pelicula en directo');
+
 
 -- Películas
 INSERT INTO Pelicula (nombre_contenido, descripcion, titulo_original, genero, nacionalidad, duracion, anho, distribuidora, director, clasificacion_edad, otros_datos, actores, url_image, url_video, calificacion)

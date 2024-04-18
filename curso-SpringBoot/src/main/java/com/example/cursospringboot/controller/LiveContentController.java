@@ -33,6 +33,10 @@ public class LiveContentController {
         // Añade el contenido al modelo
         model.addAttribute("liveContent", liveContent);
 
+            List<LiveContent> futureLiveContents = liveContentService.getFutureLiveContents();
+            model.addAttribute("futureLiveContents", futureLiveContents);
+
+
         return "liveContent";
     }
 

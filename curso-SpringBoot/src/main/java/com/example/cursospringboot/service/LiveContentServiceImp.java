@@ -69,4 +69,10 @@ public class LiveContentServiceImp implements LiveContentService{
         return null;
     }
 
+    @Override
+    public List<LiveContent> getFutureLiveContents() {
+        LocalDateTime now = LocalDateTime.now();
+        return liveContentRepository.findFutureLiveContents(now);
+    }
+
 }

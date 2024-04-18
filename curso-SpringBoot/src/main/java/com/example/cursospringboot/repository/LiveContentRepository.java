@@ -22,4 +22,7 @@ public interface LiveContentRepository extends JpaRepository<LiveContent, Long> 
 
     @Query("SELECT lc FROM LiveContent lc WHERE lc.startTime <= :now AND lc.endTime >= :now")
     List<LiveContent> findActiveLiveContents(@Param("now") LocalDateTime now);
+
+    @Query("SELECT lc FROM LiveContent lc WHERE lc.startTime > :now ORDER BY lc.startTime")
+    List<LiveContent> findFutureLiveContents(@Param("now") LocalDateTime now);
 }
