@@ -4,6 +4,7 @@ package com.example.cursospringboot.controller;
 import com.example.cursospringboot.entity.TarjetaCredito;
 import com.example.cursospringboot.entity.User;
 import com.example.cursospringboot.service.TarjetaService;
+import com.example.cursospringboot.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ public class TarjetaCreditoController {
     @Autowired
     private TarjetaService tarjetaCreditoService;
 
+
+    @Autowired
+    private UserService userService;
 
 
     @PostMapping("/ProcesarPagoServlet")
@@ -42,7 +46,15 @@ public class TarjetaCreditoController {
         tj.setCodigoSeguridad(codigoSeguridad);
         tj.setUser(user);
 
+        //Si se ha podido crear la tarjeta se valida el pago del usuario
+
         tarjetaCreditoService.createTarjeta(tj);
+        user.setPagoValidado(true);
+        user.setNickname("PagoValidado");
+
+        // Assuming you have a UserService to update the user
+        userService.updateUser(user.getEmail(), user);
+
 
         return new RedirectView("/api/users/");
     }

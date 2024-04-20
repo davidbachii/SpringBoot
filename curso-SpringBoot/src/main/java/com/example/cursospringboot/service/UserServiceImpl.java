@@ -57,6 +57,8 @@ public class UserServiceImpl implements UserService{
         user.setFechaNacimiento(userDetails.getFechaNacimiento());
         user.setPlanSuscripcion(userDetails.getPlanSuscripcion());
         user.setApellidos(userDetails.getApellidos());
+        user.setPagoValidado(userDetails.getPagoValidado());
+        user.setUrl_image_perfil(userDetails.getUrl_image_perfil());
 
         return userRepository.save(user);
     }

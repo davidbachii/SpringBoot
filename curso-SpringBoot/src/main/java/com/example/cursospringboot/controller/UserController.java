@@ -77,6 +77,8 @@ public class UserController {
             user.setContrasenha(pswd);
             user.setFechaNacimiento(FechaNacimiento);
             user.setPlanSuscripcion("Sin Plan");
+            user.setPagoValidado(false);
+            user.setUrl_image_perfil("https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg");
             User createdUser = userService.createUser(user);
             session.setAttribute("user", createdUser);
 
@@ -97,7 +99,10 @@ public class UserController {
                     // Si el usuario no tiene un plan de suscripción, crear una sesión y redirigir a la página de actualización de plan
                     session.setAttribute("user", user);
                     return ResponseEntity.status(HttpStatus.OK).body("Sin plan de suscripción, por favor selecciona uno.");
-                } else {
+                }else if(user.getPagoValidado().equals(false)){
+                    session.setAttribute("user", user);
+                    return ResponseEntity.status(HttpStatus.OK).body("Pago no validado, por favor valida tu pago.");
+                }else {
                     // El usuario tiene un plan de suscripción, redirigir a la página de películas
                     session.setAttribute("user", user);
                     return ResponseEntity.status(HttpStatus.OK).body("Autenticación exitosa");
@@ -124,7 +129,11 @@ public class UserController {
         userService.updateUser(user.getEmail(), user);
 
         if (plan.equals("Gratis")) {
+            user.setPagoValidado(true);
+            // Assuming you have a UserService to update the user
+            userService.updateUser(user.getEmail(), user);
             return new RedirectView("/api/users/");
+
         } else {
 
             return new RedirectView("/api/pago/");

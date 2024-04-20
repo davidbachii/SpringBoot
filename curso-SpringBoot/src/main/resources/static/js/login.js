@@ -134,6 +134,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else if (response === "Sin plan de suscripción, por favor selecciona uno.") {
                     // Si el usuario no tiene un plan de suscripción, redirigir a la página de actualización de plan
                     window.location.href = '/api/users/planSuscripcion';
+                } else if(response == "Pago no validado, por favor valida tu pago."){
+                    // Si el usuario no ha validado su pago, redirigir a la página de validación de pago
+                    window.location.href = '/api/pago/';
                 } else {
                     // Otro caso de respuesta (como error de autenticación)
                     document.getElementById('error-contrasena-acceso').textContent = response;

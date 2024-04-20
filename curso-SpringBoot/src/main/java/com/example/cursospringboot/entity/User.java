@@ -35,6 +35,14 @@ public class User {
     @Column(name = "planSuscripcion", length = 20, nullable = false)
     private String planSuscripcion;
 
+
+    @Column(name = "pagoValidado", nullable = false)
+    private Boolean pagoValidado;
+
+
+    @Column(name = "url_image_perfil", length = 200)
+    private String url_image_perfil;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TarjetaCredito> tarjetas;
 
@@ -53,7 +61,7 @@ public class User {
    }
 
     //Constructor con parametros
-    public User(String email, String nombre, String nickname, String contrasenha, LocalDate fechaNacimiento, String planSuscripcion, String apellidos) {
+    public User(String email, String nombre, String nickname, String contrasenha, LocalDate fechaNacimiento, String planSuscripcion, String apellidos, Boolean pagoValidado, String url_image_perfil) {
         this.email = email;
         this.nombre = nombre;
         this.nickname = nickname;
@@ -61,6 +69,8 @@ public class User {
         this.fechaNacimiento = fechaNacimiento;
         this.planSuscripcion = planSuscripcion;
         this.apellidos = apellidos;
+        this.pagoValidado = pagoValidado;
+        this.url_image_perfil = url_image_perfil;
     }
 
     //Getters y Setters
@@ -139,6 +149,42 @@ public class User {
     public void setComentarios(List<ComentarioPelicula> comentarios) {
         this.comentarios = comentarios;
     }
+
+    public List<ChatCommunity> getCreatedCommunities() {
+        return createdCommunities;
+    }
+
+    public void setCreatedCommunities(List<ChatCommunity> createdCommunities) {
+        this.createdCommunities = createdCommunities;
+    }
+
+    public List<ChatMessage> getSentMessages() {
+        return sentMessages;
+    }
+
+    public void setSentMessages(List<ChatMessage> sentMessages) {
+        this.sentMessages = sentMessages;
+    }
+
+    public Boolean getPagoValidado() {
+        return pagoValidado;
+    }
+
+    public void setPagoValidado(Boolean pagoValidado) {
+        this.pagoValidado = pagoValidado;
+    }
+
+    public String getUrl_image_perfil() {
+        return url_image_perfil;
+    }
+
+    public void setUrl_image_perfil(String url_image_perfil) {
+        this.url_image_perfil = url_image_perfil;
+    }
+
+
+
+
 
 
 
