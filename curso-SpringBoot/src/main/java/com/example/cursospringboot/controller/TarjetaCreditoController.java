@@ -31,7 +31,7 @@ public class TarjetaCreditoController {
     public RedirectView procesarPago(@RequestParam("titular") String titular,
                                      @RequestParam("numeroT") String numeroTarjeta,
                                      @RequestParam("fechaCaducidad") String fechaCaducidad,
-                                     @RequestParam("codigoSeguridad") String codigoSeguridad,  HttpSession session) {
+                                     @RequestParam("codigoSeguridad") String codigoSeguridad, HttpSession session) {
 
 
         User user = (User) session.getAttribute("user");
@@ -47,14 +47,15 @@ public class TarjetaCreditoController {
         tj.setUser(user);
 
         //Si se ha podido crear la tarjeta se valida el pago del usuario
+        if (user.getPagoValidado().equals(false)) {
+            tarjetaCreditoService.createTarjeta(tj);
+            user.setPagoValidado(true);
+            userService.updateUser(user.getEmail(), user);
 
-        tarjetaCreditoService.createTarjeta(tj);
-        user.setPagoValidado(true);
-        user.setNickname("PagoValidado");
+        }
 
-        // Assuming you have a UserService to update the user
-        userService.updateUser(user.getEmail(), user);
 
+        session.invalidate();
 
         return new RedirectView("/api/users/");
     }
@@ -68,20 +69,6 @@ public class TarjetaCreditoController {
 
         return "tarjetaCredito";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

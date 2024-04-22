@@ -132,6 +132,7 @@ public class UserController {
             user.setPagoValidado(true);
             // Assuming you have a UserService to update the user
             userService.updateUser(user.getEmail(), user);
+            session.invalidate();
             return new RedirectView("/api/users/");
 
         } else {

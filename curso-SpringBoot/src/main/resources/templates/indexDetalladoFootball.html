@@ -122,7 +122,7 @@
                         <br><br>
                         <!-- Sección para mostrar comentarios -->
                         <div th:each="comentario : ${comentarios}" class="comentario">
-                            <h4 th:text="${comentario.nickname}"></h4>
+                            <h4 th:text="${comentario.getUsuario().getNickname()}"></h4>
                             <div class="comentario-content">
                                 <p th:text="${comentario.texto}" class="comentario-texto"></p>
                             </div>

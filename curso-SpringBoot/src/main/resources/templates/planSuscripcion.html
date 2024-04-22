@@ -14,7 +14,10 @@
                 <h2 class="card__heading">Gratis</h2>
                 <p class="card__price">€0.00€</p>
                 <ul role="list" class="card__bullets flow">
-                    <li>Accesso al plan de peliculas basicas</li>
+                    <li>Accesso a todo el contenido multimedia de la plataforma</li>
+                    <li>No se pueden hacer comentarios de los contenidos</li>
+                    <li>No se puede participar en las comunidades de usuarios</li>
+                    <li>No se puede ver contenido en directo exclusivo</li>
                     <li>Un unico dispositivo</li>
                 </ul>
                 <form action="/api/users/updatePlan" method="post" class="card__cta cta">
@@ -27,9 +30,12 @@
                 <h2 class="card__heading">Basico</h2>
                 <p class="card__price">1.99€</p>
                 <ul role="list" class="card__bullets flow">
-                    <li>Acesso a todas las peliculas, menos las recien salidas</li>
+                    <li>Accesso a todo el contenido multimedia de la plataforma</li>
+                    <li>Accesso a los comentarios del contenido multimedia</li>
+                    <li>Accesso a las comunidades de usuarios</li>
+                    <li>No puede ver contendio exclusivo en directo</li>
                     <li>Tres dispoitivos</li>
-                    <li>Exclusive access to live Q&A sessions</li>
+
                 </ul>
                 <form action="/api/users/updatePlan" method="post" class="card__cta cta">
                     <input type="hidden" name="plan" value="Basico">
@@ -41,10 +47,11 @@
                 <h2 class="card__heading">Pro</h2>
                 <p class="card__price">2.99€</p>
                 <ul role="list" class="card__bullets flow">
-                    <li>Acesso a todo el contenido incluidas las peliculas recien salidas</li>
-                    <li>24/7 Priority Email support</li>
-                    <li>1-on-1 virtual coaching session every month</li>
-                    <li>Exclusive content and early access to new features</li>
+                    <li>Acesso a todo el contenido multimedia de la plataforma</li>
+                    <li>Accesso a los comentarios del contenido multimedia</li>
+                    <li>Accesso a las comunidades de usuarios</li>
+                    <li>Puede ver contendio exclusivo en directo</li>
+                    <li>Tres dispoitivos</li>
                 </ul>
                 <form action="/api/users/updatePlan" method="post" class="card__cta cta">
                     <input type="hidden" name="plan" value="Pro">

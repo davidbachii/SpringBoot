@@ -41,8 +41,8 @@ public class F1ContentController {
                 .orElseThrow(() -> new RuntimeException("Contenido de F1 not found"));
         model.addAttribute("f1Content", f1Content);
         User user = (User) session.getAttribute("user");
-        if (user == null || "Sin Plan".equals(user.getPlanSuscripcion())) {
-            return "login"; // Redirige al usuario a la página de inicio de sesión si no está autenticado
+        if (user == null || user.getPagoValidado().equals(false) || "Sin Plan".equals(user.getPlanSuscripcion())) {
+            return "login"; // Redirect the user to the login page if not authenticated
         }
         // Fetch the list of comments for the specific movie
         List<ComentarioF1> comentarios = comentarioF1Service.getAllComentariosByF1(f1Content);

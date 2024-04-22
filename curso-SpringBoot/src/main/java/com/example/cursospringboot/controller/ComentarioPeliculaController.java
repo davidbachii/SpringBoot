@@ -34,8 +34,8 @@ public class ComentarioPeliculaController {
     public String createComentarioPelicula(@PathVariable String nombrePelicula, @RequestParam String textoComentario, @RequestParam Short valoracionComentario, HttpSession session) {
         // Obtener el usuario de la sesión
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            throw new RuntimeException("No user session found");
+        if (user == null || user.getPagoValidado().equals(false) || "Sin Plan".equals(user.getPlanSuscripcion())) {
+            return "login"; // Redirect the user to the login page if not authenticated
         }
 
         // Obtener la película por su nombre
@@ -58,6 +58,6 @@ public class ComentarioPeliculaController {
         comentarioPeliculaService.createComentarioPelicula(comentarioPelicula);
 
         // Redirigir a la página de detalles de la película
-        return "redirect:/api/peliculas/" + nombrePelicula;
+        return "redirect:/api/peliculas/" + comentarioPelicula.getPelicula().getNombreContenido();
     }
 }

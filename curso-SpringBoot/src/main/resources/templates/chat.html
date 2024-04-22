@@ -96,12 +96,11 @@
                             <span class="msg_time_send" th:text="${mensaje.getHoraEnvio() + ' ' }"></span>
                         </div>
                         <div th:if="${mensaje.sentBy.nickname == user.nickname}" class="img_cont_msg">
-                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                 class="rounded-circle user_img_msg">
+
+                            <img th:src="@{${user.getUrl_image_perfil()}}" class="rounded-circle user_img_msg">
                         </div>
                         <div th:unless="${mensaje.sentBy.nickname == user.nickname}" class="img_cont_msg">
-                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                 class="rounded-circle user_img_msg">
+                            <img th:src="@{${mensaje.sentBy.getUrl_image_perfil()}}" class="rounded-circle user_img_msg">
                         </div>
                         <div th:unless="${mensaje.sentBy.nickname == user.nickname}" class="msg_cotainer">
                             <span class="username" th:text="${mensaje.sentBy.nickname}"></span><br>

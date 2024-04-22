@@ -31,7 +31,7 @@ public class ChatCommunityController {
     @GetMapping({"/", "/{communityName}"})
     public String showChatCommunity(@PathVariable Optional<String> communityName, Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if (user == null) {
+        if (user == null || user.getPagoValidado().equals(false)) {
             return "login"; // Redirect the user to the login page if not authenticated
         }
         // Fetch the list of comments for the specific movie
@@ -52,8 +52,8 @@ public class ChatCommunityController {
     @PostMapping("/sendMessage")
     public String sendMessage(@RequestParam("content") String content, @RequestParam("communityName") String communityName, HttpSession session, RedirectAttributes redirectAttributes) {
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/login";
+        if (user == null || user.getPagoValidado().equals(false) || "Sin Plan".equals(user.getPlanSuscripcion())) {
+            return "login"; // Redirect the user to the login page if not authenticated
         }
         ChatCommunity community = chatCommunityService.getCommunityByName(communityName);
         if (community == null) {

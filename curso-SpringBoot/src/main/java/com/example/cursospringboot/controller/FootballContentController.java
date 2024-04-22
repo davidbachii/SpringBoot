@@ -37,8 +37,8 @@ public class FootballContentController {
                 .orElseThrow(() -> new RuntimeException("Contenido de Futbol not found"));
         model.addAttribute("footballContent", footballContent);
         User user = (User) session.getAttribute("user");
-        if (user == null || "Sin Plan".equals(user.getPlanSuscripcion())) {
-            return "login"; // Redirige al usuario a la página de inicio de sesión si no está autenticado
+        if (user == null || user.getPagoValidado().equals(false) || "Sin Plan".equals(user.getPlanSuscripcion())) {
+            return "login"; // Redirect the user to the login page if not authenticated
         }
         // Fetch the list of comments for the specific movie
         List<ComentarioFootball> comentarios = comentarioFootballService.getAllComentariosByFootballContent(footballContent);

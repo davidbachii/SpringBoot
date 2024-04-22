@@ -23,8 +23,8 @@ public class LiveContentController {
     @GetMapping
     public String getLiveContent(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return "login"; // Redirige a la página de inicio de sesión si el usuario no está autenticado
+        if (user == null || user.getPagoValidado().equals(false) || "Sin Plan".equals(user.getPlanSuscripcion())) {
+            return "login"; // Redirect the user to the login page if not authenticated
         }
 
         // Lógica para obtener el contenido en directo que coincide con la hora actual

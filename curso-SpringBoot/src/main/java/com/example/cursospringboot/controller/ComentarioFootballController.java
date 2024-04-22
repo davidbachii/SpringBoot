@@ -28,8 +28,8 @@ public class ComentarioFootballController {
     public String createComentarioF1(@PathVariable String nombreContenido, @RequestParam String textoComentario, HttpSession session) {
         // Obtener el usuario de la sesión
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            throw new RuntimeException("No user session found");
+        if (user == null || user.getPagoValidado().equals(false) || "Sin Plan".equals(user.getPlanSuscripcion())) {
+            return "login"; // Redirect the user to the login page if not authenticated
         }
 
         // Obtener la película por su nombre
@@ -51,7 +51,7 @@ public class ComentarioFootballController {
         comentarioFootballService.createComentarioFootballContent(comentarioFootball);
 
         // Redirigir a la página de detalles de la película
-        return "redirect:/api/FootballContent/" + nombreContenido;
+        return "redirect:/api/FootballContent/" + comentarioFootball.getFootballContent().getNombreContenido();
     }
 
 }
