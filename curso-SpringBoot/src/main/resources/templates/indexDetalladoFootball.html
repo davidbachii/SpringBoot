@@ -111,14 +111,15 @@
                     <h3 class="titulo-cine">COMENTARIOS</h3>
                     <div class="comentarios">
                         <!-- Sección para hacer comentario -->
-                        <form th:action="@{'/api/ComentariosFootball/CrearComentarioFootabll/' + ${footballContent.nombreContenido}}"
-                              method="post">
-                            <!-- Otros campos del formulario -->
+                        <div th:if="${session.user.planSuscripcion != 'Gratis'}">
+                            <form th:action="@{'/api/ComentariosFootball/CrearComentarioFootabll/' + ${footballContent.nombreContenido}}"
+                                  method="post">
+                                <label for="textoComentario">Comentario:</label>
+                                <textarea id="textoComentario" name="textoComentario" required></textarea>
 
-                            <label for="textoComentario">Comentario:</label>
-                            <textarea id="textoComentario" name="textoComentario" required></textarea>
-                            <button type="submit">Enviar Comentario</button>
-                        </form>
+                                <button type="submit">Enviar Comentario</button>
+                            </form>
+                        </div>
                         <br><br>
                         <!-- Sección para mostrar comentarios -->
                         <div th:each="comentario : ${comentarios}" class="comentario">

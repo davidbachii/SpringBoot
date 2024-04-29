@@ -68,6 +68,19 @@ h3.titulo-cine {
     width: auto; /* Esto mantendrá la relación de aspecto de la imagen */
 }
 
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-picture {
+    height: 400px; /* Ajuste este valor para cambiar el tamaño de la imagen */
+    width: 300px; /* Asegúrese de que el ancho y la altura sean iguales para mantener la imagen como un círculo */
+    border-radius: 100%; /* Esto hará que la imagen sea completamente redonda */
+}
+
 
 .navbar-site.navbar {
     background-color: #53234f !important;

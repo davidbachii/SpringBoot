@@ -100,7 +100,8 @@
                             <img th:src="@{${user.getUrl_image_perfil()}}" class="rounded-circle user_img_msg">
                         </div>
                         <div th:unless="${mensaje.sentBy.nickname == user.nickname}" class="img_cont_msg">
-                            <img th:src="@{${mensaje.sentBy.getUrl_image_perfil()}}" class="rounded-circle user_img_msg">
+                            <img th:src="@{${mensaje.sentBy.getUrl_image_perfil()}}"
+                                 class="rounded-circle user_img_msg">
                         </div>
                         <div th:unless="${mensaje.sentBy.nickname == user.nickname}" class="msg_cotainer">
                             <span class="username" th:text="${mensaje.sentBy.nickname}"></span><br>
@@ -110,21 +111,24 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <form th:action="@{/api/ChatCommunity/sendMessage}" method="post">
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
+                    <div th:if="${user.getPlanSuscripcion() != 'Gratis'}">
+                        <form th:action="@{/api/ChatCommunity/sendMessage}" method="post">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
+                                </div>
+                                <textarea name="content" class="form-control type_msg"
+                                          placeholder="Type your message..."
+                                          required></textarea>
+                                <input type="hidden" name="communityName"
+                                       th:value="${comunidadSeleccionada.nombreComunidad}"/>
+                                <div class="input-group-append">
+                                    <button type="submit" class="input-group-text send_btn"><i
+                                            class="fas fa-location-arrow"></i></button>
+                                </div>
                             </div>
-                            <textarea name="content" class="form-control type_msg" placeholder="Type your message..."
-                                      required></textarea>
-                            <input type="hidden" name="communityName"
-                                   th:value="${comunidadSeleccionada.nombreComunidad}"/>
-                            <div class="input-group-append">
-                                <button type="submit" class="input-group-text send_btn"><i
-                                        class="fas fa-location-arrow"></i></button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

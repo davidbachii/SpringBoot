@@ -58,6 +58,6 @@ public class ComentarioPeliculaController {
         comentarioPeliculaService.createComentarioPelicula(comentarioPelicula);
 
         // Redirigir a la página de detalles de la película
-        return "redirect:/api/peliculas/" + comentarioPelicula.getPelicula().getNombreContenido();
+        return "redirect:/api/peliculas/" + nombrePelicula;
     }
 }

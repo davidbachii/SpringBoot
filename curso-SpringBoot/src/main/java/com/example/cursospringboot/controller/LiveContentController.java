@@ -27,6 +27,10 @@ public class LiveContentController {
             return "login"; // Redirect the user to the login page if not authenticated
         }
 
+        if(user.getPlanSuscripcion().equals("Gratis") || user.getPlanSuscripcion().equals("Basico")){
+            return "redirect:/api/userProfile/#updatePlan";
+        }
+
         // Lógica para obtener el contenido en directo que coincide con la hora actual
         LiveContent liveContent = liveContentService.getCurrentLiveContent();
 

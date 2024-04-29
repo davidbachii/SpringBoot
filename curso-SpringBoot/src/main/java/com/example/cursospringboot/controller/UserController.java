@@ -125,6 +125,24 @@ public class UserController {
     @PostMapping("/updatePlan")
     public RedirectView updatePlan(@RequestParam String plan, HttpSession session) {
         User user = (User) session.getAttribute("user");
+
+        switch (user.getPlanSuscripcion()) {
+            case "Pro" -> {
+                return new RedirectView("/api/userProfile/");
+            }
+            case "Basico" -> {
+                if (plan.equals("Gratis") || plan.equals("Basico")) {
+                    return new RedirectView("/api/userProfile/");
+                }
+            }
+            case "Gratis" -> {
+                if (plan.equals("Gratis")) {
+                    return new RedirectView("/api/userProfile/");
+                }
+            }
+        }
+
+
         user.setPlanSuscripcion(plan);
         userService.updateUser(user.getEmail(), user);
 
@@ -180,6 +198,14 @@ public class UserController {
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        if (session.getAttribute("user") != null) {
+            session.invalidate();
+        }
+        return "redirect:/api/users/";
     }
 
 

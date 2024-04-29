@@ -129,7 +129,7 @@
                                 <input type="submit" class="btn btn-outline-brand btn-block mb-4"
                                        name="save_account_details" value="Actualizar Contraseña"/>
                             </form>
-                            <form class="woocommerce-EditPlanSuscripcion edit-plan" action="/api/users/planSuscripcion"
+                            <form id="updatePlan" class="woocommerce-EditPlanSuscripcion edit-plan" action="/api/users/planSuscripcion"
                                   method="get">
                                 <hr class="my-5">
                                 <div class="form-group">
@@ -142,13 +142,20 @@
                                 <input type="submit" class="btn btn-outline-brand btn-block mb-4"
                                        name="update_plan_Suscripcion" value="Actualizar Plan de Suscripción"/>
                             </form>
+
                             <hr class="my-5">
                             <div class="form-group">
-                                <label for="profilePicture">Imagen de perfil</label>
-                                <img id="profilePicture" th:src="${user.url_image_perfil}" alt="Imagen de perfil del usuario" class="form-control woocommerce-Input woocommerce-Input--email input-text profile-picture"/>
+                                <div class="center-content">
+                                    <label for="profilePicture">Imagen de perfil*</label>
+                                    <img id="profilePicture" th:src="${user.url_image_perfil}"
+                                         alt="Imagen de perfil del usuario"
+                                         class="form-control woocommerce-Input woocommerce-Input--email input-text profile-picture"/>
+                                </div>
                             </div>
 
-                            <a th:href="@{/api/userProfile/updateProfilePicture}" class="btn btn-outline-brand btn-block mb-4">Actualizar Imagen de Perfil</a>
+                            <a th:href="@{/api/userProfile/updateProfilePicture}"
+                               class="btn btn-outline-brand btn-block mb-4">Actualizar Imagen de Perfil</a>
+
                         </div>
                     </div>
                 </div>
