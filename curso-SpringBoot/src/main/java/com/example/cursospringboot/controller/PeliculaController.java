@@ -89,7 +89,7 @@ public class PeliculaController {
                                  HttpSession session, RedirectAttributes redirectAttributes ) {
         User user = (User) session.getAttribute("user");
         if (user == null || (!user.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN")))) {
-            return "redirect:/login"; // Redirect the user to the login page if not authenticated or not an admin
+            return "login"; // Redirect the user to the login page if not authenticated or not an admin
         }
 
         try {

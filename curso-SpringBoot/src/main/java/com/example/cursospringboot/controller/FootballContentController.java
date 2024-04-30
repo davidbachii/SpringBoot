@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller //Para que sea un controlador rest de spring boot y no un controlador comun
 @RequestMapping("/api/FootballContent") //Para que todas las rutas de este controlador empiecen con /api/F1
@@ -44,8 +46,15 @@ public class FootballContentController {
         List<ComentarioFootball> comentarios = comentarioFootballService.getAllComentariosByFootballContent(footballContent);
         model.addAttribute("comentarios", comentarios);
         model.addAttribute("session", user);
+
+        // Add the roles of the user to the model
+        Set<Role> roles = user.getRoles();
+        model.addAttribute("roles", roles.stream().map(Role::getName).collect(Collectors.toList()));
+
         return "indexDetalladoFootball";
     }
+
+
 
     @GetMapping("/search/realtime")
     @ResponseBody

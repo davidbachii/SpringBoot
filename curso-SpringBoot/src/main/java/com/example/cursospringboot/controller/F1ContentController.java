@@ -1,10 +1,7 @@
 package com.example.cursospringboot.controller;
 
 
-import com.example.cursospringboot.entity.ComentarioF1;
-import com.example.cursospringboot.entity.ComentarioPelicula;
-import com.example.cursospringboot.entity.F1Content;
-import com.example.cursospringboot.entity.User;
+import com.example.cursospringboot.entity.*;
 import com.example.cursospringboot.service.ComentarioF1Service;
 import com.example.cursospringboot.service.F1ContentService;
 import jakarta.servlet.http.HttpSession;
@@ -12,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller //Para que sea un controlador rest de spring boot y no un controlador comun
 @RequestMapping("/api/F1") //Para que todas las rutas de este controlador empiecen con /api/F1
@@ -48,7 +47,52 @@ public class F1ContentController {
         List<ComentarioF1> comentarios = comentarioF1Service.getAllComentariosByF1(f1Content);
         model.addAttribute("comentarios", comentarios);
         model.addAttribute("session", user);
+
+        // Add the roles of the user to the model
+        Set<Role> roles = user.getRoles();
+        model.addAttribute("roles", roles.stream().map(Role::getName).collect(Collectors.toList()));
         return "indexDetalladoF1";
+    }
+
+    @PostMapping("/update/{nombreCarreraF1}")
+    public String updateF1Content(@PathVariable String nombreCarreraF1,
+                                  @RequestParam String nombreContenido,
+                                  @RequestParam String descripcion,
+                                  @RequestParam String url_image,
+                                  @RequestParam String url_video,
+                                  @RequestParam Integer anho,
+                                  @RequestParam String circuito,
+                                  @RequestParam String equipos,
+                                  @RequestParam String nacionalidad,
+                                  @RequestParam Integer duracion,
+                                  @RequestParam String pilotos,
+                                  @RequestParam String otrosDatos,
+                                  HttpSession session, RedirectAttributes redirectAttributes ) {
+        User user = (User) session.getAttribute("user");
+        if (user == null || (!user.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN")))) {
+            return "login"; // Redirect the user to the login page if not authenticated or not an admin
+        }
+
+        try {
+            F1Content detallesF1Content = new F1Content();
+            detallesF1Content.setNombreContenido(nombreContenido);
+            detallesF1Content.setDescripcion(descripcion);
+            detallesF1Content.setUrl_image(url_image);
+            detallesF1Content.setUrl_video(url_video);
+            detallesF1Content.setAnho(anho);
+            detallesF1Content.setCircuito(circuito);
+            detallesF1Content.setEquipos(equipos);
+            detallesF1Content.setNacionalidad(nacionalidad);
+            detallesF1Content.setDuracion(duracion);
+            detallesF1Content.setPilotos(pilotos);
+            detallesF1Content.setOtrosDatos(otrosDatos);
+            f1ContentService.updateF1Content(nombreCarreraF1, detallesF1Content);
+            redirectAttributes.addFlashAttribute("successMessage", "Carrera actualizada con éxito");
+            return "redirect:/api/F1/" + nombreContenido; // Redirect to the updated F1 content page
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error al actualizar la carrera");
+            return "redirect:/api/F1/" + nombreContenido; // Redirect to the updated F1 content page
+        }
     }
 
     @GetMapping("/search/realtime")

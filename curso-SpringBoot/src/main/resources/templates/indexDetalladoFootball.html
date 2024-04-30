@@ -38,6 +38,9 @@
     <div class="main-container inner-page flex-fill " style="padding-top: 30px !important;">
         <div class="container">
 
+            <div th:if="${successMessage}" class="alert alert-success wc_notice" th:text="${successMessage}"></div>
+            <!-- Mensaje de error -->
+            <div th:if="${errorMessage}" class="alert alert-danger wc_notice" th:text="${errorMessage}"></div>
 
             <div class="row clearfix">
                 <h1 class="text-center title-1" th:text="${footballContent.getNombreContenido()}"></h1>
@@ -107,7 +110,7 @@
                         <p th:text="${footballContent.getDescripcion()}"></p>
                     </div>
                 </div>
-                <div th:if="${session != null}">
+                <div th:if="${#lists.contains(roles, 'USER')}">
                     <h3 class="titulo-cine">COMENTARIOS</h3>
                     <div class="comentarios">
                         <!-- Sección para hacer comentario -->
@@ -129,6 +132,98 @@
                             </div>
                         </div>
 
+                    </div>
+                </div>
+                <div th:if="${#lists.contains(roles, 'ADMIN')}" class="container mt-5">
+                    <!-- Contenido visible solo para administradores -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="titulo-cine">PANEL DE ADMINISTRADOR - ACTUALIZAR CONTENIDO</h3>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{'/api/FootballContent/update/' + ${footballContent.nombreContenido}}"
+                                  method="post"
+                                  class="row g-3">
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="nombreContenido" class="form-label">Nombre Contenido:</label>
+                                    <input type="text" id="nombreContenido" name="nombreContenido"
+                                           th:value="${footballContent.nombreContenido}" required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="descripcion" class="form-label">Descripcion:</label>
+                                    <input type="text" id="descripcion" name="descripcion"
+                                           th:value="${footballContent.descripcion}" required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="url_image" class="form-label">URL Imagen:</label>
+                                    <input type="text" id="url_image" name="url_image"
+                                           th:value="${footballContent.url_image}"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="url_video" class="form-label">URL Video:</label>
+                                    <input type="text" id="url_video" name="url_video"
+                                           th:value="${footballContent.url_video}"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="anho" class="form-label">Año:</label>
+                                    <input type="number" id="anho" name="anho" th:value="${footballContent.anho}"
+                                           required
+                                           class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="estadio" class="form-label">Estadio:</label>
+                                    <input type="text" id="estadio" name="estadio"
+                                           th:value="${footballContent.estadio}" required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="equipos" class="form-label">Equipos:</label>
+                                    <input type="text" id="equipos" name="equipos" th:value="${footballContent.equipos}"
+                                           required
+                                           class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="competicion" class="form-label">Competicion:</label>
+                                    <input type="text" id="competicion" name="competicion"
+                                           th:value="${footballContent.competicion}"
+                                           required
+                                           class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="duracion" class="form-label">Duración:</label>
+                                    <input type="number" id="duracion" name="duracion"
+                                           th:value="${footballContent.duracion}"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="jugadores" class="form-label">Jugadores:</label>
+                                    <input type="text" id="jugadores" name="jugadores"
+                                           th:value="${footballContent.jugadores}" required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="otrosDatos" class="form-label">Otros Datos:</label>
+                                    <input type="text" id="otrosDatos" name="otrosDatos"
+                                           th:value="${footballContent.otrosDatos}"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Actualizar Partido</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
