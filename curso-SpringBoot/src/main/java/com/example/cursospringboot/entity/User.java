@@ -2,6 +2,7 @@ package com.example.cursospringboot.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -56,9 +57,16 @@ public class User {
     private List<ChatMessage> sentMessages;
 
 
-   //Constructor
-   public User() {
-   }
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
+
+    //Constructor
+    public User() {
+    }
 
     //Constructor con parametros
     public User(String email, String nombre, String nickname, String contrasenha, LocalDate fechaNacimiento, String planSuscripcion, String apellidos, Boolean pagoValidado, String url_image_perfil) {
@@ -117,8 +125,6 @@ public class User {
     }
 
 
-
-
     public String getPlanSuscripcion() {
         return planSuscripcion;
     }
@@ -130,6 +136,7 @@ public class User {
     public String getApellidos() {
         return apellidos;
     }
+
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
@@ -143,7 +150,7 @@ public class User {
     }
 
     public List<ComentarioPelicula> getComentarios() {
-            return comentarios;
+        return comentarios;
     }
 
     public void setComentarios(List<ComentarioPelicula> comentarios) {
@@ -183,10 +190,13 @@ public class User {
     }
 
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
 
-
-
-
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
 
 

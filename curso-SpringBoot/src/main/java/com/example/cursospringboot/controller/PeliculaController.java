@@ -3,6 +3,7 @@ package com.example.cursospringboot.controller;
 
 import com.example.cursospringboot.entity.ComentarioPelicula;
 import com.example.cursospringboot.entity.Pelicula;
+import com.example.cursospringboot.entity.Role;
 import com.example.cursospringboot.entity.User;
 import com.example.cursospringboot.service.ComentarioPeliculaService;
 import com.example.cursospringboot.service.PeliculaService;
@@ -14,9 +15,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Controller //Para que sea un controlador rest de spring boot y no un controlador comun
@@ -57,7 +61,61 @@ public class PeliculaController {
         List<ComentarioPelicula> comentarios = comentarioPeliculaService.getAllComentariosByPelicula(pelicula);
         model.addAttribute("comentarios", comentarios);
         model.addAttribute("session", user);
+
+        // Add the roles of the user to the model
+        Set<Role> roles = user.getRoles();
+        model.addAttribute("roles", roles.stream().map(Role::getName).collect(Collectors.toList()));
         return "indexDetallado";
+    }
+
+
+    @PostMapping("/update/{nombrePelicula}")
+    public String updatePelicula(@PathVariable String nombrePelicula,
+                                 @RequestParam String nombreContenido,
+                                 @RequestParam String descripcion,
+                                 @RequestParam String url_image,
+                                 @RequestParam String url_video,
+                                 @RequestParam String tituloOriginal,
+                                 @RequestParam String genero,
+                                 @RequestParam String pais,
+                                 @RequestParam Integer duracion,
+                                 @RequestParam Integer anho,
+                                 @RequestParam String distribuidora,
+                                 @RequestParam String director,
+                                 @RequestParam Short clasificacionEdad,
+                                 @RequestParam String otrosDatos,
+                                 @RequestParam String actores,
+                                 @RequestParam double calificacion,
+                                 HttpSession session, RedirectAttributes redirectAttributes ) {
+        User user = (User) session.getAttribute("user");
+        if (user == null || (!user.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN")))) {
+            return "redirect:/login"; // Redirect the user to the login page if not authenticated or not an admin
+        }
+
+        try {
+            Pelicula detallesPelicula = new Pelicula();
+            detallesPelicula.setNombreContenido(nombreContenido);
+            detallesPelicula.setDescripcion(descripcion);
+            detallesPelicula.setUrl_image(url_image);
+            detallesPelicula.setUrl_video(url_video);
+            detallesPelicula.setTituloOriginal(tituloOriginal);
+            detallesPelicula.setGenero(genero);
+            detallesPelicula.setNacionalidad(pais);
+            detallesPelicula.setDuracion(duracion);
+            detallesPelicula.setAnho(anho);
+            detallesPelicula.setDistribuidora(distribuidora);
+            detallesPelicula.setDirector(director);
+            detallesPelicula.setClasificacionEdad(clasificacionEdad);
+            detallesPelicula.setOtrosDatos(otrosDatos);
+            detallesPelicula.setActores(actores);
+            detallesPelicula.setCalificacion(calificacion);
+            peliculaService.updatePelicula(nombrePelicula, detallesPelicula);
+            redirectAttributes.addFlashAttribute("successMessage", "Película actualizada con éxito");
+            return "redirect:/api/peliculas/" + nombreContenido; // Redirect to the updated movie page
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error al actualizar la película");
+            return "redirect:/api/peliculas/" + nombreContenido; // Redirect to the updated movie page
+        }
     }
 
     @GetMapping("/search/realtime")

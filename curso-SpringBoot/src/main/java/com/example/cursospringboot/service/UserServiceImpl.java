@@ -1,5 +1,6 @@
 package com.example.cursospringboot.service;
 
+import com.example.cursospringboot.entity.Role;
 import com.example.cursospringboot.entity.User;
 import com.example.cursospringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleService roleService;
+
 
     //Metodo para obtener todos los usuarios
     @Override
@@ -41,7 +45,9 @@ public class UserServiceImpl implements UserService{
     //Metodo para guardar un usuario
     @Override
     public User createUser(User user) {
-        return userRepository.save(user);
+        User createdUser = userRepository.save(user);
+        roleService.assignRoleToUser(createdUser.getEmail(), "USER"); // Asignar el rol de "USER" por defecto
+        return createdUser;
     }
 
 

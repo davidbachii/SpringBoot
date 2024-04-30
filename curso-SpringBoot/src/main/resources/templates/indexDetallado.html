@@ -37,6 +37,9 @@
     </div>
     <div class="main-container inner-page flex-fill " style="padding-top: 30px !important;">
         <div class="container">
+            <div th:if="${successMessage}" class="alert alert-success wc_notice" th:text="${successMessage}"></div>
+            <!-- Mensaje de error -->
+            <div th:if="${errorMessage}" class="alert alert-danger wc_notice" th:text="${errorMessage}"></div>
 
 
             <div class="row clearfix">
@@ -104,7 +107,7 @@
                         <p th:text="${pelicula.getDescripcion()}"></p>
                     </div>
                 </div>
-                <div th:if="${session != null}">
+                <div th:if="${#lists.contains(roles, 'USER')}">
                     <h3 class="titulo-cine">COMENTARIOS</h3>
                     <div class="comentarios">
                         <!-- Sección para hacer comentario -->
@@ -136,9 +139,121 @@
 
                     </div>
                 </div>
+
+                <div th:if="${#lists.contains(roles, 'ADMIN')}" class="container mt-5">
+                    <!-- Contenido visible solo para administradores -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="titulo-cine">PANEL DE ADMINISTRADOR - ACTUALIZAR CONTENIDO</h3>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{'/api/peliculas/update/' + ${pelicula.nombreContenido}}" method="post"
+                                  class="row g-3">
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="nombreContenido" class="form-label">Nombre Contenido:</label>
+                                    <input type="text" id="nombreContenido" name="nombreContenido"
+                                           th:value="${pelicula.nombreContenido}" required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="descripcion" class="form-label">Descripcion:</label>
+                                    <input type="text" id="descripcion" name="descripcion"
+                                           th:value="${pelicula.descripcion}" required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="url_image" class="form-label">URL Imagen:</label>
+                                    <input type="text" id="url_image" name="url_image" th:value="${pelicula.url_image}"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="url_video" class="form-label">URL Video:</label>
+                                    <input type="text" id="url_video" name="url_video" th:value="${pelicula.url_video}"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="tituloOriginal" class="form-label">Titulo Original:</label>
+                                    <input type="text" id="tituloOriginal" name="tituloOriginal"
+                                           th:value="${pelicula.tituloOriginal}" required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="genero" class="form-label">Genero:</label>
+                                    <input type="text" id="genero" name="genero" th:value="${pelicula.genero}" required
+                                           class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="pais" class="form-label">Nacionalidad:</label>
+                                    <input type="text" id="pais" name="pais" th:value="${pelicula.nacionalidad}"
+                                           required
+                                           class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="duracion" class="form-label">Duración:</label>
+                                    <input type="number" id="duracion" name="duracion" th:value="${pelicula.duracion}"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="anho" class="form-label">Año:</label>
+                                    <input type="number" id="anho" name="anho" th:value="${pelicula.anho}" required
+                                           class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="distribuidora" class="form-label">Distribuidora:</label>
+                                    <input type="text" id="distribuidora" name="distribuidora"
+                                           th:value="${pelicula.distribuidora}" required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="director" class="form-label">Director:</label>
+                                    <input type="text" id="director" name="director" th:value="${pelicula.director}"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="clasificacionEdad" class="form-label">Clasificación Edad:</label>
+                                    <input type="number" id="clasificacionEdad" name="clasificacionEdad"
+                                           th:value="${pelicula.clasificacionEdad}" required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="otrosDatos" class="form-label">Otros Datos:</label>
+                                    <input type="text" id="otrosDatos" name="otrosDatos"
+                                           th:value="${pelicula.otrosDatos}"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="actores" class="form-label">Actores:</label>
+                                    <input type="text" id="actores" name="actores" th:value="${pelicula.actores}"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="calificacion" class="form-label">Calificación:</label>
+                                    <input type="number" id="calificacion" name="calificacion" step="0.1"
+                                           th:value="${pelicula.calificacion}" required class="form-control">
+                                </div>
+
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Actualizar Pelicula</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+
 </div>
 <script>
     $(document).ready(function () {
