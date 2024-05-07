@@ -16,4 +16,6 @@ public interface ComentarioFootballService {
     ComentarioFootball updateComentarioFootballContent(Long id, ComentarioFootball comentarioFootball);
     void deleteComentarioFootball(Long id);
     List<ComentarioFootball> getAllComentariosByFootballContent(FootballContent footballContent);
+
+    void deleteComentariosByFootballContent(String nombreFootballContent);
 }

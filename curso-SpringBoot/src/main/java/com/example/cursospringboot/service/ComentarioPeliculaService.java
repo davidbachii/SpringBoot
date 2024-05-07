@@ -14,4 +14,6 @@ public interface ComentarioPeliculaService {
     ComentarioPelicula updateComentarioPelicula(Long id, ComentarioPelicula comentarioPeliculaDetails);
     void deleteComentarioPelicula(Long id);
     List<ComentarioPelicula> getAllComentariosByPelicula(Pelicula pelicula);
+
+    void deleteComentariosByPelicula(String nombrePelicula);
 }

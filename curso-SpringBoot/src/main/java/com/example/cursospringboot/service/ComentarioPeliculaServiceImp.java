@@ -16,6 +16,9 @@ public class ComentarioPeliculaServiceImp implements ComentarioPeliculaService {
     @Autowired
     private ComentarioPeliculaRepository comentarioPeliculaRepository;
 
+    @Autowired
+    private PeliculaService peliculaService;
+
     @Override
     public List<ComentarioPelicula> getAllComentariosPelicula() {
         return comentarioPeliculaRepository.findAll();
@@ -53,6 +56,17 @@ public class ComentarioPeliculaServiceImp implements ComentarioPeliculaService {
     @Override
     public List<ComentarioPelicula> getAllComentariosByPelicula(Pelicula pelicula) {
         return comentarioPeliculaRepository.findByPelicula(pelicula);
+    }
+
+    @Override
+    public void deleteComentariosByPelicula(String nombrePelicula) {
+        // Fetch the movie by its name
+        Pelicula pelicula = peliculaService.getPeliculaByNombre(nombrePelicula)
+                .orElseThrow(() -> new RuntimeException("Pelicula not found with name " + nombrePelicula));
+        // Fetch all comments associated with the movie
+        List<ComentarioPelicula> comentarios = comentarioPeliculaRepository.findByPelicula(pelicula);
+        // Delete all fetched comments
+        comentarioPeliculaRepository.deleteAll(comentarios);
     }
 }
 

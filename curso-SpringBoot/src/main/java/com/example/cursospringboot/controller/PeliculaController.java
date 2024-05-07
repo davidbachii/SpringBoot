@@ -37,12 +37,29 @@ public class PeliculaController {
     private ComentarioPeliculaService comentarioPeliculaService;
 
 
+    @GetMapping("/añadirPelicula")
+    public String añadirPelicula(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null || (!user.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN")))) {
+            return "login"; // Redirect the user to the login page if not authenticated or not an admin
+        }
+        return "agregarContenido";  // nombre de tu archivo Thymeleaf sin la extensión .html
+    }
 
 
     @GetMapping("/")
-    public String getAllPeliculas(Model model) {
+    public String getAllPeliculas(Model model, HttpSession session) {
         List<Pelicula> listaPeliculas = peliculaService.getAllPeliculas();
         model.addAttribute("listaPeliculas", listaPeliculas);
+        // Add the roles of the user to the model
+
+        User user = (User) session.getAttribute("user");
+
+        if (user != null) {
+            Set<Role> roles = user.getRoles();
+            model.addAttribute("roles", roles.stream().map(Role::getName).collect(Collectors.toList()));
+        }
+
         return "index";  // nombre de tu archivo Thymeleaf sin la extensión .html
     }
 
@@ -115,6 +132,88 @@ public class PeliculaController {
         } catch (RuntimeException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error al actualizar la película");
             return "redirect:/api/peliculas/" + nombreContenido; // Redirect to the updated movie page
+        }
+    }
+
+    @PostMapping("/delete/{nombrePelicula}")
+    public String deletePelicula(@PathVariable String nombrePelicula,
+                                 @RequestParam String password,
+                                 @RequestParam String confirmPassword,
+                                 HttpSession session, RedirectAttributes redirectAttributes ) {
+        User user = (User) session.getAttribute("user");
+        if (user == null || (!user.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN")))) {
+            return "login"; // Redirect the user to the login page if not authenticated or not an admin
+        }
+
+        if (!password.equals(user.getContrasenha())) {
+            redirectAttributes.addFlashAttribute("errorMessage", "La contraseña no coincide con la del usuario actual");
+            return "redirect:/api/peliculas/" + nombrePelicula; // Redirect back to the movie page
+        }
+
+        if (!password.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Las contraseñas no coinciden");
+            return "redirect:/api/peliculas/" + nombrePelicula; // Redirect back to the movie page
+        }
+
+        try {
+            // Delete the comments of the movie
+            comentarioPeliculaService.deleteComentariosByPelicula(nombrePelicula);
+            // Delete the movie
+            peliculaService.deletePelicula(nombrePelicula);
+            redirectAttributes.addFlashAttribute("successMessage", "Película borrada con éxito");
+            return "redirect:/api/peliculas/"; // Redirect to the main movie page
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error al borrar la película");
+            return "redirect:/api/peliculas/" + nombrePelicula; // Redirect back to the movie page
+        }
+    }
+
+    @PostMapping("/crear")
+    public String createPelicula(
+            @RequestParam String nombreContenidoP,
+            @RequestParam String descripcionP,
+            @RequestParam String url_imageP,
+            @RequestParam String url_videoP,
+            @RequestParam String tituloOriginal,
+            @RequestParam String genero,
+            @RequestParam String pais,
+            @RequestParam Integer duracionP,
+            @RequestParam Integer anhoP,
+            @RequestParam String distribuidora,
+            @RequestParam String director,
+            @RequestParam Short clasificacionEdad,
+            @RequestParam String otrosDatosP,
+            @RequestParam String actores,
+            @RequestParam double calificacion,
+            HttpSession session, RedirectAttributes redirectAttributes) {
+        User user = (User) session.getAttribute("user");
+        if (user == null || (!user.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN")))) {
+            return "login"; // Redirect the user to the login page if not authenticated or not an admin
+        }
+
+        try {
+            Pelicula peliculaNew = new Pelicula();
+            peliculaNew.setNombreContenido(nombreContenidoP);
+            peliculaNew.setDescripcion(descripcionP);
+            peliculaNew.setUrl_image(url_imageP);
+            peliculaNew.setUrl_video(url_videoP);
+            peliculaNew.setTituloOriginal(tituloOriginal);
+            peliculaNew.setGenero(genero);
+            peliculaNew.setNacionalidad(pais);
+            peliculaNew.setDuracion(duracionP);
+            peliculaNew.setAnho(anhoP);
+            peliculaNew.setDistribuidora(distribuidora);
+            peliculaNew.setDirector(director);
+            peliculaNew.setClasificacionEdad(clasificacionEdad);
+            peliculaNew.setOtrosDatos(otrosDatosP);
+            peliculaNew.setActores(actores);
+            peliculaNew.setCalificacion(calificacion);
+            peliculaService.createPelicula(peliculaNew);
+            redirectAttributes.addFlashAttribute("successMessage", "Película creada con éxito");
+            return "redirect:/api/peliculas/"; // Redirect to the main movie page
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error al crear la película");
+            return "redirect:/api/peliculas/añadirPelicula"; // Redirect back to the add movie page
         }
     }
 

@@ -16,4 +16,6 @@ public interface ComentarioF1Service {
     ComentarioF1 updateComentarioF1(Long id, ComentarioF1 comentarioF1);
     void deleteComentarioF1(Long id);
     List<ComentarioF1> getAllComentariosByF1(F1Content f1Content);
+
+    void deleteComentariosByF1Content(String nombreCarreraF1);
 }

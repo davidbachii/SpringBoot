@@ -16,6 +16,9 @@ public class Comentariof1ServiceImp implements ComentarioF1Service{
     @Autowired
     private ComentarioF1Repository comentarioF1Repository;
 
+    @Autowired
+    private F1ContentService f1ContentService;
+
 
     @Override
     public List<ComentarioF1> getAllComentariosF1() {
@@ -51,6 +54,17 @@ public class Comentariof1ServiceImp implements ComentarioF1Service{
     @Override
     public List<ComentarioF1> getAllComentariosByF1(F1Content f1Content) {
         return comentarioF1Repository.findByF1Content(f1Content);
+    }
+
+    @Override
+    public void deleteComentariosByF1Content(String nombreCarreraF1) {
+        // Fetch the F1 content by its name
+        F1Content f1Content = f1ContentService.getF1ContentByNombreCarrera(nombreCarreraF1)
+                .orElseThrow(() -> new RuntimeException("F1Content not found with name " + nombreCarreraF1));
+        // Fetch all comments associated with the F1 content
+        List<ComentarioF1> comentarios = comentarioF1Repository.findByF1Content(f1Content);
+        // Delete all fetched comments
+        comentarioF1Repository.deleteAll(comentarios);
     }
 
 

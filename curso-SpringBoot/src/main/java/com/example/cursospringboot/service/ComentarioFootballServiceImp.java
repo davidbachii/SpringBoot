@@ -19,6 +19,9 @@ public class ComentarioFootballServiceImp implements ComentarioFootballService{
     @Autowired
     ComentarioFootballRepository comentarioFootballRepository;
 
+    @Autowired
+    FootballContentService footballContentService;
+
     @Override
     public List<ComentarioFootball> getAllComentariosFootball() {
         return comentarioFootballRepository.findAll();
@@ -53,5 +56,16 @@ public class ComentarioFootballServiceImp implements ComentarioFootballService{
     @Override
     public List<ComentarioFootball> getAllComentariosByFootballContent(FootballContent footballContent) {
         return comentarioFootballRepository.findByFootballContent(footballContent);
+    }
+
+    @Override
+    public void deleteComentariosByFootballContent(String nombreFootballContent) {
+        // Fetch the Football content by its name
+        FootballContent footballContent = footballContentService.getFootballContentByNombrePartido(nombreFootballContent)
+                .orElseThrow(() -> new RuntimeException("FootballContent not found with name " + nombreFootballContent));
+        // Fetch all comments associated with the Football content
+        List<ComentarioFootball> comentarios = comentarioFootballRepository.findByFootballContent(footballContent);
+        // Delete all fetched comments
+        comentarioFootballRepository.deleteAll(comentarios);
     }
 }

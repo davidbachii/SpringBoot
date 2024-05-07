@@ -27,10 +27,26 @@ public class F1ContentController {
 
 
     @GetMapping("/")
-    public String getAllF1Content(Model model) {
+    public String getAllF1Content(Model model, HttpSession session) {
         List<F1Content> listaf1 = f1ContentService.getAllF1Content();
         model.addAttribute("listaf1", listaf1);
+        User user = (User) session.getAttribute("user");
+
+        if (user != null) {
+            Set<Role> roles = user.getRoles();
+            model.addAttribute("roles", roles.stream().map(Role::getName).collect(Collectors.toList()));
+        }
+
         return "indexF1";  // nombre de tu archivo Thymeleaf sin la extensión .html
+    }
+
+    @GetMapping("/añadirCarrera")
+    public String añadirCarrera(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null || (!user.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN")))) {
+            return "login"; // Redirect the user to the login page if not authenticated or not an admin
+        }
+        return "agregarContenido";  // nombre de tu archivo Thymeleaf sin la extensión .html
     }
 
 
@@ -69,7 +85,7 @@ public class F1ContentController {
                                   @RequestParam String otrosDatos,
                                   HttpSession session, RedirectAttributes redirectAttributes ) {
         User user = (User) session.getAttribute("user");
-        if (user == null || (!user.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN")))) {
+        if (user == null) {
             return "login"; // Redirect the user to the login page if not authenticated or not an admin
         }
 
@@ -92,6 +108,80 @@ public class F1ContentController {
         } catch (RuntimeException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error al actualizar la carrera");
             return "redirect:/api/F1/" + nombreContenido; // Redirect to the updated F1 content page
+        }
+    }
+
+    @PostMapping("/create")
+    public String createF1Content(
+            @RequestParam String nombreContenidoF1,
+            @RequestParam String descripcionF1,
+            @RequestParam String url_imageF1,
+            @RequestParam String url_videoF1,
+            @RequestParam Integer anhoF1,
+            @RequestParam String circuitoF1,
+            @RequestParam String equiposF1,
+            @RequestParam String nacionalidadF1,
+            @RequestParam Integer duracionF1,
+            @RequestParam String pilotos,
+            @RequestParam String otrosDatosF1,
+            HttpSession session, RedirectAttributes redirectAttributes) {
+        User user = (User) session.getAttribute("user");
+        if (user == null || (!user.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN")))) {
+            return "login"; // Redirect the user to the login page if not authenticated or not an admin
+        }
+
+        try {
+            F1Content f1New = new F1Content();
+            f1New.setNombreContenido(nombreContenidoF1);
+            f1New.setDescripcion(descripcionF1);
+            f1New.setUrl_image(url_imageF1);
+            f1New.setUrl_video(url_videoF1);
+            f1New.setAnho(anhoF1);
+            f1New.setCircuito(circuitoF1);
+            f1New.setEquipos(equiposF1);
+            f1New.setNacionalidad(nacionalidadF1);
+            f1New.setDuracion(duracionF1);
+            f1New.setPilotos(pilotos);
+            f1New.setOtrosDatos(otrosDatosF1);
+            f1ContentService.createF1Content(f1New);
+            redirectAttributes.addFlashAttribute("successMessage", "Carrera creada con éxito");
+            return "redirect:/api/F1/"; // Redirect to the main F1 content page
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error al crear la carrera");
+            return "redirect:/api/F1/añadirCarrera"; // Redirect back to the add F1 content page
+        }
+    }
+
+    @PostMapping("/delete/{nombreCarreraF1}")
+    public String deletePelicula(@PathVariable String nombreCarreraF1,
+                                 @RequestParam String password,
+                                 @RequestParam String confirmPassword,
+                                 HttpSession session, RedirectAttributes redirectAttributes ) {
+        User user = (User) session.getAttribute("user");
+        if (user == null || (!user.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN")))) {
+            return "login"; // Redirect the user to the login page if not authenticated or not an admin
+        }
+
+        if (!password.equals(user.getContrasenha())) {
+            redirectAttributes.addFlashAttribute("errorMessage", "La contraseña no coincide con la del usuario actual");
+            return "redirect:/api/F1/" + nombreCarreraF1; // Redirect back to the movie page
+        }
+
+        if (!password.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Las contraseñas no coinciden");
+            return "redirect:/api/F1/" + nombreCarreraF1; // Redirect back to the movie page
+        }
+
+        try {
+            // Delete the comments of the movie
+            comentarioF1Service.deleteComentariosByF1Content(nombreCarreraF1);
+            // Delete the movie
+            f1ContentService.deleteF1Content(nombreCarreraF1);
+            redirectAttributes.addFlashAttribute("successMessage", "Carrera borrada con éxito");
+            return "redirect:/api/F1/"; // Redirect to the main movie page
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error al borrar la carrera");
+            return "redirect:/api/F1/" + nombreCarreraF1; // Redirect back to the movie page
         }
     }
 

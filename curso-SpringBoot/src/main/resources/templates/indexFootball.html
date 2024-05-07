@@ -55,6 +55,9 @@
     <!-- /.header -->
     <div class="main-container inner-page flex-fill " style="padding-top: 30px !important;">
         <div class="container">
+            <div th:if="${successMessage}" class="alert alert-success wc_notice" th:text="${successMessage}"></div>
+            <!-- Mensaje de error -->
+            <div th:if="${errorMessage}" class="alert alert-danger wc_notice" th:text="${errorMessage}"></div>
             <!-- Resultados de búsqueda -->
             <div id="search-results"></div>
             <!-- Lista de partidos -->
@@ -84,6 +87,28 @@
                                 </a>
 
                             </div>
+                        </div>
+                    </div>
+                    <div th:if="${roles != null and #lists.contains(roles, 'ADMIN')}" class="col-6 col-sm-4 col-md-3 col-xl-2dot4 mb20" >
+                        <div class="card card-event info-overlay">
+
+                            <h1 class="tag">Añadir Partido</h1>
+
+                            <div class="img has-background">
+                                <a th:href="@{'/api/FootballContent/agregarPartido'}" class="event-pop-link">
+                                    <div class="event-pop-info">
+                                        <p class="price" style="font-size:1.1em; padding: 5px;"> Pulsa para agregar un
+                                            nuevo contenido</p>
+                                        <span style="font-size: 0.90em; background-color: #53234f;"
+                                              class="badge badge-primary">AÑADIR CONTENIDO</span><br/><br/>
+                                    </div>
+                                </a>
+
+                                <a th:href="@{/images/Peliculas/agregar.png}"><img class="img-responsive"
+                                                                                   th:src="@{/images/Peliculas/agregar.png}"/></a>
+
+                            </div>
+
                         </div>
                     </div>
                 </div>

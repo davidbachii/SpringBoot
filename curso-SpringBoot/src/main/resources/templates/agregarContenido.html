@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <title>Web oficial</title>
+    <meta charset="utf-8">
+
+
+    <link th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" href="../static/css/style.css" rel="stylesheet">
+    <!-- styles needed for carousel slider -->
+    <link th:href="@{/css/fontawesome.min.css}" href="../static/css/fontawesome.min.css" rel="stylesheet">
+    <link th:href="@{/css/multicines.css}" href="../static/css/multicines.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div id="wrapper" class="d-flex flex-column">
+    <div class="header">
+        <nav class="navbar fixed-top navbar-site navbar-light bg-light navbar-expand-lg" role="navigation">
+            <div class="container">
+                <div class="navbar-identity">
+
+                    <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggler pull-right"
+                            type="button">
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" style="height: auto;">
+                    <ul class="nav navbar-nav ml-auto navbar-right">
+                        <li class="nav-item"><a th:href="@{/api/F1/}" class="nav-link">VOLVER AL MENU PRINCIPAL</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="main-container inner-page flex-fill " style="padding-top: 30px !important;">
+        <div class="container">
+            <div th:if="${successMessage}" class="alert alert-success wc_notice" th:text="${successMessage}"></div>
+            <!-- Mensaje de error -->
+            <div th:if="${errorMessage}" class="alert alert-danger wc_notice" th:text="${errorMessage}"></div>
+
+            <div class="row clearfix">
+                <h1 class="text-center title-1"> Añadir nuevo contenido</h1>
+                <hr class="mx-auto small text-hr" style="margin-bottom: 30px !important">
+
+                <div style="clear:both">
+                    <hr>
+                </div>
+            </div>
+
+
+            <div class="white-box" style="padding:15px">
+
+
+                <div class="container mt-5">
+                    <!-- Contenido visible solo para administradores -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="titulo-cine">PANEL DE ADMINISTRADOR - AÑADIR CONTENIDO F1</h3>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{'/api/F1/create'}" method="post"
+                                  class="row g-3">
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="nombreContenidoF1" class="form-label">Nombre Contenido:</label>
+                                    <input type="text" id="nombreContenidoF1" name="nombreContenidoF1"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="descripcionF1" class="form-label">Descripcion:</label>
+                                    <input type="text" id="descripcionF1" name="descripcionF1"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="url_imageF1" class="form-label">URL Imagen:</label>
+                                    <input type="text" id="url_imageF1" name="url_imageF1"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="url_videoF1" class="form-label">URL Video:</label>
+                                    <input type="text" id="url_videoF1" name="url_videoF1"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="anhoF1" class="form-label">Año:</label>
+                                    <input type="number" id="anhoF1" name="anhoF1" required
+                                           class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="circuitoF1" class="form-label">Circuito:</label>
+                                    <input type="text" id="circuitoF1" name="circuitoF1"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="equiposF1" class="form-label">Equipos:</label>
+                                    <input type="text" id="equiposF1" name="equiposF1"
+                                           required
+                                           class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="nacionalidadF1" class="form-label">Nacionalidad:</label>
+                                    <input type="text" id="nacionalidadF1" name="nacionalidadF1"
+
+                                           required
+                                           class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="duracionF1" class="form-label">Duración:</label>
+                                    <input type="number" id="duracionF1" name="duracionF1"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="pilotos" class="form-label">Pilotos:</label>
+                                    <input type="text" id="pilotos" name="pilotos"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="otrosDatosF1" class="form-label">Otros Datos:</label>
+                                    <input type="text" id="otrosDatosF1" name="otrosDatosF1"
+                                           required class="form-control">
+                                </div>
+
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Añadir Carrera</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="titulo-cine">PANEL DE ADMINISTRADOR - AÑADIR CONTENIDO PELICULAS</h3>
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{'/api/peliculas/crear'}" method="post"
+                                      class="row g-3">
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nombreContenidoP" class="form-label">Nombre Contenido:</label>
+                                        <input type="text" id="nombreContenidoP" name="nombreContenidoP"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="descripcionP" class="form-label">Descripcion:</label>
+                                        <input type="text" id="descripcionP" name="descripcionP"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="url_imageP" class="form-label">URL Imagen:</label>
+                                        <input type="text" id="url_imageP" name="url_imageP"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="url_videoP" class="form-label">URL Video:</label>
+                                        <input type="text" id="url_videoP" name="url_videoP"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="tituloOriginal" class="form-label">Titulo Original:</label>
+                                        <input type="text" id="tituloOriginal" name="tituloOriginal"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="genero" class="form-label">Genero:</label>
+                                        <input type="text" id="genero" name="genero" required
+                                               class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pais" class="form-label">Nacionalidad:</label>
+                                        <input type="text" id="pais" name="pais"
+                                               required
+                                               class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="duracionP" class="form-label">Duración:</label>
+                                        <input type="number" id="duracionP" name="duracionP"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="anhoP" class="form-label">Año:</label>
+                                        <input type="number" id="anhoP" name="anhoP" required
+                                               class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="distribuidora" class="form-label">Distribuidora:</label>
+                                        <input type="text" id="distribuidora" name="distribuidora"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="director" class="form-label">Director:</label>
+                                        <input type="text" id="director" name="director"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="clasificacionEdad" class="form-label">Clasificación Edad:</label>
+                                        <input type="number" id="clasificacionEdad" name="clasificacionEdad"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="otrosDatosP" class="form-label">Otros Datos:</label>
+                                        <input type="text" id="otrosDatosP" name="otrosDatosP"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="actores" class="form-label">Actores:</label>
+                                        <input type="text" id="actores" name="actores"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="calificacion" class="form-label">Calificación:</label>
+                                        <input type="number" id="calificacion" name="calificacion" step="0.1"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Actualizar Pelicula</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="titulo-cine">PANEL DE ADMINISTRADOR - AÑADIR CONTENIDO FÚTBOL</h3>
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{'/api/FootballContent/create'}"
+                                      method="post"
+                                      class="row g-3">
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nombreContenido" class="form-label">Nombre Contenido:</label>
+                                        <input type="text" id="nombreContenido" name="nombreContenido"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="descripcion" class="form-label">Descripcion:</label>
+                                        <input type="text" id="descripcion" name="descripcion"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="url_image" class="form-label">URL Imagen:</label>
+                                        <input type="text" id="url_image" name="url_image"
+
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="url_video" class="form-label">URL Video:</label>
+                                        <input type="text" id="url_video" name="url_video"
+
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="anho" class="form-label">Año:</label>
+                                        <input type="number" id="anho" name="anho"
+                                               required
+                                               class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="estadio" class="form-label">Estadio:</label>
+                                        <input type="text" id="estadio" name="estadio"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="equipos" class="form-label">Equipos:</label>
+                                        <input type="text" id="equipos" name="equipos"
+                                               required
+                                               class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="competicion" class="form-label">Competicion:</label>
+                                        <input type="text" id="competicion" name="competicion"
+                                               required
+                                               class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="duracion" class="form-label">Duración:</label>
+                                        <input type="number" id="duracion" name="duracion"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="jugadores" class="form-label">Jugadores:</label>
+                                        <input type="text" id="jugadores" name="jugadores"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="otrosDatos" class="form-label">Otros Datos:</label>
+                                        <input type="text" id="otrosDatos" name="otrosDatos"
+                                               required class="form-control">
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Añadir Partido</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#trailer").on('hidden.bs.modal', function (e) {
+            $("#trailer iframe").attr("src", $("#trailer iframe").attr("src"));
+        });
+    })
+</script>
+</body>
+</html>
