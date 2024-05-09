@@ -75,4 +75,10 @@ public class LiveContentServiceImp implements LiveContentService{
         return liveContentRepository.findFutureLiveContents(now);
     }
 
+
+    @Override
+    public boolean existsOverlappingLiveContents(LocalDateTime startTime, LocalDateTime endTime) {
+        return liveContentRepository.existsOverlappingLiveContents(startTime, endTime);
+    }
+
 }

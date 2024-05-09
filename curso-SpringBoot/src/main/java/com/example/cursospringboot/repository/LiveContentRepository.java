@@ -18,7 +18,13 @@ public interface LiveContentRepository extends JpaRepository<LiveContent, Long> 
 
 
 
-// ...
+    // Verificar si ahi otros contenidos en directo en ese tramo horario
+
+    @Query("SELECT CASE WHEN COUNT(lc) > 0 THEN true ELSE false END FROM LiveContent lc WHERE " +
+            "(lc.startTime <= :endTime AND lc.endTime >= :startTime)")
+    boolean existsOverlappingLiveContents(LocalDateTime startTime, LocalDateTime endTime);
+
+
 
     @Query("SELECT lc FROM LiveContent lc WHERE lc.startTime <= :now AND lc.endTime >= :now")
     List<LiveContent> findActiveLiveContents(@Param("now") LocalDateTime now);

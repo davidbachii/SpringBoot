@@ -16,6 +16,7 @@
         <nav class="navbar fixed-top navbar-site navbar-light bg-light navbar-expand-lg" role="navigation">
             <div class="container">
 
+
                 <ul class="nav navbar-nav ml-auto navbar-right">
                     <li class="nav-item"><a th:href="@{/api/peliculas/}" class="nav-link">PELÍCULAS</a></li>
                     <li class="nav-item"><a th:href="@{/api/F1/}" class="nav-link">CARRERAS DE F1</a></li>
@@ -35,12 +36,16 @@
     <div class="main-container inner-page flex-fill " style="padding-top: 30px !important;">
         <div class="container">
 
+            <div th:if="${successMessage}" class="alert alert-success wc_notice" th:text="${successMessage}"></div>
+            <!-- Mensaje de error -->
+            <div th:if="${errorMessage}" class="alert alert-danger wc_notice" th:text="${errorMessage}"></div>
+
 
             <div class="row clearfix">
 
-                <h1 class="text-center title-1" th:if="${liveContent != null}"
-                    th:text="${liveContent.nombreContenido}"></h1>
-                <h1 class="text-center title-1" th:if="${liveContent == null}">No hay contenido disponible
+                <h1 class="text-center title-1" th:if="${liveContentLive != null}"
+                    th:text="${liveContentLive.nombreContenido}"></h1>
+                <h1 class="text-center title-1" th:if="${liveContentLive == null}">No hay contenido disponible
                     actualmente</h1>
                 <hr class="mx-auto small text-hr" style="margin-bottom: 30px !important">
 
@@ -48,39 +53,39 @@
                     <hr>
                 </div>
             </div>
-            <div class="white-box" style="padding:15px" id="liveContentContainer" th:if="${liveContent != null}">
-                <h3 class="titulo-cine" th:text="${liveContent.nombreContenido}"></h3>
+            <div class="white-box" style="padding:15px" id="liveContentContainer" th:if="${liveContentLive != null}">
+                <h3 class="titulo-cine" th:text="${liveContentLive.nombreContenido}"></h3>
                 <div class="row mb20">
                     <div class="col-3 d-none d-md-block">
-                        <a th:src="@{'/' + ${liveContent.url_image}}" data-toggle="lightbox">
+                        <a th:src="@{'/' + ${liveContentLive.url_image}}" data-toggle="lightbox">
                             <img class="img-responsive" style="width: 262px;"
-                                 th:src="@{'/' + ${liveContent.url_image}}"/>
+                                 th:src="@{'/' + ${liveContentLive.url_image}}"/>
                         </a>
                     </div>
                     <div class="col-6 d-none d-md-block">
-                        <iframe width="100%" height="350" th:src="${liveContent.url_video}"
+                        <iframe width="100%" height="350" th:src="${liveContentLive.url_video}"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowfullscreen
                                 controlsList="nodownload"
-                                th:attr="data-start-time=${liveContent.startTime},data-end-time=${liveContent.endTime}">
+                                th:attr="data-start-time=${liveContentLive.startTime},data-end-time=${liveContentLive.endTime}">
                         </iframe>
                     </div>
                     <div class="col-3 d-none d-md-block" style="padding-left: 10px;">
                         <ul class="list-unstyled">
                             <li>
                                 <p class="text-muted">Hora de inicio:<br/>
-                                    <strong class="text-dark" th:text="${liveContent.getStartTime() + ' '}"></strong>
+                                    <strong class="text-dark" th:text="${liveContentLive.getStartTime() + ' '}"></strong>
                                 </p>
                             </li>
                             <li>
                                 <p class="text-muted">Hora de fin:<br/>
-                                    <strong class="text-dark" th:text="${liveContent.getEndTime() + ' '}"></strong>
+                                    <strong class="text-dark" th:text="${liveContentLive.getEndTime() + ' '}"></strong>
                                 </p>
                             </li>
                             <li>
                                 <p class="text-muted">Tipo:<br/>
-                                    <strong class="text-dark" th:text="${liveContent.type}"></strong>
+                                    <strong class="text-dark" th:text="${liveContentLive.type}"></strong>
                                 </p>
                             </li>
                         </ul>
@@ -89,7 +94,7 @@
                     <div class="row mb30">
                         <div class="col-sm-12">
                             <span class="text-muted">Descripción:</span>
-                            <p th:text="${liveContent.descripcion}"></p>
+                            <p th:text="${liveContentLive.descripcion}"></p>
                         </div>
                     </div>
                 </div>
@@ -122,6 +127,71 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${#lists.contains(roles, 'ADMIN')}" class="container mt-5">
+                <!-- Contenido visible solo para administradores -->
+                <div th:each="liveContentAll : ${liveContents}" class="card">
+                    <div class="card-header">
+                        <h3 class="titulo-cine">PANEL DE ADMINISTRADOR - ACTUALIZAR CONTENIDO EN DIRECTO: <span th:text="${liveContentAll.nombreContenido}"></span></h3>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{'/api/LiveContent/update/' + ${liveContentAll.nombreContenido}}" method="post"
+                              class="row g-3">
+
+                            <div class="col-md-6 mb-3">
+                                <label for="nombreContenido" class="form-label">Nombre Contenido:</label>
+                                <input type="text" id="nombreContenido" name="nombreContenido"
+                                       th:value="${liveContentAll.nombreContenido}" required class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="descripcion" class="form-label">Descripcion:</label>
+                                <input type="text" id="descripcion" name="descripcion"
+                                       th:value="${liveContentAll.descripcion}" required class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="url_image" class="form-label">URL Imagen:</label>
+                                <input type="text" id="url_image" name="url_image" th:value="${liveContentAll.url_image}"
+                                       required class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="url_video" class="form-label">URL Video:</label>
+                                <input type="text" id="url_video" name="url_video" th:value="${liveContentAll.url_video}"
+                                       required class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="startTime" class="form-label">Hora de inicio:</label>
+                                <input type="datetime-local" id="startTime" name="startTime" th:value="${liveContentAll.startTime}"
+                                       required class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="endTime" class="form-label">Hora de fin:</label>
+                                <input type="datetime-local" id="endTime" name="endTime" th:value="${liveContentAll.endTime}"
+                                       required class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="type" class="form-label">Tipo:</label>
+                                <input type="text" id="type" name="type" th:value="${liveContentAll.type}"
+                                       required class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="anho" class="form-label">Año:</label>
+                                <input type="number" id="anho" name="anho" th:value="${liveContentAll.anho}"
+                                       required class="form-control">
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Actualizar Contenido en Directo</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

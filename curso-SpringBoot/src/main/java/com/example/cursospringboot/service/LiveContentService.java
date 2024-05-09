@@ -24,4 +24,7 @@ public interface LiveContentService {
     public LiveContent getCurrentLiveContent();
 
     public List<LiveContent> getFutureLiveContents();
+
+
+    boolean existsOverlappingLiveContents(LocalDateTime startTime, LocalDateTime endTime);
 }

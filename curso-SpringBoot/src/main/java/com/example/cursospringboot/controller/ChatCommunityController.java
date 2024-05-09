@@ -3,6 +3,7 @@ package com.example.cursospringboot.controller;
 
 import com.example.cursospringboot.entity.ChatCommunity;
 import com.example.cursospringboot.entity.ChatMessage;
+import com.example.cursospringboot.entity.Role;
 import com.example.cursospringboot.entity.User;
 import com.example.cursospringboot.service.ChatCommunityService;
 import com.example.cursospringboot.service.ChatMessageService;
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/api/ChatCommunity")
@@ -34,6 +37,12 @@ public class ChatCommunityController {
         if (user == null || user.getPagoValidado().equals(false)) {
             return "login"; // Redirect the user to the login page if not authenticated
         }
+
+        if (user != null) {
+            Set<Role> roles = user.getRoles();
+            model.addAttribute("roles", roles.stream().map(Role::getName).collect(Collectors.toList()));
+        }
+
         // Fetch the list of comments for the specific movie
         List<ChatCommunity> comunidades = chatCommunityService.getAllCommunities();
         model.addAttribute("comunidades", comunidades);
