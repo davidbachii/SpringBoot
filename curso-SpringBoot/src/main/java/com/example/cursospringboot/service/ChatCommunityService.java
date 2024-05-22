@@ -14,9 +14,8 @@ public interface ChatCommunityService {
 
     ChatCommunity getCommunityByName(String nombreComunidad);
     ChatCommunity createCommunity(ChatCommunity chatCommunity);
-    void deleteCommunity(Long id);
+    void deleteCommunity(String nombreComunidad);
 
-
-
+    void updateComunidad(String nombreComunidad, ChatCommunity detallesComunidad);
 
 }

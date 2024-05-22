@@ -38,9 +38,22 @@ public class ChatCommunityServiceImp implements ChatCommunityService{
     }
 
     @Override
-    public void deleteCommunity(Long id) {
-        chatCommunityRepository.deleteById(id);
+    public void deleteCommunity(String nombreComunidad) {
+        ChatCommunity existingCommunity = chatCommunityRepository.findByNombreComunidad(nombreComunidad);
+        if (existingCommunity != null) {
+            chatCommunityRepository.delete(existingCommunity);
+        }
     }
 
-
+    @Override
+    public void updateComunidad(String nombreComunidad, ChatCommunity detallesComunidad) {
+        ChatCommunity existingCommunity = chatCommunityRepository.findByNombreComunidad(nombreComunidad);
+        if (existingCommunity != null) {
+            existingCommunity.setDescripcion(detallesComunidad.getDescripcion());
+            existingCommunity.setNombreComunidad(detallesComunidad.getNombreComunidad());
+            existingCommunity.setUrl_image(detallesComunidad.getUrl_image());
+            existingCommunity.setFechaCreacion(detallesComunidad.getFechaCreacion());
+            chatCommunityRepository.save(existingCommunity);
+        }
+    }
 }

@@ -15,6 +15,9 @@
     <!-- styles needed for carousel slider -->
     <link th:href="@{/css/multicines.css}" href="../static/css/multicines.css" rel="stylesheet">
 
+    <link rel='stylesheet'
+          href='https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/style.css?ver=1590611604'/>
+
 
 </head>
 <!--Coded With Love By Mutiullah Samim-->
@@ -39,6 +42,7 @@
     </nav>
 </div>
 <div class="container-fluid h-100">
+
     <div class="row justify-content-center h-100">
         <div class="col-md-8 col-xl-5 chat">
             <div class="card mb-sm-3 mb-md-0 contacts_card">
@@ -76,7 +80,7 @@
                 <div class="card-header msg_head">
                     <div class="d-flex bd-highlight">
                         <div class="img_cont">
-                            <img th:src="@{'/' + ${comunidadSeleccionada.getUrl_image}}"
+                            <img th:src="@{'/' + ${comunidadSeleccionada.getUrl_image()}}"
                                  class="rounded-circle user_img">
                             <span class="online_icon"></span>
                         </div>
@@ -133,6 +137,114 @@
             </div>
         </div>
     </div>
+
+    <!-- Mensaje de éxito -->
+    <div th:if="${successMessage}" class="alert alert-success wc_notice" th:text="${successMessage}"></div>
+    <!-- Mensaje de error -->
+    <div th:if="${errorMessage}" class="alert alert-danger wc_notice" th:text="${errorMessage}"></div>
+
+
+    <div th:if="${#lists.contains(roles, 'ADMIN')}" class="container mt-5">
+        <!-- Contenido visible solo para administradores -->
+        <div class="card" style="height: 50%;">
+            <div class="card-header">
+                <h3 class="titulo-cine">PANEL DE ADMINISTRADOR - CREAR COMUNIDAD</h3>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/api/ChatCommunity/create}" method="post" class="row g-3">
+                    <div class="col-md-6 mb-3">
+                        <label for="nombreComunidad" class="form-label">Nombre de la comunidad:</label>
+                        <input type="text" id="nombreComunidad" name="nombreComunidad" required class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="descripcionComunidad" class="form-label">Descripción:</label>
+                        <input type="text" id="descripcionComunidad" name="descripcionComunidad" required
+                               class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="url_imageComunidad" class="form-label">URL de la imagen:</label>
+                        <input type="text" id="url_imageComunidad" name="url_imageComunidad" required
+                               class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="fechaCreacion" class="form-label">Fecha de creación:</label>
+                        <input type="date" id="fechaCreacion" name="fechaCreacion" required class="form-control">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Crear Comunidad</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br><br>
+
+
+        <div class="card" style="height: 50%;">
+            <div class="card-header">
+                <h3 class="titulo-cine">PANEL DE ADMINISTRADOR - ACTUALIZAR COMUNIDAD</h3>
+            </div>
+            <div class="card-body">
+                <form th:action="@{'/api/ChatCommunity/update/' + ${comunidadSeleccionada.nombreComunidad}}"
+                      method="post"
+                      class="row g-3">
+                    <div class="col-md-6 mb-3">
+                        <label for="nombreComunidadUpdate" class="form-label">Nombre de la comunidad:</label>
+                        <input type="text" id="nombreComunidadUpdate" name="nombreComunidadUpdate"
+                               th:value="${comunidadSeleccionada.nombreComunidad}"
+                               required class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="descripcionComunidadUpdate" class="form-label">Descripción:</label>
+                        <input type="text" id="descripcionComunidadUpdate" name="descripcionComunidadUpdate"
+                               th:value="${comunidadSeleccionada.descripcion}"
+                               required class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="url_imageComunidadUpdate" class="form-label">URL de la imagen:</label>
+                        <input type="text" id="url_imageComunidadUpdate" name="url_imageComunidadUpdate"
+                               th:value="${comunidadSeleccionada.url_image}"
+                               required class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="fechaCreacionUpdate" class="form-label">Fecha de creación:</label>
+                        <input type="date" id="fechaCreacionUpdate" name="fechaCreacionUpdate"
+                               th:value="${comunidadSeleccionada.fechaCreacion}"
+                               required class="form-control">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Actualizar Comunidad</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br><br>
+        <div class="card" style="height: 50%;">
+            <div class="card-header">
+                <h3 class="titulo-cine">PANEL DE ADMINISTRADOR - BORRAR COMUNIDAD</h3>
+            </div>
+            <div class="card-body">
+                <form th:action="@{'/api/ChatCommunity/delete/' + ${comunidadSeleccionada.nombreComunidad}}"
+                      method="post"
+                      class="row g-3">
+                    <div class="col-md-6 mb-3">
+                        <label for="password" class="form-label">Contraseña:</label>
+                        <input type="password" id="password" name="password" required class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="confirmPassword" class="form-label">Confirmar Contraseña:</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required
+                               class="form-control">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-danger">Borrar Comunidad</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+
 </div>
 </body>
 </html>

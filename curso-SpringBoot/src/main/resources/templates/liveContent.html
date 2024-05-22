@@ -20,13 +20,14 @@
                 <ul class="nav navbar-nav ml-auto navbar-right">
                     <li class="nav-item"><a th:href="@{/api/peliculas/}" class="nav-link">PELÍCULAS</a></li>
                     <li class="nav-item"><a th:href="@{/api/F1/}" class="nav-link">CARRERAS DE F1</a></li>
-                    <li class="nav-item"><a th:href="@{/api/FootballContent/}" class="nav-link">PARTIDOS DE FÚTBOL</a>
-                    </li>
-                    <li class="nav-item"><a th:href="@{/api/LiveContent/}" class="nav-link">CONTENIDO EN DIRECTO</a>
+                    <li class="nav-item"><a th:href="@{/api/FootballContent/}" class="nav-link">PARTIDOS DE
+                        FÚTBOL</a></li>
+                    <li class="nav-item"><a th:href="@{/api/LiveContent}" class="nav-link">CONTENIDO EN DIRECTO</a>
                     </li>
                     <li class="nav-item"><a th:href="@{/api/ChatCommunity/}" class="nav-link">COMUNIDADES</a></li>
                     <li class="nav-item"><a th:href="@{/api/userProfile/}" class="nav-link">PERFIL</a></li>
-                    <li class="nav-item"><a th:href="@{/api/users/}" class="nav-link">INICIAR SESIÓN</a></li>
+                    <li class="nav-item"><a th:href="@{/api/users/logout}" class="nav-link">INICIAR/CERRAR
+                        SESIÓN</a></li>
                 </ul>
                 <!--/.nav-collapse -->
             </div>
@@ -126,6 +127,28 @@
                                     </div>
                                 </div>
                             </div>
+                            <div th:if="${roles != null and #lists.contains(roles, 'ADMIN')}" class="col-6 col-sm-4 col-md-3 col-xl-2dot4 mb20" >
+                                <div class="card card-event info-overlay">
+
+                                    <h1 class="tag">Añadir Contenido en Directo</h1>
+
+                                    <div class="img has-background">
+                                        <a th:href="@{'/api/LiveContent/agregarLiveContent'}" class="event-pop-link">
+                                            <div class="event-pop-info">
+                                                <p class="price" style="font-size:1.1em; padding: 5px;"> Pulsa para agregar un
+                                                    nuevo contenido en directo</p>
+                                                <span style="font-size: 0.90em; background-color: #53234f;"
+                                                      class="badge badge-primary">AÑADIR CONTENIDO</span><br/><br/>
+                                            </div>
+                                        </a>
+
+                                        <a th:href="@{/images/Peliculas/agregar.png}"><img class="img-responsive"
+                                                                                           th:src="@{/images/Peliculas/agregar.png}"/></a>
+
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -191,6 +214,10 @@
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">Actualizar Contenido en Directo</button>
                             </div>
+                        </form>
+                        <br>
+                        <form th:action="@{'/api/LiveContent/delete/' + ${liveContentAll.id}}" method="post">
+                            <button type="submit" class="btn btn-danger">Borrar Contenido en Directo</button>
                         </form>
                     </div>
                 </div>

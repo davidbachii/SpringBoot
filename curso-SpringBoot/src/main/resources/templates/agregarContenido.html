@@ -329,6 +329,93 @@
                                 </form>
                             </div>
                         </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="titulo-cine">PANEL DE ADMINISTRADOR - AÑADIR CONTENIDO EN DIRECTO</h3>
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{'/api/LiveContent/create'}" method="post" class="row g-3">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nombreContenidoL" class="form-label">Nombre Contenido:</label>
+                                        <input type="text" id="nombreContenidoL" name="nombreContenidoL" required
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="descripcionL" class="form-label">Descripcion:</label>
+                                        <input type="text" id="descripcionL" name="descripcionL" required
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="url_imageL" class="form-label">URL Imagen:</label>
+                                        <input type="text" id="url_imageL" name="url_imageL" required
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="url_videoL" class="form-label">URL Video:</label>
+                                        <input type="text" id="url_videoL" name="url_videoL" required
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="startTime" class="form-label">Hora de inicio:</label>
+                                        <input type="datetime-local" id="startTime" name="startTime" required
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="endTime" class="form-label">Hora de fin:</label>
+                                        <input type="datetime-local" id="endTime" name="endTime" required
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="type" class="form-label">Tipo:</label>
+                                        <input type="text" id="type" name="type" required class="form-control">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="anhoL" class="form-label">Año:</label>
+                                        <input type="number" id="anhoL" name="anhoL" required class="form-control">
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Añadir Contenido en Directo
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="titulo-cine">PANEL DE ADMINISTRADOR - AÑADIR COMUNIDADES DE USUARIOS</h3>
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{'/api/ChatCommunity/create'}" method="post" class="row g-3">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nombreComunidad" class="form-label">Nombre Comunidad:</label>
+                                        <input type="text" id="nombreComunidad" name="nombreComunidad" required
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="descripcionComunidad" class="form-label">Descripcion:</label>
+                                        <input type="text" id="descripcionComunidad" name="descripcionComunidad" required
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="url_imageComunidad" class="form-label">URL Imagen:</label>
+                                        <input type="text" id="url_imageComunidad" name="url_imageComunidad" required
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="fechaCreacion" class="form-label">Fecha de creación:</label>
+                                        <input type="date" id="fechaCreacion" name="fechaCreacion" required
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Añadir nueva comunidad
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

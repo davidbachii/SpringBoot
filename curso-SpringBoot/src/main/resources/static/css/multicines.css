@@ -579,3 +579,10 @@ select {
 .bx-wrapper {
     margin-bottom: 40px !important;
 }
+
+.wc_notice {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}

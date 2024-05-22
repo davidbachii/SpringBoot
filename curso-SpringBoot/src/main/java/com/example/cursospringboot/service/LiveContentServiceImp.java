@@ -3,6 +3,7 @@ package com.example.cursospringboot.service;
 
 import com.example.cursospringboot.entity.LiveContent;
 import com.example.cursospringboot.repository.LiveContentRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class LiveContentServiceImp implements LiveContentService{
+public class LiveContentServiceImp implements LiveContentService {
 
     @Autowired
     private LiveContentRepository liveContentRepository;
@@ -31,8 +32,26 @@ public class LiveContentServiceImp implements LiveContentService{
         return liveContentRepository.save(liveContent);
     }
 
+
     @Override
-    public LiveContent updateLiveContent(LiveContent liveContent) {
+    public LiveContent getLiveContentByNombre(String nombreContenido) {
+        return liveContentRepository.findByNombreContenido(nombreContenido).orElseThrow(() -> new RuntimeException("Contenido en directo no encontrado"));
+    }
+
+    @Override
+    @Transactional
+    public LiveContent updateLiveContent(String nombreContenido, LiveContent detallesLiveContent) {
+        LiveContent liveContent = liveContentRepository.findByNombreContenido(nombreContenido).orElseThrow(() -> new RuntimeException("Contenido en directo no encontrado"));
+
+        liveContent.setNombreContenido(detallesLiveContent.getNombreContenido());
+        liveContent.setDescripcion(detallesLiveContent.getDescripcion());
+        liveContent.setUrl_image(detallesLiveContent.getUrl_image());
+        liveContent.setUrl_video(detallesLiveContent.getUrl_video());
+        liveContent.setStartTime(detallesLiveContent.getStartTime());
+        liveContent.setEndTime(detallesLiveContent.getEndTime());
+        liveContent.setType(detallesLiveContent.getType());
+        liveContent.setAnho(detallesLiveContent.getAnho());
+
         return liveContentRepository.save(liveContent);
     }
 

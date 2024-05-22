@@ -13,7 +13,7 @@ public interface LiveContentService {
 
     public LiveContent createLiveContent(LiveContent liveContent);
 
-    public LiveContent updateLiveContent(LiveContent liveContent);
+    LiveContent updateLiveContent(String nombreContenido, LiveContent detallesLiveContent);
 
     public void deleteLiveContent(Long id);
 
@@ -25,6 +25,7 @@ public interface LiveContentService {
 
     public List<LiveContent> getFutureLiveContents();
 
+    LiveContent getLiveContentByNombre(String nombreContenido);
 
     boolean existsOverlappingLiveContents(LocalDateTime startTime, LocalDateTime endTime);
 }

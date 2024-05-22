@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface LiveContentRepository extends JpaRepository<LiveContent, Long> {
@@ -16,7 +17,7 @@ public interface LiveContentRepository extends JpaRepository<LiveContent, Long> 
     List<LiveContent> findByStartTime(LocalDateTime startTime);
     List<LiveContent> findByEndTime(LocalDateTime endTime);
 
-
+    Optional<LiveContent> findByNombreContenido(String nombreContenido);
 
     // Verificar si ahi otros contenidos en directo en ese tramo horario
 
